@@ -15,7 +15,7 @@ export function BrandLogo({ tone = 'dark', compact = false }: BrandLogoProps) {
   return (
     <a
       href="#topo"
-      className="group inline-flex min-w-0 items-center gap-3 rounded-lg py-1 focus-visible:outline-offset-4"
+      className="group inline-flex min-w-0 items-center gap-2.5 rounded-lg py-1 sm:gap-3 focus-visible:outline-offset-4"
       aria-label={`${SCHOOL_IDENTITY.officialName} — voltar ao início da página`}
     >
       {!imageUnavailable ? (
@@ -24,7 +24,7 @@ export function BrandLogo({ tone = 'dark', compact = false }: BrandLogoProps) {
           alt={`Logomarca oficial do ${SCHOOL_IDENTITY.officialName}`}
           onError={() => setImageUnavailable(true)}
           className={`${
-            compact ? 'h-10 w-auto max-w-[120px]' : 'h-11 w-auto max-w-[140px] sm:h-12'
+            compact ? 'h-9 w-auto max-w-[110px]' : 'h-10 w-auto max-w-[120px] sm:h-12 sm:max-w-[140px]'
           } shrink-0 rounded-md object-contain`}
         />
       ) : (
@@ -41,12 +41,14 @@ export function BrandLogo({ tone = 'dark', compact = false }: BrandLogoProps) {
       )}
 
       <span className="flex min-w-0 flex-col leading-tight">
-        <span
-          className={`truncate font-display text-sm font-extrabold sm:text-[0.95rem] ${titleColor}`}
-        >
+        {/* No mobile (< 640px), evita corte com reticências usando apresentação abreviada limpa */}
+        <span className={`font-display text-[0.95rem] font-extrabold sm:hidden ${titleColor}`}>
+          {SCHOOL_IDENTITY.shortName}
+        </span>
+        <span className={`hidden font-display text-base font-extrabold sm:inline ${titleColor}`}>
           {SCHOOL_IDENTITY.officialName}
         </span>
-        <span className={`truncate text-xs font-medium ${subColor}`}>
+        <span className={`text-[0.72rem] font-medium sm:text-xs ${subColor}`}>
           {SCHOOL_IDENTITY.slogan}
         </span>
       </span>

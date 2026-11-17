@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { TEACHING_STAGES } from '../data/schoolContent';
 import { PhotoSlot } from './PhotoSlot';
 
@@ -18,15 +17,13 @@ const ACCENT_MAP = {
 };
 
 export function StagesSection() {
-  const [missingImages, setMissingImages] = useState<Record<string, boolean>>({});
-
   return (
     <section
       id="etapas-de-ensino"
       aria-labelledby="etapas-heading"
-      className="border-y border-brand-dark/10 bg-brand-cream py-16 sm:py-20 lg:py-24"
+      className="border-y border-brand-dark/10 bg-brand-cream py-12 sm:py-16 lg:py-20"
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="container-editorial">
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-7">
             <p className="font-display text-xs font-extrabold uppercase tracking-[0.16em] text-brand-green">
@@ -34,30 +31,29 @@ export function StagesSection() {
             </p>
             <h2
               id="etapas-heading"
-              className="mt-3 font-display text-3xl font-extrabold leading-tight text-brand-dark sm:text-4xl"
+              className="text-section-title mt-3 font-display font-extrabold text-brand-dark"
             >
               Cada fase da infância acompanhada com ritmo próprio.
             </h2>
           </div>
-          <p className="text-base leading-relaxed text-brand-muted lg:col-span-5">
+          <p className="text-body-fluid text-brand-muted lg:col-span-5">
             Atendimento contínuo do Baby Class e Educação Infantil até o 5º ano do Ensino Fundamental.
           </p>
         </div>
 
-        {/* Lista editorial com linhas divisórias finas (sem cartões repetitivos) */}
-        <div className="mt-12 divide-y divide-brand-dark/12 border-y border-brand-dark/12">
-          {TEACHING_STAGES.map((stage) => {
+        {/* Proporção desktop 7/5 para evitar colunas estreitas e textos pequenos */}
+        <div className="mt-10 divide-y divide-brand-dark/12 border-y border-brand-dark/12">
+          {TEACHING_STAGES.map((stage, index) => {
             const accent = ACCENT_MAP[stage.accentColor];
-            const isPhotoMissing = Boolean(missingImages[stage.id]);
+            const reverseDesktop = index % 2 === 1;
 
             return (
               <article
                 key={stage.id}
-                className="grid grid-cols-1 items-center gap-8 py-10 lg:grid-cols-12 lg:gap-12"
+                className="grid grid-cols-1 items-center gap-6 py-8 sm:py-10 lg:grid-cols-12 lg:gap-12"
               >
-                {/* Número + Título */}
-                <div className="lg:col-span-4">
-                  <div className="flex items-center gap-3">
+                <div className={`lg:col-span-7 ${reverseDesktop ? 'lg:order-2' : 'lg:order-1'}`}>
+                  <div className="flex flex-wrap items-center gap-3">
                     <span className="font-display text-sm font-extrabold text-brand-green">
                       {stage.number}
                     </span>
@@ -69,25 +65,23 @@ export function StagesSection() {
                     </span>
                   </div>
 
-                  <h3 className="mt-3 font-display text-2xl font-extrabold text-brand-dark sm:text-3xl">
+                  <h3 className="mt-3 font-display text-2xl font-extrabold text-brand-dark sm:text-[1.85rem]">
                     {stage.title}
                   </h3>
-                </div>
 
-                {/* Descrição e destaques */}
-                <div className={isPhotoMissing ? 'lg:col-span-8' : 'lg:col-span-4'}>
-                  <p className="text-base leading-relaxed text-brand-ink">
+                  <p className="text-body-fluid mt-3 max-w-2xl text-brand-ink">
                     {stage.summary}
                   </p>
-                  <ul className="mt-4 space-y-2 border-t border-brand-dark/10 pt-4">
+
+                  <ul className="mt-5 grid grid-cols-1 gap-2.5 border-t border-brand-dark/10 pt-4 sm:grid-cols-2">
                     {stage.highlights.map((point) => (
                       <li
                         key={point}
-                        className="flex items-start gap-2.5 text-sm font-medium text-brand-muted"
+                        className="flex items-start gap-2.5 text-sm font-medium text-brand-muted sm:text-[0.95rem]"
                       >
                         <span
                           aria-hidden="true"
-                          className={`mt-1.5 h-2 w-2 shrink-0 rounded-full ${accent.bar}`}
+                          className={`mt-2 h-2 w-2 shrink-0 rounded-full ${accent.bar}`}
                         />
                         <span>{point}</span>
                       </li>
@@ -95,20 +89,16 @@ export function StagesSection() {
                   </ul>
                 </div>
 
-                {/* Fotografia (exibida apenas quando disponível em public/images) */}
-                {!isPhotoMissing && (
-                  <div className="lg:col-span-4">
-                    <PhotoSlot
-                      src={stage.imageSrc}
-                      alt={stage.imageAlt}
-                      objectPosition="object-[50%_20%]"
-                      className="shadow-card"
-                      onMissing={() =>
-                        setMissingImages((prev) => ({ ...prev, [stage.id]: true }))
-                      }
-                    />
-                  </div>
-                )}
+                <div className={`lg:col-span-5 ${reverseDesktop ? 'lg:order-1' : 'lg:order-2'}`}>
+                  <PhotoSlot
+                    src={stage.imageSrc}
+                    alt={stage.imageAlt}
+                    photoGuide={stage.photoGuide}
+                    aspectClass="aspect-[16/10]"
+                    objectPosition="object-[50%_20%]"
+                    className="shadow-card"
+                  />
+                </div>
               </article>
             );
           })}

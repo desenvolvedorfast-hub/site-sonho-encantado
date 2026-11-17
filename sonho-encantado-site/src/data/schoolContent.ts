@@ -8,6 +8,13 @@ export interface TrustItem {
   description: string;
 }
 
+export interface PhotoGuide {
+  section: string;
+  recommendedType: string;
+  idealRatio: string;
+  filePath: string;
+}
+
 export interface TeachingStage {
   id: string;
   number: string;
@@ -18,6 +25,7 @@ export interface TeachingStage {
   accentColor: 'yellow' | 'blue' | 'green';
   imageSrc: string;
   imageAlt: string;
+  photoGuide: PhotoGuide;
 }
 
 export interface ActivityItem {
@@ -50,10 +58,12 @@ export interface GalleryPhoto {
   src: string;
   alt: string;
   caption: string;
+  photoGuide: PhotoGuide;
 }
 
 export const SCHOOL_IDENTITY = {
   officialName: 'Centro Educacional Sonho Encantado',
+  shortName: 'Sonho Encantado',
   instagramName: 'Colégio Sonho Encantado',
   slogan: 'Educando para o Futuro!',
   neighborhood: 'Guamá',
@@ -73,6 +83,21 @@ export const NAVIGATION_ITEMS: NavItem[] = [
   { label: 'Contato', href: '#contato' },
 ];
 
+/* ==========================================================================
+   GUIA DE FOTOGRAFIAS — INSERÇÃO E SUBSTITUIÇÃO EM public/images/
+   1. Hero Principal: /images/hero-escola.jpg (4:3 ou 4:5 — ambiente acolhedor ou atividade autorizada)
+   2. Nossa História: /images/historia-escola.jpg (proporção original sem tarjas pretas)
+   3. Etapas de Ensino:
+      - /images/etapa-baby-class.jpg (16:10 ou 4:3 — vivência Baby Class)
+      - /images/etapa-infantil.jpg (16:10 ou 4:3 — Educação Infantil)
+      - /images/etapa-fundamental.jpg (16:10 ou 4:3 — Ensino Fundamental até o 5º ano)
+   4. Experiências (Música): /images/atividade-musica.jpg (16:10 ou 4:3 — atividade musical)
+   5. Ambiente:
+      - /images/ambiente-sala.jpg (4:3 — sala de aula iluminada)
+      - /images/ambiente-fachada.jpg (4:5 ou 4:3 — fachada ou espaço de convivência no Guamá)
+   6. Galeria Institucional: /images/galeria-01.jpg até /images/galeria-04.jpg
+   ========================================================================== */
+
 export const HERO_CONTENT = {
   eyebrow: 'Guamá · Belém, Pará',
   headline: 'O começo de grandes descobertas.',
@@ -81,7 +106,13 @@ export const HERO_CONTENT = {
   primaryCta: 'Conheça nossa escola',
   secondaryCta: 'Fale com a secretaria',
   imageSrc: '/images/hero-escola.jpg',
-  imageAlt: 'Estudantes e ambiente escolar do Centro Educacional Sonho Encantado no Guamá',
+  imageAlt: 'Estudantes e ambiente acolhedor do Centro Educacional Sonho Encantado no Guamá',
+  photoGuide: {
+    section: 'Hero Principal',
+    recommendedType: 'Cena acolhedora da escola, estudantes em atividade ou fachada iluminada (autorizada)',
+    idealRatio: '4:3 ou 4:5 (sem tarjas)',
+    filePath: '/images/hero-escola.jpg',
+  } satisfies PhotoGuide,
 };
 
 export const TRUST_STRIP_ITEMS: TrustItem[] = [
@@ -110,6 +141,12 @@ export const HISTORY_CONTENT = {
   ctaLabel: 'Saiba mais sobre matrículas',
   imageSrc: '/images/historia-escola.jpg',
   imageAlt: 'Registro institucional do Centro Educacional Sonho Encantado',
+  photoGuide: {
+    section: 'Nossa História',
+    recommendedType: 'Fotografia cotidiana ou registro institucional da escola com boa luz',
+    idealRatio: 'Proporção original (4:5 ou 4:3, sem bordas pretas)',
+    filePath: '/images/historia-escola.jpg',
+  } satisfies PhotoGuide,
 };
 
 export const TEACHING_STAGES: TeachingStage[] = [
@@ -128,6 +165,12 @@ export const TEACHING_STAGES: TeachingStage[] = [
     accentColor: 'yellow',
     imageSrc: '/images/etapa-baby-class.jpg',
     imageAlt: 'Atividades e espaço do Baby Class no Centro Educacional Sonho Encantado',
+    photoGuide: {
+      section: 'Etapa: Baby Class',
+      recommendedType: 'Ambiente acolhedor do Baby Class ou atividade sensorial supervisionada',
+      idealRatio: '16:10 ou 4:3',
+      filePath: '/images/etapa-baby-class.jpg',
+    },
   },
   {
     id: 'educacao-infantil',
@@ -144,6 +187,12 @@ export const TEACHING_STAGES: TeachingStage[] = [
     accentColor: 'blue',
     imageSrc: '/images/etapa-infantil.jpg',
     imageAlt: 'Vivências da Educação Infantil no Centro Educacional Sonho Encantado',
+    photoGuide: {
+      section: 'Etapa: Educação Infantil',
+      recommendedType: 'Crianças em atividade lúdica, leitura ou arte em sala',
+      idealRatio: '16:10 ou 4:3',
+      filePath: '/images/etapa-infantil.jpg',
+    },
   },
   {
     id: 'ensino-fundamental',
@@ -160,6 +209,12 @@ export const TEACHING_STAGES: TeachingStage[] = [
     accentColor: 'green',
     imageSrc: '/images/etapa-fundamental.jpg',
     imageAlt: 'Estudantes dos anos iniciais do Ensino Fundamental até o 5º ano',
+    photoGuide: {
+      section: 'Etapa: Ensino Fundamental',
+      recommendedType: 'Estudantes dos anos iniciais em sala ou projeto pedagógico',
+      idealRatio: '16:10 ou 4:3',
+      filePath: '/images/etapa-fundamental.jpg',
+    },
   },
 ];
 
@@ -177,6 +232,12 @@ export const ACTIVITIES_CONTENT = {
     focusPoints: ['Percepção sonora', 'Ritmo e escuta', 'Expressão coletiva'],
     imageSrc: '/images/atividade-musica.jpg',
     imageAlt: 'Atividade musical com estudantes do Centro Educacional Sonho Encantado',
+    photoGuide: {
+      section: 'Experiências: Música',
+      recommendedType: 'Turma em momento musical, canto ou instrumentos',
+      idealRatio: '16:10 ou 4:3',
+      filePath: '/images/atividade-musica.jpg',
+    } satisfies PhotoGuide,
   },
   secondaryActivities: [
     {
@@ -226,11 +287,23 @@ export const ENVIRONMENT_CONTENT = {
       src: '/images/ambiente-sala.jpg',
       alt: 'Sala de aula do Centro Educacional Sonho Encantado',
       caption: 'Espaços preparados para a rotina escolar',
+      photoGuide: {
+        section: 'Ambiente: Sala de Aula',
+        recommendedType: 'Sala organizada e bem iluminada da escola',
+        idealRatio: '4:3',
+        filePath: '/images/ambiente-sala.jpg',
+      } satisfies PhotoGuide,
     },
     {
       src: '/images/ambiente-fachada.jpg',
       alt: 'Fachada ou espaço de convivência da escola no Guamá',
       caption: 'Presença tradicional no bairro do Guamá',
+      photoGuide: {
+        section: 'Ambiente: Fachada ou Convivência',
+        recommendedType: 'Fachada da unidade ou pátio interno de convivência',
+        idealRatio: '4:5 ou 4:3',
+        filePath: '/images/ambiente-fachada.jpg',
+      } satisfies PhotoGuide,
     },
   ],
 };
@@ -275,23 +348,47 @@ export const GALLERY_PHOTOS: GalleryPhoto[] = [
     src: '/images/galeria-01.jpg',
     alt: 'Vivência pedagógica no Centro Educacional Sonho Encantado',
     caption: 'Vivências cotidianas na Educação Infantil',
+    photoGuide: {
+      section: 'Galeria Institucional (01)',
+      recommendedType: 'Momento de rotina pedagógica ou brincadeira orientada',
+      idealRatio: '4:3 ou 4:5',
+      filePath: '/images/galeria-01.jpg',
+    },
   },
   {
     id: 'gal-2',
     src: '/images/galeria-02.jpg',
     alt: 'Estudantes em atividade nos anos iniciais do Ensino Fundamental',
     caption: 'Descobertas nos anos iniciais do Fundamental',
+    photoGuide: {
+      section: 'Galeria Institucional (02)',
+      recommendedType: 'Atividade em sala nos anos iniciais até o 5º ano',
+      idealRatio: '16:10 ou 4:3',
+      filePath: '/images/galeria-02.jpg',
+    },
   },
   {
     id: 'gal-3',
     src: '/images/galeria-03.jpg',
     alt: 'Momento de música e convivência escolar',
     caption: 'Música, criatividade e convivência',
+    photoGuide: {
+      section: 'Galeria Institucional (03)',
+      recommendedType: 'Vivência musical, artes ou atividade coletiva',
+      idealRatio: '4:3',
+      filePath: '/images/galeria-03.jpg',
+    },
   },
   {
     id: 'gal-4',
     src: '/images/galeria-04.jpg',
     alt: 'Ambiente escolar do Centro Educacional Sonho Encantado no Guamá',
     caption: 'Espaços da escola no bairro do Guamá',
+    photoGuide: {
+      section: 'Galeria Institucional (04)',
+      recommendedType: 'Equipe escolar, recepção às famílias ou área interna',
+      idealRatio: '4:3',
+      filePath: '/images/galeria-04.jpg',
+    },
   },
 ];

@@ -1,50 +1,47 @@
-import { useState } from 'react';
 import { ACTIVITIES_CONTENT } from '../data/schoolContent';
 import { PhotoSlot } from './PhotoSlot';
 
 export function ActivitiesSection() {
   const { featuredMusic, secondaryActivities } = ACTIVITIES_CONTENT;
-  const [musicPhotoMissing, setMusicPhotoMissing] = useState(false);
 
   return (
     <section
       id="experiencias"
       aria-labelledby="experiencias-heading"
-      className="py-16 sm:py-20 lg:py-24"
+      className="py-12 sm:py-16 lg:py-20"
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end">
+      <div className="container-editorial">
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-7">
             <p className="font-display text-xs font-extrabold uppercase tracking-[0.16em] text-brand-green">
               {ACTIVITIES_CONTENT.eyebrow}
             </p>
             <h2
               id="experiencias-heading"
-              className="mt-3 font-display text-3xl font-extrabold leading-tight text-brand-dark sm:text-4xl"
+              className="text-section-title mt-3 font-display font-extrabold text-brand-dark"
             >
               {ACTIVITIES_CONTENT.title}
             </h2>
           </div>
-          <p className="text-base leading-relaxed text-brand-muted lg:col-span-5">
+          <p className="text-body-fluid text-brand-muted lg:col-span-5">
             {ACTIVITIES_CONTENT.intro}
           </p>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
-          {/* Bloco editorial em destaque escuro para Música */}
-          <article className="flex flex-col justify-between rounded-2xl bg-brand-dark p-7 text-brand-paper sm:p-9 lg:col-span-6">
+        <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
+          <article className="flex flex-col justify-between rounded-2xl bg-brand-dark p-6 text-brand-paper sm:p-8 lg:col-span-6">
             <div>
               <span className="font-display text-xs font-extrabold uppercase tracking-[0.14em] text-brand-yellow">
                 {featuredMusic.category}
               </span>
-              <h3 className="mt-3 font-display text-2xl font-extrabold text-brand-paper sm:text-3xl">
+              <h3 className="mt-2.5 font-display text-2xl font-extrabold text-brand-paper sm:text-3xl">
                 {featuredMusic.title}
               </h3>
-              <p className="mt-3 max-w-prose text-base leading-relaxed text-[#DCE7E1]">
+              <p className="text-body-fluid mt-3 text-[#DCE7E1]">
                 {featuredMusic.description}
               </p>
 
-              <ul className="mt-5 flex flex-wrap gap-2">
+              <ul className="mt-4 flex flex-wrap gap-2">
                 {featuredMusic.focusPoints.map((point) => (
                   <li
                     key={point}
@@ -56,22 +53,20 @@ export function ActivitiesSection() {
               </ul>
             </div>
 
-            {!musicPhotoMissing && (
-              <div className="mt-7">
-                <PhotoSlot
-                  src={featuredMusic.imageSrc}
-                  alt={featuredMusic.imageAlt}
-                  objectPosition="object-[50%_20%]"
-                  onMissing={() => setMusicPhotoMissing(true)}
-                />
-              </div>
-            )}
+            <div className="mt-6">
+              <PhotoSlot
+                src={featuredMusic.imageSrc}
+                alt={featuredMusic.imageAlt}
+                photoGuide={featuredMusic.photoGuide}
+                aspectClass="aspect-[16/10]"
+                objectPosition="object-[50%_20%]"
+              />
+            </div>
           </article>
 
-          {/* Coluna aberta com linhas editoriais para Computação e Inglês */}
           <div className="flex flex-col justify-center divide-y divide-brand-dark/15 border-y border-brand-dark/15 lg:col-span-6">
             {secondaryActivities.map((activity, idx) => (
-              <article key={activity.id} className="py-8">
+              <article key={activity.id} className="py-7 sm:py-8">
                 <div className="flex items-center justify-between gap-4">
                   <span className="font-display text-xs font-extrabold uppercase tracking-[0.14em] text-brand-green">
                     {activity.category}
@@ -87,7 +82,7 @@ export function ActivitiesSection() {
                 <h3 className="mt-2.5 font-display text-2xl font-extrabold text-brand-dark">
                   {activity.title}
                 </h3>
-                <p className="mt-2.5 max-w-prose text-base leading-relaxed text-brand-ink">
+                <p className="text-body-fluid mt-2.5 text-brand-ink">
                   {activity.description}
                 </p>
 

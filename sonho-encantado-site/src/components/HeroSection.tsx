@@ -1,99 +1,122 @@
+import { useState } from 'react';
 import { HERO_CONTENT, SCHOOL_IDENTITY } from '../data/schoolContent';
 import { PhotoSlot } from './PhotoSlot';
 
 export function HeroSection() {
+  const [heroPhotoMissing, setHeroPhotoMissing] = useState(false);
+
   return (
     <section
       aria-labelledby="hero-heading"
-      className="relative overflow-hidden pb-14 pt-8 sm:pb-20 sm:pt-12 lg:pb-24 lg:pt-14"
+      className="relative overflow-hidden pb-14 pt-10 sm:pb-20 sm:pt-14 lg:pb-24 lg:pt-16"
     >
-      {/* Elemento gráfico sutil de descoberta/crescimento ao fundo */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-brand-yellow/20 blur-2xl"
-      />
-
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:gap-12 lg:px-8">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:gap-14 lg:px-8">
         {/* Coluna Editorial Esquerda */}
-        <div className="lg:col-span-6 lg:pr-4">
-          <div className="inline-flex items-center gap-2 rounded-full border border-brand-green/20 bg-brand-cream px-3.5 py-1.5">
-            <span className="h-2 w-2 rounded-full bg-brand-green" aria-hidden="true" />
-            <span className="font-display text-xs font-bold uppercase tracking-wider text-brand-dark">
-              {HERO_CONTENT.eyebrow}
-            </span>
-          </div>
+        <div className="lg:col-span-6">
+          <p className="font-display text-xs font-extrabold uppercase tracking-[0.16em] text-brand-green">
+            {HERO_CONTENT.eyebrow}
+          </p>
 
           <h1
             id="hero-heading"
-            className="mt-5 font-display text-4xl font-extrabold leading-[1.08] text-brand-dark sm:text-5xl lg:text-[3.5rem]"
+            className="mt-4 font-display text-4xl font-extrabold leading-[1.06] text-brand-dark sm:text-5xl lg:text-[3.5rem]"
           >
             {HERO_CONTENT.headline}
           </h1>
 
-          <p className="mt-5 max-w-xl text-lg leading-relaxed text-brand-muted sm:text-xl">
+          <p className="mt-5 max-w-lg text-lg leading-relaxed text-brand-muted sm:text-[1.15rem]">
             {HERO_CONTENT.description}
           </p>
 
           <div className="mt-8 flex flex-col gap-3.5 sm:flex-row sm:flex-wrap sm:items-center">
             <a
               href="#nossa-historia"
-              className="inline-flex min-h-[48px] items-center justify-center rounded-full bg-brand-green px-7 py-3 font-display text-base font-bold text-brand-paper shadow-card transition-transform duration-150 hover:-translate-y-0.5 hover:bg-brand-dark"
+              className="group inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-brand-green px-7 py-3 font-display text-base font-bold text-white shadow-card transition-all duration-150 hover:-translate-y-0.5 hover:bg-brand-dark active:scale-[0.98]"
             >
-              {HERO_CONTENT.primaryCta}
+              <span>{HERO_CONTENT.primaryCta}</span>
+              <span
+                aria-hidden="true"
+                className="transition-transform duration-150 group-hover:translate-x-1"
+              >
+                →
+              </span>
             </a>
 
             <a
               href={SCHOOL_IDENTITY.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex min-h-[48px] items-center justify-center rounded-full border-2 border-brand-dark/25 bg-brand-paper px-7 py-3 font-display text-base font-bold text-brand-dark transition-colors hover:border-brand-dark hover:bg-brand-cream"
+              className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-brand-dark/30 bg-white px-7 py-3 font-display text-base font-bold text-brand-dark transition-colors hover:border-brand-dark hover:bg-brand-cream active:scale-[0.98]"
             >
               {HERO_CONTENT.secondaryCta}
               <span className="sr-only"> (abre o WhatsApp da secretaria em nova aba)</span>
             </a>
           </div>
 
-          <p className="mt-6 text-sm font-medium text-brand-muted">
-            Também no Instagram como{' '}
+          <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-brand-dark/10 pt-5 text-sm text-brand-muted">
+            <span className="font-semibold text-brand-dark">{SCHOOL_IDENTITY.slogan}</span>
+            <span aria-hidden="true" className="hidden text-brand-dark/30 sm:inline">
+              ·
+            </span>
             <a
               href={SCHOOL_IDENTITY.instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-semibold text-brand-green underline decoration-brand-green/40 underline-offset-4 hover:text-brand-dark"
+              className="font-semibold text-brand-green underline decoration-brand-green/35 underline-offset-4 hover:text-brand-dark"
             >
-              {SCHOOL_IDENTITY.instagramHandle}
+              Instagram {SCHOOL_IDENTITY.instagramHandle}
             </a>
-          </p>
+          </div>
         </div>
 
-        {/* Coluna Visual Assimétrica Direita */}
-        <div className="relative lg:col-span-6">
-          <div className="relative mx-auto max-w-lg lg:ml-auto lg:mr-0">
-            {/* Moldura decorativa deslocada */}
-            <div
-              aria-hidden="true"
-              className="absolute -bottom-4 -left-4 right-8 top-6 rounded-editorial border-2 border-brand-yellow bg-brand-yellow/25 sm:-bottom-5 sm:-left-6"
-            />
+        {/* Coluna Direita: Fotografia real limpa ou Painel Institucional se ausente */}
+        <div className="lg:col-span-6">
+          {!heroPhotoMissing ? (
+            <figure className="relative mx-auto max-w-xl lg:ml-auto lg:mr-0">
+              <div className="relative border-l-4 border-brand-yellow pl-3 sm:pl-4">
+                <PhotoSlot
+                  src={HERO_CONTENT.imageSrc}
+                  alt={HERO_CONTENT.imageAlt}
+                  aspectClass="aspect-[4/4.2]"
+                  objectPosition="object-[50%_20%]"
+                  className="shadow-editorial"
+                  priority
+                  onMissing={() => setHeroPhotoMissing(true)}
+                />
+              </div>
+              <figcaption className="mt-3.5 flex flex-wrap items-center justify-between gap-2 pl-4 text-xs font-semibold uppercase tracking-wider text-brand-muted">
+                <span>Baby Class · Educação Infantil · Ensino Fundamental até o 5º ano</span>
+                <span className="text-brand-green">{SCHOOL_IDENTITY.neighborhood}</span>
+              </figcaption>
+            </figure>
+          ) : (
+            <aside
+              aria-label="Resumo institucional"
+              className="relative overflow-hidden rounded-2xl border border-brand-dark/12 bg-brand-dark p-8 text-brand-paper shadow-editorial sm:p-10"
+            >
+              <svg
+                aria-hidden="true"
+                className="pointer-events-none absolute -bottom-10 -right-10 h-56 w-56 text-brand-yellow/15"
+                viewBox="0 0 200 200"
+                fill="currentColor"
+              >
+                <path d="M40 160C40 85 90 40 170 40C170 115 125 160 50 160H40Z" />
+              </svg>
 
-            <PhotoSlot
-              src={HERO_CONTENT.imageSrc}
-              alt={HERO_CONTENT.imageAlt}
-              slotLabel={HERO_CONTENT.imageSlotLabel}
-              aspectClass="aspect-[4/4.5]"
-              className="relative z-10 shadow-editorial"
-              priority
-            />
-
-            {/* Selo editorial discreto sobreposto */}
-            <div className="relative z-20 -mt-8 ml-4 mr-4 rounded-2xl border border-brand-dark/10 bg-brand-paper p-4 shadow-card sm:ml-8 sm:mr-0 sm:max-w-xs sm:p-5">
-              <p className="font-display text-xs font-extrabold uppercase tracking-wider text-brand-green">
+              <p className="font-display text-xs font-extrabold uppercase tracking-[0.16em] text-brand-yellow">
+                {SCHOOL_IDENTITY.officialName}
+              </p>
+              <p className="mt-4 font-display text-2xl font-extrabold leading-snug sm:text-3xl">
                 {SCHOOL_IDENTITY.slogan}
               </p>
-              <p className="mt-1 text-sm leading-snug text-brand-ink">
-                Baby Class, Educação Infantil e Ensino Fundamental até o 5º ano no Guamá.
-              </p>
-            </div>
-          </div>
+              <ul className="mt-6 space-y-3 border-t border-brand-paper/15 pt-6 text-sm text-[#DCE7E1] sm:text-base">
+                <li>• Baby Class, Educação Infantil e até o 5º ano</li>
+                <li>• Aproximadamente 20 anos junto às famílias do Guamá</li>
+                <li>• Música, Computação e Inglês na rotina escolar</li>
+                <li>• Duas unidades no bairro do Guamá, Belém/PA</li>
+              </ul>
+            </aside>
+          )}
         </div>
       </div>
     </section>

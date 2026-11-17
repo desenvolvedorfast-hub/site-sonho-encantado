@@ -5,22 +5,22 @@ export function UnitsSection() {
     <section
       id="unidades"
       aria-labelledby="unidades-heading"
-      className="py-16 sm:py-20 lg:py-24"
+      className="py-12 sm:py-16 lg:py-20"
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="container-editorial">
         <div className="max-w-2xl">
           <p className="font-display text-xs font-extrabold uppercase tracking-[0.16em] text-brand-green">
             Onde estamos no Guamá
           </p>
           <h2
             id="unidades-heading"
-            className="mt-3 font-display text-3xl font-extrabold leading-tight text-brand-dark sm:text-4xl"
+            className="text-section-title mt-3 font-display font-extrabold text-brand-dark"
           >
             Duas unidades em Belém para receber sua família.
           </h2>
         </div>
 
-        <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-12">
+        <div className="mt-8 grid grid-cols-1 gap-7 lg:grid-cols-12">
           {SCHOOL_UNITS.map((unit) => (
             <article
               key={unit.id}
@@ -31,7 +31,7 @@ export function UnitsSection() {
               }`}
             >
               <div>
-                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-brand-dark/10 pb-4">
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-brand-dark/10 pb-3.5">
                   <span className="font-display text-sm font-extrabold uppercase tracking-wider text-brand-dark">
                     {unit.name}
                   </span>
@@ -40,23 +40,23 @@ export function UnitsSection() {
                   </span>
                 </div>
 
-                <h3 className="mt-5 font-display text-xl font-extrabold text-brand-dark sm:text-2xl">
+                <h3 className="mt-4 font-display text-xl font-extrabold text-brand-dark sm:text-2xl">
                   {unit.address}
                 </h3>
                 <p className="mt-1 text-base font-medium text-brand-muted">
                   {unit.cityState}
                 </p>
 
-                <p className="mt-4 max-w-prose text-base leading-relaxed text-brand-ink">
+                <p className="text-body-fluid mt-3.5 text-brand-ink">
                   {unit.summary}
                 </p>
 
                 {unit.therapeuticNote && (
-                  <div className="mt-6 rounded-xl border border-brand-blue/50 bg-brand-blue-soft p-5">
+                  <div className="mt-5 rounded-xl border border-brand-blue/50 bg-brand-blue-soft p-4 sm:p-5">
                     <span className="inline-block font-display text-xs font-extrabold uppercase tracking-wider text-brand-dark">
                       {unit.therapeuticNote.badge}
                     </span>
-                    <h4 className="mt-1.5 font-display text-base font-extrabold text-brand-dark sm:text-lg">
+                    <h4 className="mt-1 font-display text-base font-extrabold text-brand-dark sm:text-lg">
                       {unit.therapeuticNote.title}
                     </h4>
                     <p className="mt-1.5 text-sm leading-relaxed text-brand-ink">
@@ -81,12 +81,12 @@ export function UnitsSection() {
                 )}
               </div>
 
-              <div className="mt-7 pt-2">
+              <div className="mt-6 pt-1">
                 <a
                   href={unit.mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex min-h-[46px] items-center justify-center gap-2 rounded-full border border-brand-green bg-white px-5 py-2.5 font-display text-sm font-bold text-brand-green transition-colors hover:bg-brand-green hover:text-white active:scale-[0.98]"
+                  className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full border border-brand-green bg-white px-5 py-2 font-display text-sm font-bold text-brand-green transition-colors hover:bg-brand-green hover:text-white active:scale-[0.98]"
                 >
                   <svg
                     aria-hidden="true"

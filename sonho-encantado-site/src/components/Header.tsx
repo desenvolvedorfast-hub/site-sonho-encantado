@@ -44,7 +44,7 @@ export function Header() {
           : 'border-brand-dark/8 bg-white'
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-2.5 sm:px-6 lg:px-8">
+      <div className="container-editorial flex items-center justify-between gap-3 py-2.5 sm:py-3">
         <BrandLogo />
 
         <nav aria-label="Navegação principal" className="hidden items-center gap-6 lg:flex xl:gap-8">
@@ -99,7 +99,7 @@ export function Header() {
           role="dialog"
           aria-modal="true"
           aria-label="Menu de navegação móvel"
-          className="fixed inset-x-0 bottom-0 top-[69px] z-50 flex flex-col justify-between overflow-y-auto border-t border-brand-dark/10 bg-brand-paper px-5 py-6 lg:hidden"
+          className="fixed inset-x-0 bottom-0 top-[65px] z-50 flex flex-col justify-between overflow-y-auto border-t border-brand-dark/10 bg-brand-paper px-5 py-6 lg:hidden"
         >
           <nav aria-label="Links móveis">
             <ul className="divide-y divide-brand-dark/10">
@@ -108,7 +108,7 @@ export function Header() {
                   <a
                     href={item.href}
                     onClick={() => setMenuOpen(false)}
-                    className="flex min-h-[52px] items-center justify-between font-display text-lg font-bold text-brand-dark transition-colors hover:text-brand-green"
+                    className="flex min-h-[50px] items-center justify-between font-display text-lg font-bold text-brand-dark transition-colors hover:text-brand-green"
                   >
                     <span>{item.label}</span>
                     <span aria-hidden="true" className="text-brand-green">→</span>
@@ -118,9 +118,9 @@ export function Header() {
             </ul>
           </nav>
 
-          <div className="mt-8 space-y-3 border-t border-brand-dark/15 pt-6">
+          <div className="mt-6 space-y-3 border-t border-brand-dark/15 pt-5">
             <p className="text-sm font-medium text-brand-muted">
-              Atendimento direto às famílias para visitas e informações sobre matrículas.
+              {SCHOOL_IDENTITY.officialName} · Atendimento direto às famílias.
             </p>
             <a
               href={SCHOOL_IDENTITY.whatsappUrl}

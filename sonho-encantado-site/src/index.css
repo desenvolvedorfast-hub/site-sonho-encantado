@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-green-institutional: #075f36;
+  --color-green-dark: #123b2b;
+  --color-paper: #f8f7f0;
+  --color-cream: #f1efe3;
+  --color-yellow-warm: #edc84b;
+  --color-blue-support: #62b9d5;
+  --color-text-ink: #1e3028;
+  --color-text-muted: #3b5046;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-text-ink);
+  font-family: 'Source Sans 3', system-ui, -apple-system, sans-serif;
+  overflow-x: clip;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Manrope', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* Foco visível consistente para navegação por teclado (WCAG 2.2) */
+:focus-visible {
+  outline: 3px solid #edc84b;
+  outline-offset: 3px;
+}
+
+/* Skip link acessível */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background-color: #123b2b;
+  color: #f8f7f0;
+  padding: 0.75rem 1.25rem;
+  font-weight: 700;
+  border-radius: 0 0 0.75rem 0;
+}
+
+.skip-link:focus {
+  left: 0.75rem;
+  top: 0.75rem;
+}
+
+/* Âncoras compensando altura do cabeçalho fixo */
+section[id] {
+  scroll-margin-top: 5.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

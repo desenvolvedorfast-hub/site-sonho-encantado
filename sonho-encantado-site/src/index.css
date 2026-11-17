@@ -15,6 +15,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 6.5rem;
 }
 
 body {
@@ -29,16 +30,14 @@ h2,
 h3,
 h4 {
   font-family: 'Manrope', system-ui, -apple-system, sans-serif;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
 }
 
-/* Foco visível consistente para navegação por teclado (WCAG 2.2) */
 :focus-visible {
   outline: 3px solid #edc84b;
   outline-offset: 3px;
 }
 
-/* Skip link acessível */
 .skip-link {
   position: absolute;
   left: -9999px;
@@ -56,9 +55,8 @@ h4 {
   top: 0.75rem;
 }
 
-/* Âncoras compensando altura do cabeçalho fixo */
 section[id] {
-  scroll-margin-top: 5.5rem;
+  scroll-margin-top: 6.5rem;
 }
 
 @media (prefers-reduced-motion: reduce) {

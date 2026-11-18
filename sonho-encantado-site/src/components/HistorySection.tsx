@@ -1,8 +1,12 @@
+import { useState } from 'react';
 import { HISTORY_CONTENT, SCHOOL_IDENTITY } from '../data/schoolContent';
 import { PhotoSlot } from './PhotoSlot';
 import { Reveal } from './Reveal';
 
 export function HistorySection() {
+  const [photoMissing, setPhotoMissing] = useState(false);
+  const hidePhotoFrame = import.meta.env.PROD && photoMissing;
+
   return (
     <section
       id="nossa-historia"
@@ -19,23 +23,37 @@ export function HistorySection() {
       />
 
       <div className="container-editorial relative z-10 grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-16">
-        <Reveal className="order-2 lg:order-1 lg:col-span-5">
-          <div className="border-t-4 border-brand-green bg-white p-2.5 shadow-editorial">
-            <PhotoSlot
-              src={HISTORY_CONTENT.imageSrc}
-              alt={HISTORY_CONTENT.imageAlt}
-              photoGuide={HISTORY_CONTENT.photoGuide}
-              naturalAspect
-              objectPosition="object-[50%_20%]"
-            />
-          </div>
+        <Reveal
+          className={`order-2 lg:order-1 ${hidePhotoFrame ? 'lg:col-span-4' : 'lg:col-span-5'}`}
+        >
+          {!hidePhotoFrame && (
+            <div className="border-t-4 border-brand-green bg-white p-2.5 shadow-editorial">
+              <PhotoSlot
+                src={HISTORY_CONTENT.imageSrc}
+                alt={HISTORY_CONTENT.imageAlt}
+                photoGuide={HISTORY_CONTENT.photoGuide}
+                width={1000}
+                height={1250}
+                naturalAspect
+                objectPosition="object-[50%_20%]"
+                onMissing={() => setPhotoMissing(true)}
+              />
+            </div>
+          )}
 
-          <blockquote className="mt-6 border-l-4 border-brand-yellow pl-5 font-display text-base font-bold leading-snug text-brand-dark sm:text-lg">
+          <blockquote
+            className={`border-l-4 border-brand-yellow pl-5 font-display text-base font-bold leading-snug text-brand-dark sm:text-lg ${
+              hidePhotoFrame ? '' : 'mt-6'
+            }`}
+          >
             “{HISTORY_CONTENT.quote}”
           </blockquote>
         </Reveal>
 
-        <Reveal delayMs={90} className="order-1 lg:order-2 lg:col-span-7">
+        <Reveal
+          delayMs={90}
+          className={`order-1 lg:order-2 ${hidePhotoFrame ? 'lg:col-span-8' : 'lg:col-span-7'}`}
+        >
           <p className="eyebrow-label">{HISTORY_CONTENT.eyebrow}</p>
 
           <h2

@@ -61,6 +61,10 @@ export interface GalleryPhoto {
   photoGuide: PhotoGuide;
 }
 
+const WHATSAPP_BASE_URL = 'https://wa.me/5591998248944';
+const WHATSAPP_MESSAGE =
+  'Olá! Vim pelo site e gostaria de informações sobre matrícula e visitas.';
+
 export const SCHOOL_IDENTITY = {
   officialName: 'Centro Educacional Sonho Encantado',
   shortName: 'Sonho Encantado',
@@ -73,7 +77,9 @@ export const SCHOOL_IDENTITY = {
   instagramUrl: 'https://www.instagram.com/oficialsonhoencantado/',
   instagramHandle: '@oficialsonhoencantado',
   whatsappDisplay: '(91) 99824-8944',
-  whatsappUrl: 'https://wa.me/5591998248944',
+  phoneHref: 'tel:+5591998248944',
+  whatsappMessage: WHATSAPP_MESSAGE,
+  whatsappUrl: `${WHATSAPP_BASE_URL}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`,
 };
 
 export const NAVIGATION_ITEMS: NavItem[] = [
@@ -86,16 +92,16 @@ export const NAVIGATION_ITEMS: NavItem[] = [
 
 /* ==========================================================================
    GUIA DE FOTOGRAFIAS — INSERÇÃO E SUBSTITUIÇÃO EM public/images/
-   1. Hero Principal: /images/hero-escola.jpg (4:3 ou 4:5 — ambiente acolhedor ou atividade autorizada)
+   1. Hero Principal: /images/hero-escola.jpg (5:4 ou 4:3 — ambiente acolhedor ou atividade autorizada)
    2. Nossa História: /images/historia-escola.jpg (proporção original sem tarjas pretas)
    3. Etapas de Ensino:
-      - /images/etapa-baby-class.jpg (16:10 ou 4:3 — vivência Baby Class)
-      - /images/etapa-infantil.jpg (16:10 ou 4:3 — Educação Infantil)
-      - /images/etapa-fundamental.jpg (16:10 ou 4:3 — Ensino Fundamental até o 5º ano)
-   4. Experiências (Música): /images/atividade-musica.jpg (16:10 ou 4:3 — atividade musical)
+      - /images/etapa-baby-class.jpg (16:10 — vivência Baby Class)
+      - /images/etapa-infantil.jpg (16:10 — Educação Infantil)
+      - /images/etapa-fundamental.jpg (16:10 — Ensino Fundamental até o 5º ano)
+   4. Experiências (Música): /images/atividade-musica.jpg (16:9 — atividade musical)
    5. Ambiente:
-      - /images/ambiente-sala.jpg (4:3 — sala de aula iluminada)
-      - /images/ambiente-fachada.jpg (4:5 ou 4:3 — fachada ou espaço de convivência no Guamá)
+      - /images/ambiente-sala.jpg (4:4.2 — sala de aula iluminada)
+      - /images/ambiente-fachada.jpg (4:4.6 — fachada ou espaço de convivência no Guamá)
    6. Galeria Institucional: /images/galeria-01.jpg até /images/galeria-04.jpg
    ========================================================================== */
 
@@ -104,14 +110,14 @@ export const HERO_CONTENT = {
   headline: 'O começo de grandes descobertas.',
   description:
     'Há mais de 18 anos acolhendo famílias no Guamá, do Baby Class ao 5º ano do Ensino Fundamental, com cuidado próximo e compromisso com a infância.',
-  primaryCta: 'Conheça nossa escola',
-  secondaryCta: 'Fale com a secretaria',
+  primaryCta: 'Fale com a secretaria',
+  secondaryCta: 'Conheça nossa escola',
   imageSrc: '/images/hero-escola.jpg',
   imageAlt: 'Estudantes e ambiente acolhedor do Centro Educacional Sonho Encantado no Guamá',
   photoGuide: {
     section: 'Hero Principal',
     recommendedType: 'Cena acolhedora da escola, estudantes em atividade ou fachada iluminada (autorizada)',
-    idealRatio: '4:3 ou 4:5 (sem tarjas)',
+    idealRatio: '5:4 ou 4:3 (sem tarjas)',
     filePath: '/images/hero-escola.jpg',
   } satisfies PhotoGuide,
 };
@@ -169,7 +175,7 @@ export const TEACHING_STAGES: TeachingStage[] = [
     photoGuide: {
       section: 'Etapa: Baby Class',
       recommendedType: 'Ambiente acolhedor do Baby Class ou atividade sensorial supervisionada',
-      idealRatio: '16:10 ou 4:3',
+      idealRatio: '16:10',
       filePath: '/images/etapa-baby-class.jpg',
     },
   },
@@ -191,7 +197,7 @@ export const TEACHING_STAGES: TeachingStage[] = [
     photoGuide: {
       section: 'Etapa: Educação Infantil',
       recommendedType: 'Crianças em atividade lúdica, leitura ou arte em sala',
-      idealRatio: '16:10 ou 4:3',
+      idealRatio: '16:10',
       filePath: '/images/etapa-infantil.jpg',
     },
   },
@@ -213,7 +219,7 @@ export const TEACHING_STAGES: TeachingStage[] = [
     photoGuide: {
       section: 'Etapa: Ensino Fundamental',
       recommendedType: 'Estudantes dos anos iniciais em sala ou projeto pedagógico',
-      idealRatio: '16:10 ou 4:3',
+      idealRatio: '16:10',
       filePath: '/images/etapa-fundamental.jpg',
     },
   },
@@ -236,7 +242,7 @@ export const ACTIVITIES_CONTENT = {
     photoGuide: {
       section: 'Experiências: Música',
       recommendedType: 'Turma em momento musical, canto ou instrumentos',
-      idealRatio: '16:10 ou 4:3',
+      idealRatio: '16:9',
       filePath: '/images/atividade-musica.jpg',
     } satisfies PhotoGuide,
   },
@@ -291,7 +297,7 @@ export const ENVIRONMENT_CONTENT = {
       photoGuide: {
         section: 'Ambiente: Sala de Aula',
         recommendedType: 'Sala organizada e bem iluminada da escola',
-        idealRatio: '4:3',
+        idealRatio: '4:4.2',
         filePath: '/images/ambiente-sala.jpg',
       } satisfies PhotoGuide,
     },
@@ -302,7 +308,7 @@ export const ENVIRONMENT_CONTENT = {
       photoGuide: {
         section: 'Ambiente: Fachada ou Convivência',
         recommendedType: 'Fachada da unidade ou pátio interno de convivência',
-        idealRatio: '4:5 ou 4:3',
+        idealRatio: '4:4.6',
         filePath: '/images/ambiente-fachada.jpg',
       } satisfies PhotoGuide,
     },
@@ -352,7 +358,7 @@ export const GALLERY_PHOTOS: GalleryPhoto[] = [
     photoGuide: {
       section: 'Galeria Institucional (01)',
       recommendedType: 'Momento de rotina pedagógica ou brincadeira orientada',
-      idealRatio: '4:3 ou 4:5',
+      idealRatio: '5:4',
       filePath: '/images/galeria-01.jpg',
     },
   },
@@ -364,7 +370,7 @@ export const GALLERY_PHOTOS: GalleryPhoto[] = [
     photoGuide: {
       section: 'Galeria Institucional (02)',
       recommendedType: 'Atividade em sala nos anos iniciais até o 5º ano',
-      idealRatio: '16:10 ou 4:3',
+      idealRatio: '16:10',
       filePath: '/images/galeria-02.jpg',
     },
   },

@@ -40,6 +40,7 @@ export function Reveal({ children, className = '', delayMs = 0 }: RevealProps) {
   return (
     <div
       ref={ref}
+      data-reveal=""
       style={visible && delayMs > 0 ? { transitionDelay: `${delayMs}ms` } : undefined}
       className={`transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transform-none motion-reduce:opacity-100 motion-reduce:transition-none ${
         visible ? 'translate-y-0 opacity-100' : 'translate-y-3.5 opacity-0'

@@ -6,7 +6,6 @@ export function Footer() {
     <footer className="border-t border-brand-dark/15 bg-brand-dark text-brand-paper">
       <div className="container-editorial py-8 sm:py-10">
         <div className="grid grid-cols-1 gap-7 md:grid-cols-12 md:gap-8">
-          {/* Identidade + frase curta */}
           <div className="md:col-span-5">
             <BrandLogo tone="light" compact />
             <p className="mt-3 max-w-sm text-sm leading-relaxed text-[#DCE7E1]">
@@ -14,7 +13,6 @@ export function Footer() {
             </p>
           </div>
 
-          {/* Navegação compacta */}
           <div className="md:col-span-3">
             <h2 className="font-display text-xs font-extrabold uppercase tracking-wider text-brand-yellow">
               Navegação
@@ -33,7 +31,6 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Canais diretos + referência compacta às unidades */}
           <div className="md:col-span-4">
             <h2 className="font-display text-xs font-extrabold uppercase tracking-wider text-brand-yellow">
               Atendimento e Unidades
@@ -46,6 +43,12 @@ export function Footer() {
                 className="font-semibold text-white underline decoration-white/30 underline-offset-4 hover:text-brand-yellow"
               >
                 WhatsApp {SCHOOL_IDENTITY.whatsappDisplay}
+              </a>
+              <a
+                href={SCHOOL_IDENTITY.phoneHref}
+                className="font-semibold text-white underline decoration-white/30 underline-offset-4 hover:text-brand-yellow"
+              >
+                Telefone {SCHOOL_IDENTITY.whatsappDisplay}
               </a>
               <a
                 href={SCHOOL_IDENTITY.instagramUrl}

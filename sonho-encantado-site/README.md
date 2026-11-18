@@ -1,16 +1,24 @@
 # Site Institucional — Centro Educacional Sonho Encantado
 
-Projeto estático moderno desenvolvido em **React + TypeScript + Vite + Tailwind CSS** para o **Centro Educacional Sonho Encantado** (`Colégio Sonho Encantado`), localizado no bairro do Guamá, Belém/PA.
+Site institucional estático em **React 18 + TypeScript + Vite 5 + Tailwind CSS 3**, com pré-renderização HTML estática, fontes locais (`@fontsource`) e publicação no **Cloudflare** (`wrangler.jsonc`).
 
-Sem banco de dados, sem backend, sem CMS pago e sem coleta de dados pessoais ou infantis.
+Sem banco de dados, sem backend, sem CMS pago e sem coleta de dados pessoais.
 
 ---
 
-## Comandos Locais
+## Comandos Principais
 
-Pré-requisito: Node.js 18+ e npm (ou usar GitHub Codespaces).
+Execute dentro da pasta `sonho-encantado-site/`:
 
 ```bash
-cd sonho-encantado-site
+# Instalar dependências (incluindo fontes locais)
 npm install
+
+# Rodar servidor de desenvolvimento (com placeholders de fotos pendentes visíveis)
 npm run dev
+
+# Compilar TypeScript, gerar build cliente + SSR e pré-renderizar dist/index.html
+npm run build
+
+# Visualizar localmente a build final pré-renderizada
+npm run preview

@@ -72,7 +72,8 @@ export const SCHOOL_IDENTITY = {
   email: 'sonhoencantado81@gmail.com',
   instagramUrl: 'https://www.instagram.com/oficialsonhoencantado/',
   instagramHandle: '@oficialsonhoencantado',
-  whatsappUrl: 'https://whats.link/colegiosonhoencantado',
+  whatsappDisplay: '(91) 99824-8944',
+  whatsappUrl: 'https://wa.me/5591998248944',
 };
 
 export const NAVIGATION_ITEMS: NavItem[] = [
@@ -102,7 +103,7 @@ export const HERO_CONTENT = {
   eyebrow: 'Guamá · Belém, Pará',
   headline: 'O começo de grandes descobertas.',
   description:
-    'Há aproximadamente 20 anos acolhendo famílias no Guamá, do Baby Class ao 5º ano do Ensino Fundamental, com cuidado próximo e compromisso com a infância.',
+    'Há mais de 18 anos acolhendo famílias no Guamá, do Baby Class ao 5º ano do Ensino Fundamental, com cuidado próximo e compromisso com a infância.',
   primaryCta: 'Conheça nossa escola',
   secondaryCta: 'Fale com a secretaria',
   imageSrc: '/images/hero-escola.jpg',
@@ -117,7 +118,7 @@ export const HERO_CONTENT = {
 
 export const TRUST_STRIP_ITEMS: TrustItem[] = [
   {
-    highlight: 'Aproximadamente 20 anos',
+    highlight: 'Mais de 18 anos',
     description: 'de atuação educacional junto às famílias do Guamá.',
   },
   {
@@ -134,7 +135,7 @@ export const HISTORY_CONTENT = {
   eyebrow: 'Nossa História',
   title: 'Quase duas décadas de vínculo próximo com as famílias do Guamá.',
   paragraphs: [
-    'O Centro Educacional Sonho Encantado — conhecido nas redes sociais como Colégio Sonho Encantado — construiu ao longo de aproximadamente 20 anos uma trajetória dedicada à infância no bairro do Guamá, em Belém.',
+    'O Centro Educacional Sonho Encantado — conhecido nas redes sociais como Colégio Sonho Encantado — construiu ao longo de mais de 18 anos uma trajetória dedicada à infância no bairro do Guamá, em Belém.',
     'Acreditamos em uma escola que conhece cada criança pelo nome, respeita seu tempo de desenvolvimento e mantém diálogo transparente com pais e responsáveis, do Baby Class ao 5º ano do Ensino Fundamental.',
   ],
   quote: 'Educando para o Futuro com acolhimento, proximidade e respeito à infância.',

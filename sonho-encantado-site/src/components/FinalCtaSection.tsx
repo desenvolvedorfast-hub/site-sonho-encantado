@@ -53,7 +53,13 @@ export function FinalCtaSection() {
                   <span className="sr-only"> (abre o WhatsApp da escola em nova aba)</span>
                 </a>
 
-                <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1.5 text-sm lg:justify-end">
+                <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5 text-sm lg:justify-end">
+                  <a
+                    href={SCHOOL_IDENTITY.phoneHref}
+                    className="inline-flex min-h-[36px] items-center font-semibold text-white/95 underline decoration-white/35 underline-offset-4 hover:text-brand-yellow"
+                  >
+                    Ligar: {SCHOOL_IDENTITY.whatsappDisplay}
+                  </a>
                   <a
                     href={`mailto:${SCHOOL_IDENTITY.email}`}
                     className="inline-flex min-h-[36px] items-center font-semibold text-white/95 underline decoration-white/35 underline-offset-4 hover:text-brand-yellow"

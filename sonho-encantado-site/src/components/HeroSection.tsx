@@ -1,13 +1,17 @@
+import { useState } from 'react';
 import { HERO_CONTENT, SCHOOL_IDENTITY } from '../data/schoolContent';
 import { PhotoSlot } from './PhotoSlot';
 
 export function HeroSection() {
+  const [photoMissing, setPhotoMissing] = useState(false);
+  const hidePhotoBlock = import.meta.env.PROD && photoMissing;
+
   return (
     <section
       aria-labelledby="hero-heading"
       className="relative overflow-hidden bg-gradient-to-br from-[#FFFDF7] via-brand-paper to-[#F2EFE1] pb-12 pt-5 sm:pb-16 sm:pt-9 lg:pb-22 lg:pt-12"
     >
-      {/* Luz atmosférica sutil e lenta (sem neon nem ruído visual) */}
+      {/* Luz atmosférica sutil e lenta */}
       <div
         aria-hidden="true"
         className="ambient-drift-slow pointer-events-none absolute -right-28 -top-24 h-[420px] w-[420px] rounded-full opacity-75"
@@ -25,7 +29,6 @@ export function HeroSection() {
         }}
       />
 
-      {/* Arco orgânico discreto simbolizando descoberta e crescimento */}
       <svg
         aria-hidden="true"
         className="pointer-events-none absolute right-0 top-10 hidden h-[440px] w-[440px] text-brand-green/[0.06] lg:block"
@@ -43,7 +46,13 @@ export function HeroSection() {
 
       <div className="container-editorial relative z-10 grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-center lg:gap-x-12 lg:gap-y-5">
         {/* Bloco 1: Rótulo + Título principal */}
-        <div className="hero-settle lg:col-span-6 lg:col-start-1 lg:row-start-1 lg:self-end">
+        <div
+          className={`hero-settle ${
+            hidePhotoBlock
+              ? 'lg:col-span-9'
+              : 'lg:col-span-6 lg:col-start-1 lg:row-start-1 lg:self-end'
+          }`}
+        >
           <div className="inline-flex items-center gap-2 rounded-full border border-brand-green/20 bg-white/90 px-3.5 py-1 shadow-sm">
             <span className="h-2 w-2 rounded-full bg-brand-green" aria-hidden="true" />
             <span className="font-display text-xs font-extrabold uppercase tracking-[0.14em] text-brand-dark">
@@ -59,44 +68,53 @@ export function HeroSection() {
           </h1>
         </div>
 
-        {/* Bloco 2: Fotografia principal com halo luminoso suave atrás e moldura editorial */}
-        <figure
-          className="hero-settle relative lg:col-span-6 lg:col-start-7 lg:row-span-2 lg:row-start-1"
-          style={{ animationDelay: '90ms' }}
-        >
-          <div
-            aria-hidden="true"
-            className="ambient-breathe-slow pointer-events-none absolute -inset-4 rounded-2xl"
-            style={{
-              background:
-                'radial-gradient(circle at 60% 45%, rgba(237, 200, 75, 0.22), rgba(98, 185, 213, 0.08) 55%, transparent 78%)',
-            }}
-          />
-
-          <div className="relative rounded-xl border border-brand-dark/10 bg-white/80 p-2 shadow-editorial sm:p-2.5">
+        {/* Bloco 2: Fotografia principal (oculta por completo em produção se ausente) */}
+        {!hidePhotoBlock && (
+          <figure
+            className="hero-settle relative lg:col-span-6 lg:col-start-7 lg:row-span-2 lg:row-start-1"
+            style={{ animationDelay: '90ms' }}
+          >
             <div
               aria-hidden="true"
-              className="absolute -bottom-2 -right-2 left-10 top-10 -z-10 rounded-xl border border-brand-yellow/80 bg-brand-yellow/20"
+              className="ambient-breathe-slow pointer-events-none absolute -inset-4 rounded-2xl"
+              style={{
+                background:
+                  'radial-gradient(circle at 60% 45%, rgba(237, 200, 75, 0.22), rgba(98, 185, 213, 0.08) 55%, transparent 78%)',
+              }}
             />
-            <PhotoSlot
-              src={HERO_CONTENT.imageSrc}
-              alt={HERO_CONTENT.imageAlt}
-              photoGuide={HERO_CONTENT.photoGuide}
-              aspectClass="aspect-[16/10] sm:aspect-[4/3] lg:aspect-[5/4]"
-              objectPosition="object-[50%_20%]"
-              priority
-            />
-          </div>
 
-          <figcaption className="mt-3.5 flex flex-wrap items-center justify-between gap-2 px-1 text-xs font-semibold uppercase tracking-[0.08em] text-brand-muted sm:text-[0.8rem]">
-            <span>Baby Class · Educação Infantil · Ensino Fundamental até o 5º ano</span>
-            <span className="font-bold text-brand-green">{SCHOOL_IDENTITY.neighborhood}</span>
-          </figcaption>
-        </figure>
+            <div className="relative rounded-xl border border-brand-dark/10 bg-white/80 p-2 shadow-editorial sm:p-2.5">
+              <div
+                aria-hidden="true"
+                className="absolute -bottom-2 -right-2 left-10 top-10 -z-10 rounded-xl border border-brand-yellow/80 bg-brand-yellow/20"
+              />
+              <PhotoSlot
+                src={HERO_CONTENT.imageSrc}
+                alt={HERO_CONTENT.imageAlt}
+                photoGuide={HERO_CONTENT.photoGuide}
+                width={1200}
+                height={960}
+                aspectClass="aspect-[16/10] sm:aspect-[4/3] lg:aspect-[5/4]"
+                objectPosition="object-[50%_20%]"
+                priority
+                onMissing={() => setPhotoMissing(true)}
+              />
+            </div>
 
-        {/* Bloco 3: Proposta institucional + CTAs com microinterações táteis */}
+            <figcaption className="mt-3.5 flex flex-wrap items-center justify-between gap-2 px-1 text-xs font-semibold uppercase tracking-[0.08em] text-brand-muted sm:text-[0.8rem]">
+              <span>Baby Class · Educação Infantil · Ensino Fundamental até o 5º ano</span>
+              <span className="font-bold text-brand-green">{SCHOOL_IDENTITY.neighborhood}</span>
+            </figcaption>
+          </figure>
+        )}
+
+        {/* Bloco 3: Proposta institucional + CTAs com hierarquia invertida (WhatsApp primário) */}
         <div
-          className="hero-settle lg:col-span-6 lg:col-start-1 lg:row-start-2 lg:self-start"
+          className={`hero-settle ${
+            hidePhotoBlock
+              ? 'lg:col-span-9'
+              : 'lg:col-span-6 lg:col-start-1 lg:row-start-2 lg:self-start'
+          }`}
           style={{ animationDelay: '150ms' }}
         >
           <p className="text-lead-fluid max-w-[54ch] text-brand-muted">
@@ -105,7 +123,9 @@ export function HeroSection() {
 
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
             <a
-              href="#nossa-historia"
+              href={SCHOOL_IDENTITY.whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className="group inline-flex min-h-[50px] items-center justify-center gap-2.5 rounded-full bg-brand-green px-7 py-3 font-display text-base font-bold text-white shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-dark hover:shadow-[0_14px_28px_-10px_rgba(7,95,54,0.38)] active:scale-[0.985]"
             >
               <span>{HERO_CONTENT.primaryCta}</span>
@@ -115,16 +135,14 @@ export function HeroSection() {
               >
                 →
               </span>
+              <span className="sr-only"> (abre o WhatsApp da secretaria em nova aba)</span>
             </a>
 
             <a
-              href={SCHOOL_IDENTITY.whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#nossa-historia"
               className="inline-flex min-h-[50px] items-center justify-center rounded-full border-2 border-brand-dark/25 bg-white/95 px-7 py-3 font-display text-base font-bold text-brand-dark transition-all duration-200 hover:-translate-y-0.5 hover:border-brand-dark hover:bg-brand-cream active:scale-[0.985]"
             >
               {HERO_CONTENT.secondaryCta}
-              <span className="sr-only"> (abre o WhatsApp da secretaria em nova aba)</span>
             </a>
           </div>
 

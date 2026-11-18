@@ -1,9 +1,12 @@
+import { useState } from 'react';
 import { ACTIVITIES_CONTENT } from '../data/schoolContent';
 import { PhotoSlot } from './PhotoSlot';
 import { Reveal } from './Reveal';
 
 export function ActivitiesSection() {
   const { featuredMusic, secondaryActivities } = ACTIVITIES_CONTENT;
+  const [musicPhotoMissing, setMusicPhotoMissing] = useState(false);
+  const hideMusicPhoto = import.meta.env.PROD && musicPhotoMissing;
 
   return (
     <section
@@ -30,7 +33,6 @@ export function ActivitiesSection() {
         </Reveal>
 
         <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
-          {/* Música em destaque escuro com halo quente discreto */}
           <Reveal className="lg:col-span-7">
             <article className="relative flex h-full flex-col justify-between overflow-hidden rounded-xl bg-brand-dark p-6 text-brand-paper shadow-editorial sm:p-9">
               <div
@@ -85,19 +87,23 @@ export function ActivitiesSection() {
                 </ul>
               </div>
 
-              <div className="relative z-10 mt-7">
-                <PhotoSlot
-                  src={featuredMusic.imageSrc}
-                  alt={featuredMusic.imageAlt}
-                  photoGuide={featuredMusic.photoGuide}
-                  aspectClass="aspect-[16/9]"
-                  objectPosition="object-[50%_20%]"
-                />
-              </div>
+              {!hideMusicPhoto && (
+                <div className="relative z-10 mt-7">
+                  <PhotoSlot
+                    src={featuredMusic.imageSrc}
+                    alt={featuredMusic.imageAlt}
+                    photoGuide={featuredMusic.photoGuide}
+                    width={1200}
+                    height={675}
+                    aspectClass="aspect-[16/9]"
+                    objectPosition="object-[50%_20%]"
+                    onMissing={() => setMusicPhotoMissing(true)}
+                  />
+                </div>
+              )}
             </article>
           </Reveal>
 
-          {/* Computação e Inglês em blocos arquitetônicos com filetes superiores (sem cards genéricos) */}
           <Reveal delayMs={100} className="flex flex-col justify-between gap-6 lg:col-span-5">
             {secondaryActivities.map((activity, idx) => (
               <article

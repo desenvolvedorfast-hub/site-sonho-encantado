@@ -10,11 +10,11 @@ export function Footer() {
           <div className="md:col-span-5">
             <BrandLogo tone="light" compact />
             <p className="mt-3 max-w-sm text-sm leading-relaxed text-[#DCE7E1]">
-              Há aproximadamente 20 anos acolhendo crianças do Baby Class ao 5º ano no bairro do Guamá, Belém/PA.
+              Há mais de 18 anos acolhendo crianças do Baby Class ao 5º ano no bairro do Guamá, Belém/PA.
             </p>
           </div>
 
-          {/* Navegação compacta: grade 2 colunas no mobile / coluna limpa no desktop */}
+          {/* Navegação compacta */}
           <div className="md:col-span-3">
             <h2 className="font-display text-xs font-extrabold uppercase tracking-wider text-brand-yellow">
               Navegação
@@ -45,7 +45,7 @@ export function Footer() {
                 rel="noopener noreferrer"
                 className="font-semibold text-white underline decoration-white/30 underline-offset-4 hover:text-brand-yellow"
               >
-                WhatsApp
+                WhatsApp {SCHOOL_IDENTITY.whatsappDisplay}
               </a>
               <a
                 href={SCHOOL_IDENTITY.instagramUrl}

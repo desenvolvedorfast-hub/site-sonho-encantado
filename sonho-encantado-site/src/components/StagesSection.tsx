@@ -1,18 +1,21 @@
 import { TEACHING_STAGES } from '../data/schoolContent';
 import { PhotoSlot } from './PhotoSlot';
 
-const ACCENT_MAP = {
+const STAGE_STYLE_MAP = {
   yellow: {
+    container: 'bg-white border-brand-dark/10 border-l-brand-yellow',
     bar: 'bg-brand-yellow',
-    tag: 'text-brand-dark bg-brand-yellow/40',
+    tag: 'bg-brand-yellow/45 text-brand-dark',
   },
   blue: {
+    container: 'bg-brand-blue-soft/65 border-brand-blue/35 border-l-brand-blue',
     bar: 'bg-brand-blue',
-    tag: 'text-brand-dark bg-brand-blue/30',
+    tag: 'bg-brand-blue/35 text-brand-dark',
   },
   green: {
+    container: 'bg-white border-brand-dark/10 border-l-brand-green',
     bar: 'bg-brand-green',
-    tag: 'text-white bg-brand-green',
+    tag: 'bg-brand-green text-white',
   },
 };
 
@@ -21,14 +24,12 @@ export function StagesSection() {
     <section
       id="etapas-de-ensino"
       aria-labelledby="etapas-heading"
-      className="border-y border-brand-dark/10 bg-brand-cream py-12 sm:py-16 lg:py-20"
+      className="border-y border-brand-dark/10 bg-brand-cream py-14 sm:py-18 lg:py-24"
     >
       <div className="container-editorial">
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-7">
-            <p className="font-display text-xs font-extrabold uppercase tracking-[0.16em] text-brand-green">
-              Etapas de Ensino
-            </p>
+            <p className="eyebrow-label">Etapas de Ensino</p>
             <h2
               id="etapas-heading"
               className="text-section-title mt-3 font-display font-extrabold text-brand-dark"
@@ -41,47 +42,47 @@ export function StagesSection() {
           </p>
         </div>
 
-        {/* Proporção desktop 7/5 para evitar colunas estreitas e textos pequenos */}
-        <div className="mt-10 divide-y divide-brand-dark/12 border-y border-brand-dark/12">
+        {/* Faixas editoriais individualizadas com alternância controlada esquerda/direita */}
+        <div className="mt-10 space-y-6 lg:space-y-8">
           {TEACHING_STAGES.map((stage, index) => {
-            const accent = ACCENT_MAP[stage.accentColor];
+            const theme = STAGE_STYLE_MAP[stage.accentColor];
             const reverseDesktop = index % 2 === 1;
 
             return (
               <article
                 key={stage.id}
-                className="grid grid-cols-1 items-center gap-6 py-8 sm:py-10 lg:grid-cols-12 lg:gap-12"
+                className={`grid grid-cols-1 items-center gap-7 rounded-2xl border border-l-[5px] p-5 shadow-card sm:p-8 lg:grid-cols-12 lg:gap-12 lg:p-10 ${theme.container}`}
               >
-                <div className={`lg:col-span-7 ${reverseDesktop ? 'lg:order-2' : 'lg:order-1'}`}>
+                <div className={`lg:col-span-6 ${reverseDesktop ? 'lg:order-2' : 'lg:order-1'}`}>
                   <div className="flex flex-wrap items-center gap-3">
                     <span className="font-display text-sm font-extrabold text-brand-green">
                       {stage.number}
                     </span>
-                    <span className={`h-1 w-8 rounded-full ${accent.bar}`} aria-hidden="true" />
+                    <span className={`h-1 w-8 rounded-full ${theme.bar}`} aria-hidden="true" />
                     <span
-                      className={`rounded-full px-3 py-0.5 font-display text-xs font-bold ${accent.tag}`}
+                      className={`rounded-full px-3.5 py-1 font-display text-xs font-extrabold uppercase tracking-wider ${theme.tag}`}
                     >
                       {stage.tag}
                     </span>
                   </div>
 
-                  <h3 className="mt-3 font-display text-2xl font-extrabold text-brand-dark sm:text-[1.85rem]">
+                  <h3 className="text-subsection-title mt-4 font-display font-extrabold text-brand-dark">
                     {stage.title}
                   </h3>
 
-                  <p className="text-body-fluid mt-3 max-w-2xl text-brand-ink">
+                  <p className="text-body-fluid mt-3 max-w-[54ch] text-brand-ink">
                     {stage.summary}
                   </p>
 
-                  <ul className="mt-5 grid grid-cols-1 gap-2.5 border-t border-brand-dark/10 pt-4 sm:grid-cols-2">
+                  <ul className="mt-5 space-y-2.5 border-t border-brand-dark/12 pt-4">
                     {stage.highlights.map((point) => (
                       <li
                         key={point}
-                        className="flex items-start gap-2.5 text-sm font-medium text-brand-muted sm:text-[0.95rem]"
+                        className="flex items-start gap-2.5 text-[0.95rem] font-medium leading-relaxed text-brand-muted sm:text-base"
                       >
                         <span
                           aria-hidden="true"
-                          className={`mt-2 h-2 w-2 shrink-0 rounded-full ${accent.bar}`}
+                          className={`mt-2.5 h-2 w-2 shrink-0 rounded-full ${theme.bar}`}
                         />
                         <span>{point}</span>
                       </li>
@@ -89,7 +90,7 @@ export function StagesSection() {
                   </ul>
                 </div>
 
-                <div className={`lg:col-span-5 ${reverseDesktop ? 'lg:order-1' : 'lg:order-2'}`}>
+                <div className={`lg:col-span-6 ${reverseDesktop ? 'lg:order-1' : 'lg:order-2'}`}>
                   <PhotoSlot
                     src={stage.imageSrc}
                     alt={stage.imageAlt}

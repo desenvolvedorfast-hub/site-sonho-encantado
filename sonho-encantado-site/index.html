@@ -10,7 +10,7 @@
     />
     <meta name="theme-color" content="#075F36" />
 
-    <!-- Open Graph (preencher og:url e og:image absolutos quando houver domínio final) -->
+    <!-- Open Graph base -->
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_BR" />
     <meta
@@ -21,19 +21,21 @@
       property="og:description"
       content="Educando para o Futuro! Há mais de 18 anos acolhendo famílias no Guamá, Belém/PA, do Baby Class ao 5º ano do Ensino Fundamental."
     />
+    <!-- PRERENDER_META -->
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- Tipografia editorial -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
-      rel="stylesheet"
-    />
+    <noscript>
+      <style>
+        [data-reveal] {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      </style>
+    </noscript>
 
     <!-- Dados estruturados com apenas informações confirmadas -->
-    <script type="application/ld+json">
+    <script id="school-jsonld" type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "School",
@@ -75,5 +77,6 @@
   <body class="bg-brand-paper text-brand-ink antialiased">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <!-- CF_ANALYTICS -->
   </body>
 </html>

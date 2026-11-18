@@ -9,6 +9,7 @@ import { HistorySection } from './components/HistorySection';
 import { StagesSection } from './components/StagesSection';
 import { TrustStrip } from './components/TrustStrip';
 import { UnitsSection } from './components/UnitsSection';
+import { WhatsAppFloatingButton } from './components/WhatsAppFloatingButton';
 
 export function App() {
   return (
@@ -32,6 +33,7 @@ export function App() {
       </main>
 
       <Footer />
+      <WhatsAppFloatingButton />
     </div>
   );
 }

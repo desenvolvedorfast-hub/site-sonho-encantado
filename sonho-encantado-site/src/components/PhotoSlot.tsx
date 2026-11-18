@@ -15,7 +15,7 @@ interface PhotoSlotProps {
 
 /**
  * Renderiza a fotografia oficial limpa quando disponível em public/images/.
- * Quando a fotografia ainda não estiver presente, exibe um placeholder editorial elegante
+ * Quando a fotografia ainda não estiver presente, exibe um placeholder editorial
  * com as orientações de inserção (seção, tipo recomendado, proporção e caminho do arquivo).
  */
 export function PhotoSlot({
@@ -34,7 +34,7 @@ export function PhotoSlot({
 
   return (
     <div
-      className={`group relative overflow-hidden rounded-xl border border-brand-dark/10 bg-brand-cream ${
+      className={`group relative overflow-hidden rounded-lg border border-brand-dark/12 bg-brand-cream transition-shadow duration-300 ${
         missing ? aspectClass ?? 'aspect-[4/3]' : naturalAspect ? '' : detectedRatio
       } ${className}`}
     >
@@ -51,10 +51,10 @@ export function PhotoSlot({
             }
           }}
           onError={() => setMissing(true)}
-          className={`w-full transition-transform duration-500 ease-out ${
+          className={`w-full transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
             naturalAspect
-              ? 'h-auto max-h-[580px] object-cover'
-              : 'h-full object-cover group-hover:scale-[1.02]'
+              ? 'h-auto max-h-[580px] object-cover group-hover:scale-[1.015]'
+              : 'h-full object-cover group-hover:scale-[1.025]'
           } ${objectPosition} ${imgClassName}`}
         />
       ) : (

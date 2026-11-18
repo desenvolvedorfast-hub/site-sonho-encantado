@@ -1,14 +1,15 @@
 import { ENVIRONMENT_CONTENT } from '../data/schoolContent';
 import { PhotoSlot } from './PhotoSlot';
+import { Reveal } from './Reveal';
 
 export function EnvironmentSection() {
   return (
     <section
       aria-labelledby="ambiente-heading"
-      className="border-t border-brand-dark/10 bg-white py-14 sm:py-18 lg:py-24"
+      className="relative overflow-hidden border-t border-brand-dark/10 bg-brand-paper py-14 sm:py-18 lg:py-24"
     >
-      <div className="container-editorial grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14">
-        <div className="lg:col-span-6">
+      <div className="container-editorial relative z-10 grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14">
+        <Reveal className="lg:col-span-6">
           <p className="eyebrow-label">{ENVIRONMENT_CONTENT.eyebrow}</p>
 
           <h2
@@ -31,17 +32,26 @@ export function EnvironmentSection() {
                   </span>
                   <span>{pillar.title}</span>
                 </dt>
-                <dd className="mt-2 text-[0.95rem] leading-relaxed text-brand-muted sm:text-base">
+                <dd className="mt-2 text-[0.96rem] leading-relaxed text-brand-muted sm:text-base">
                   {pillar.text}
                 </dd>
               </div>
             ))}
           </dl>
-        </div>
+        </Reveal>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:col-span-6">
+        <Reveal delayMs={100} className="relative grid grid-cols-1 gap-6 sm:grid-cols-2 lg:col-span-6">
+          <div
+            aria-hidden="true"
+            className="ambient-breathe-slow pointer-events-none absolute -inset-6 rounded-full"
+            style={{
+              background:
+                'radial-gradient(circle, rgba(237, 200, 75, 0.16) 0%, rgba(98, 185, 213, 0.08) 50%, transparent 74%)',
+            }}
+          />
+
           {ENVIRONMENT_CONTENT.photos.map((photo, idx) => (
-            <figure key={photo.src} className={idx === 1 ? 'sm:mt-8' : ''}>
+            <figure key={photo.src} className={`relative z-10 ${idx === 1 ? 'sm:mt-8' : ''}`}>
               <PhotoSlot
                 src={photo.src}
                 alt={photo.alt}
@@ -55,7 +65,7 @@ export function EnvironmentSection() {
               </figcaption>
             </figure>
           ))}
-        </div>
+        </Reveal>
       </div>
     </section>
   );

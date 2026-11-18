@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { TEACHING_STAGES } from '../data/schoolContent';
 import { PhotoSlot } from './PhotoSlot';
 import { Reveal } from './Reveal';
@@ -21,6 +22,8 @@ const STAGE_STYLE_MAP = {
 };
 
 export function StagesSection() {
+  const [missingIds, setMissingIds] = useState<Record<string, boolean>>({});
+
   return (
     <section
       id="etapas-de-ensino"
@@ -45,18 +48,20 @@ export function StagesSection() {
           </div>
         </Reveal>
 
-        {/* Capítulos editoriais abertos separados por linhas arquitetônicas (evita repetição de cards) */}
         <div className="mt-12 divide-y divide-brand-dark/15 border-y border-brand-dark/15">
           {TEACHING_STAGES.map((stage, index) => {
             const theme = STAGE_STYLE_MAP[stage.accentColor];
             const reverseDesktop = index % 2 === 1;
+            const hidePhoto = import.meta.env.PROD && Boolean(missingIds[stage.id]);
 
             return (
               <Reveal key={stage.id} delayMs={index * 60}>
                 <article className="grid grid-cols-1 items-center gap-8 py-10 sm:py-12 lg:grid-cols-12 lg:gap-14">
                   <div
-                    className={`border-l-4 pl-5 sm:pl-6 lg:col-span-6 ${theme.accentBorder} ${
-                      reverseDesktop ? 'lg:order-2' : 'lg:order-1'
+                    className={`border-l-4 pl-5 sm:pl-6 ${theme.accentBorder} ${
+                      hidePhoto
+                        ? 'lg:col-span-10'
+                        : `lg:col-span-6 ${reverseDesktop ? 'lg:order-2' : 'lg:order-1'}`
                     }`}
                   >
                     <div className="flex flex-wrap items-center gap-3">
@@ -95,16 +100,23 @@ export function StagesSection() {
                     </ul>
                   </div>
 
-                  <div className={`lg:col-span-6 ${reverseDesktop ? 'lg:order-1' : 'lg:order-2'}`}>
-                    <PhotoSlot
-                      src={stage.imageSrc}
-                      alt={stage.imageAlt}
-                      photoGuide={stage.photoGuide}
-                      aspectClass="aspect-[16/10]"
-                      objectPosition="object-[50%_20%]"
-                      className="shadow-editorial"
-                    />
-                  </div>
+                  {!hidePhoto && (
+                    <div className={`lg:col-span-6 ${reverseDesktop ? 'lg:order-1' : 'lg:order-2'}`}>
+                      <PhotoSlot
+                        src={stage.imageSrc}
+                        alt={stage.imageAlt}
+                        photoGuide={stage.photoGuide}
+                        width={1200}
+                        height={750}
+                        aspectClass="aspect-[16/10]"
+                        objectPosition="object-[50%_20%]"
+                        className="shadow-editorial"
+                        onMissing={() =>
+                          setMissingIds((prev) => ({ ...prev, [stage.id]: true }))
+                        }
+                      />
+                    </div>
+                  )}
                 </article>
               </Reveal>
             );

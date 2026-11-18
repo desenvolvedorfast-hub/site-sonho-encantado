@@ -1,56 +1,75 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { PhotoGuide } from '../data/schoolContent';
 
 interface PhotoSlotProps {
   src: string;
   alt: string;
   photoGuide: PhotoGuide;
+  width?: number;
+  height?: number;
   className?: string;
   imgClassName?: string;
   aspectClass?: string;
   naturalAspect?: boolean;
   objectPosition?: string;
   priority?: boolean;
+  onMissing?: () => void;
 }
 
 /**
- * Renderiza a fotografia oficial limpa quando disponível em public/images/.
- * Quando a fotografia ainda não estiver presente, exibe um placeholder editorial
- * com as orientações de inserção (seção, tipo recomendado, proporção e caminho do arquivo).
+ * Renderiza a fotografia oficial com proporção fixa (prevenindo CLS).
+ * - Em produção (import.meta.env.PROD), se a imagem não existir, oculta o slot por completo (return null).
+ * - Em desenvolvimento (import.meta.env.DEV), mantém o placeholder com orientações de inserção.
  */
 export function PhotoSlot({
   src,
   alt,
   photoGuide,
+  width = 1200,
+  height = 900,
   className = '',
   imgClassName = '',
-  aspectClass,
+  aspectClass = 'aspect-[4/3]',
   naturalAspect = false,
   objectPosition = 'object-[50%_20%]',
   priority = false,
+  onMissing,
 }: PhotoSlotProps) {
   const [missing, setMissing] = useState(false);
-  const [detectedRatio, setDetectedRatio] = useState<string>(aspectClass ?? 'aspect-[4/3]');
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    const img = imgRef.current;
+    if (img && img.complete && img.naturalWidth === 0) {
+      setMissing(true);
+      onMissing?.();
+    }
+  }, [onMissing]);
+
+  if (missing && import.meta.env.PROD) {
+    return null;
+  }
 
   return (
     <div
       className={`group relative overflow-hidden rounded-lg border border-brand-dark/12 bg-brand-cream transition-shadow duration-300 ${
-        missing ? aspectClass ?? 'aspect-[4/3]' : naturalAspect ? '' : detectedRatio
+        naturalAspect && !missing ? '' : aspectClass
       } ${className}`}
     >
       {!missing ? (
         <img
+          ref={imgRef}
           src={src}
           alt={alt}
+          width={width}
+          height={height}
           loading={priority ? 'eager' : 'lazy'}
           decoding="async"
-          onLoad={(event) => {
-            const { naturalWidth, naturalHeight } = event.currentTarget;
-            if (!naturalAspect && !aspectClass && naturalWidth > 0 && naturalHeight > 0) {
-              setDetectedRatio(naturalHeight > naturalWidth ? 'aspect-[4/5]' : 'aspect-[4/3]');
-            }
+          {...(priority ? { fetchpriority: 'high' as const } : {})}
+          onError={() => {
+            setMissing(true);
+            onMissing?.();
           }}
-          onError={() => setMissing(true)}
           className={`w-full transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
             naturalAspect
               ? 'h-auto max-h-[580px] object-cover group-hover:scale-[1.015]'

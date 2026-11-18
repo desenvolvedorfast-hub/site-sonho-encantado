@@ -1,9 +1,0 @@
-node_modules
-dist
-dist-server
-.env
-.env.local
-.wrangler
-.DS_Store
-*.log
-npm-debug.log*

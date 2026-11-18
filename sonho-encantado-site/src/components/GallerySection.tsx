@@ -1,8 +1,62 @@
+import { useState } from 'react';
 import { GALLERY_PHOTOS, SCHOOL_IDENTITY } from '../data/schoolContent';
 import { PhotoSlot } from './PhotoSlot';
 import { Reveal } from './Reveal';
 
 export function GallerySection() {
+  const [missingIds, setMissingIds] = useState<Record<string, boolean>>({});
+
+  const visiblePhotos = GALLERY_PHOTOS.filter(
+    (photo) => !(import.meta.env.PROD && missingIds[photo.id]),
+  );
+
+  if (visiblePhotos.length === 0) {
+    return null;
+  }
+
+  const gridClass =
+    visiblePhotos.length === 1
+      ? 'grid-cols-1 max-w-3xl'
+      : visiblePhotos.length === 2
+        ? 'grid-cols-1 md:grid-cols-2'
+        : visiblePhotos.length === 3
+          ? 'grid-cols-1 md:grid-cols-3'
+          : 'grid-cols-1 md:grid-cols-12';
+
+  const getLayout = (index: number) => {
+    if (visiblePhotos.length < 4) {
+      return {
+        spanClass: '',
+        aspectClass: 'aspect-[4/3]',
+        width: 1200,
+        height: 900,
+      };
+    }
+
+    if (index === 0) {
+      return {
+        spanClass: 'md:col-span-5',
+        aspectClass: 'aspect-[4/3] md:aspect-[5/4]',
+        width: 1000,
+        height: 800,
+      };
+    }
+    if (index === 1) {
+      return {
+        spanClass: 'md:col-span-7',
+        aspectClass: 'aspect-[16/10]',
+        width: 1280,
+        height: 800,
+      };
+    }
+    return {
+      spanClass: 'md:col-span-6',
+      aspectClass: 'aspect-[4/3]',
+      width: 1200,
+      height: 900,
+    };
+  };
+
   return (
     <section
       aria-labelledby="galeria-heading"
@@ -33,20 +87,9 @@ export function GallerySection() {
         </Reveal>
 
         <Reveal delayMs={80}>
-          <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-12">
-            {GALLERY_PHOTOS.map((photo, index) => {
-              const spanClass =
-                index === 0
-                  ? 'md:col-span-5'
-                  : index === 1
-                    ? 'md:col-span-7'
-                    : 'md:col-span-6';
-              const aspectClass =
-                index === 0
-                  ? 'aspect-[4/3] md:aspect-[5/4]'
-                  : index === 1
-                    ? 'aspect-[16/10]'
-                    : 'aspect-[4/3]';
+          <div className={`mt-8 grid gap-6 ${gridClass}`}>
+            {visiblePhotos.map((photo, index) => {
+              const { spanClass, aspectClass, width, height } = getLayout(index);
 
               return (
                 <figure key={photo.id} className={`flex flex-col ${spanClass}`}>
@@ -54,9 +97,14 @@ export function GallerySection() {
                     src={photo.src}
                     alt={photo.alt}
                     photoGuide={photo.photoGuide}
+                    width={width}
+                    height={height}
                     aspectClass={aspectClass}
                     objectPosition="object-[50%_20%]"
                     className="shadow-card"
+                    onMissing={() =>
+                      setMissingIds((prev) => ({ ...prev, [photo.id]: true }))
+                    }
                   />
                   <figcaption className="mt-2 text-sm font-medium text-brand-muted">
                     {photo.caption}

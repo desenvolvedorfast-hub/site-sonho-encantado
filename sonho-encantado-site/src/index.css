@@ -35,32 +35,10 @@ h4 {
   letter-spacing: -0.025em;
 }
 
-@keyframes ambientDriftSlow {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  50% {
-    transform: translate3d(14px, -16px, 0) scale(1.04);
-  }
-}
-
-@keyframes ambientBreathe {
-  0%,
-  100% {
-    opacity: 0.58;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.88;
-    transform: scale(1.05);
-  }
-}
-
 @keyframes heroSettle {
   from {
     opacity: 0;
-    transform: translate3d(0, 12px, 0);
+    transform: translate3d(0, 10px, 0);
   }
   to {
     opacity: 1;
@@ -73,7 +51,6 @@ h4 {
     @apply mx-auto w-full max-w-[1240px] px-4 sm:px-6 lg:px-10;
   }
 
-  /* Hierarquia tipográfica consistente */
   .text-hero-title {
     font-size: clamp(2.25rem, 1.7rem + 2.25vw, 3.5rem);
     line-height: 1.06;
@@ -108,19 +85,8 @@ h4 {
     color: #075f36;
   }
 
-  /* Atmosfera luminosa controlada */
-  .ambient-drift-slow {
-    animation: ambientDriftSlow 22s ease-in-out infinite;
-    will-change: transform;
-  }
-
-  .ambient-breathe-slow {
-    animation: ambientBreathe 16s ease-in-out infinite;
-    will-change: transform, opacity;
-  }
-
   .hero-settle {
-    animation: heroSettle 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: heroSettle 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 }
 
@@ -155,8 +121,6 @@ section[id] {
     scroll-behavior: auto;
   }
 
-  .ambient-drift-slow,
-  .ambient-breathe-slow,
   .hero-settle {
     animation: none !important;
   }

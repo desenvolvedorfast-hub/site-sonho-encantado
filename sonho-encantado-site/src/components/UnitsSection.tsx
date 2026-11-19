@@ -29,13 +29,13 @@ export function UnitsSection() {
               className={unit.therapeuticNote ? 'lg:col-span-7' : 'lg:col-span-5'}
             >
               <article
-                className={`flex h-full flex-col justify-between rounded-xl border border-brand-dark/15 p-6 transition-shadow duration-300 hover:shadow-card sm:p-8 ${
+                className={`flex h-full flex-col justify-between rounded-lg border border-brand-dark/15 p-6 sm:p-8 ${
                   unit.therapeuticNote ? 'bg-white' : 'bg-brand-paper'
                 }`}
               >
                 <div>
-                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-brand-dark/10 pb-3.5">
-                    <span className="font-display text-sm font-extrabold uppercase tracking-wider text-brand-dark">
+                  <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-brand-dark/12 pb-3.5">
+                    <span className="font-display text-sm font-extrabold uppercase tracking-[0.12em] text-brand-dark">
                       {unit.name}
                     </span>
                     <span className="text-xs font-semibold uppercase tracking-wider text-brand-green">
@@ -55,29 +55,22 @@ export function UnitsSection() {
                   </p>
 
                   {unit.therapeuticNote && (
-                    <div className="mt-5 rounded-lg border border-brand-blue/50 bg-brand-blue-soft/80 p-4 sm:p-5">
-                      <span className="inline-block font-display text-xs font-extrabold uppercase tracking-wider text-brand-dark">
+                    <div className="mt-6 border-l-2 border-brand-blue bg-brand-blue-soft/60 p-4 sm:p-5">
+                      <p className="font-display text-xs font-extrabold uppercase tracking-[0.14em] text-brand-dark">
                         {unit.therapeuticNote.badge}
-                      </span>
-                      <h4 className="mt-1 font-display text-base font-extrabold text-brand-dark sm:text-lg">
+                      </p>
+                      <h4 className="mt-1.5 font-display text-base font-extrabold text-brand-dark sm:text-lg">
                         {unit.therapeuticNote.title}
                       </h4>
                       <p className="mt-1.5 text-sm leading-relaxed text-brand-ink">
                         {unit.therapeuticNote.description}
                       </p>
 
-                      <ul className="mt-3 flex flex-wrap gap-2">
-                        {unit.therapeuticNote.services.map((service) => (
-                          <li
-                            key={service}
-                            className="rounded-md border border-brand-dark/15 bg-white px-3 py-1 text-xs font-bold text-brand-dark"
-                          >
-                            {service}
-                          </li>
-                        ))}
-                      </ul>
+                      <p className="mt-3 font-display text-sm font-bold text-brand-dark">
+                        {unit.therapeuticNote.services.join(' · ')}
+                      </p>
 
-                      <p className="mt-3 text-xs leading-relaxed text-brand-muted">
+                      <p className="mt-2.5 text-xs leading-relaxed text-brand-muted">
                         {unit.therapeuticNote.disclaimer}
                       </p>
                     </div>
@@ -89,24 +82,15 @@ export function UnitsSection() {
                     href={unit.mapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full border border-brand-green bg-white px-5 py-2 font-display text-sm font-bold text-brand-green transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-green hover:text-white active:scale-[0.985]"
+                    className="group inline-flex min-h-[44px] items-center justify-center gap-2 rounded-md border border-brand-green bg-white px-5 py-2 font-display text-sm font-bold text-brand-green transition-colors duration-150 hover:bg-brand-green hover:text-white active:scale-[0.985]"
                   >
-                    <svg
+                    <span>Abrir no Google Maps</span>
+                    <span
                       aria-hidden="true"
-                      className="h-4 w-4"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.2"
+                      className="transition-transform duration-150 group-hover:translate-x-0.5"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"
-                      />
-                      <circle cx="12" cy="9.5" r="2.5" />
-                    </svg>
-                    Abrir no Google Maps
+                      →
+                    </span>
                     <span className="sr-only">
                       {' '}
                       ({unit.name} — abre localização em nova aba)

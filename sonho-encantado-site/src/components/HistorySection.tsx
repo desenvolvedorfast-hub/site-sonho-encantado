@@ -11,23 +11,14 @@ export function HistorySection() {
     <section
       id="nossa-historia"
       aria-labelledby="historia-heading"
-      className="relative overflow-hidden bg-brand-paper py-14 sm:py-18 lg:py-24"
+      className="bg-brand-paper py-14 sm:py-18 lg:py-24"
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-32 top-10 h-80 w-80 rounded-full opacity-60"
-        style={{
-          background:
-            'radial-gradient(circle, rgba(237, 200, 75, 0.14) 0%, transparent 72%)',
-        }}
-      />
-
-      <div className="container-editorial relative z-10 grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-16">
+      <div className="container-editorial grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-16">
         <Reveal
           className={`order-2 lg:order-1 ${hidePhotoFrame ? 'lg:col-span-4' : 'lg:col-span-5'}`}
         >
           {!hidePhotoFrame && (
-            <div className="border-t-4 border-brand-green bg-white p-2.5 shadow-editorial">
+            <div className="border-t-2 border-brand-green pt-3">
               <PhotoSlot
                 src={HISTORY_CONTENT.imageSrc}
                 alt={HISTORY_CONTENT.imageAlt}
@@ -36,13 +27,14 @@ export function HistorySection() {
                 height={1250}
                 naturalAspect
                 objectPosition="object-[50%_20%]"
+                className="shadow-[0_16px_36px_-22px_rgba(18,59,43,0.22)]"
                 onMissing={() => setPhotoMissing(true)}
               />
             </div>
           )}
 
           <blockquote
-            className={`border-l-4 border-brand-yellow pl-5 font-display text-base font-bold leading-snug text-brand-dark sm:text-lg ${
+            className={`border-l-2 border-brand-yellow pl-5 font-display text-base font-bold leading-snug text-brand-dark sm:text-lg ${
               hidePhotoFrame ? '' : 'mt-6'
             }`}
           >
@@ -51,7 +43,7 @@ export function HistorySection() {
         </Reveal>
 
         <Reveal
-          delayMs={90}
+          delayMs={80}
           className={`order-1 lg:order-2 ${hidePhotoFrame ? 'lg:col-span-8' : 'lg:col-span-7'}`}
         >
           <p className="eyebrow-label">{HISTORY_CONTENT.eyebrow}</p>
@@ -74,12 +66,12 @@ export function HistorySection() {
               href={SCHOOL_IDENTITY.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-brand-yellow px-6 py-2.5 font-display text-[0.95rem] font-extrabold text-brand-dark shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_24px_-10px_rgba(18,59,43,0.28)] active:scale-[0.985]"
+              className="group inline-flex min-h-[46px] items-center justify-center gap-2 rounded-md bg-brand-yellow px-6 py-2.5 font-display text-[0.95rem] font-extrabold text-brand-dark transition-colors duration-150 hover:bg-[#e3bc3b] active:scale-[0.985]"
             >
               <span>{HISTORY_CONTENT.ctaLabel}</span>
               <span
                 aria-hidden="true"
-                className="transition-transform duration-200 group-hover:translate-x-1"
+                className="transition-transform duration-150 group-hover:translate-x-1"
               >
                 →
               </span>

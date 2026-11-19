@@ -14,10 +14,10 @@ export function EnvironmentSection() {
   return (
     <section
       aria-labelledby="ambiente-heading"
-      className="relative overflow-hidden border-t border-brand-dark/10 bg-brand-paper py-14 sm:py-18 lg:py-24"
+      className="border-t border-brand-dark/10 bg-brand-paper py-14 sm:py-18 lg:py-24"
     >
       <div
-        className={`container-editorial relative z-10 grid grid-cols-1 gap-10 ${
+        className={`container-editorial grid grid-cols-1 gap-10 ${
           hasPhotos ? 'items-center lg:grid-cols-12 lg:gap-14' : ''
         }`}
       >
@@ -41,12 +41,12 @@ export function EnvironmentSection() {
             }`}
           >
             {ENVIRONMENT_CONTENT.pillars.map((pillar, idx) => (
-              <div key={pillar.title} className="border-t-2 border-brand-dark/15 pt-4">
-                <dt className="flex items-center gap-2.5 font-display text-base font-extrabold text-brand-dark sm:text-[1.06rem]">
-                  <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-yellow text-xs font-extrabold text-brand-dark">
+              <div key={pillar.title} className="border-t border-brand-dark/18 pt-4">
+                <dt className="font-display text-base font-extrabold text-brand-dark sm:text-[1.06rem]">
+                  <span className="mb-1 block font-display text-xs font-extrabold tracking-[0.14em] text-brand-green">
                     0{idx + 1}
                   </span>
-                  <span>{pillar.title}</span>
+                  {pillar.title}
                 </dt>
                 <dd className="mt-2 text-[0.96rem] leading-relaxed text-brand-muted sm:text-base">
                   {pillar.text}
@@ -58,26 +58,15 @@ export function EnvironmentSection() {
 
         {hasPhotos && (
           <Reveal
-            delayMs={100}
-            className={`relative grid grid-cols-1 gap-6 lg:col-span-6 ${
+            delayMs={90}
+            className={`grid grid-cols-1 gap-6 lg:col-span-6 ${
               visiblePhotos.length === 2 ? 'sm:grid-cols-2' : 'max-w-md'
             }`}
           >
-            <div
-              aria-hidden="true"
-              className="ambient-breathe-slow pointer-events-none absolute -inset-6 rounded-full"
-              style={{
-                background:
-                  'radial-gradient(circle, rgba(237, 200, 75, 0.16) 0%, rgba(98, 185, 213, 0.08) 50%, transparent 74%)',
-              }}
-            />
-
             {visiblePhotos.map((photo, idx) => (
               <figure
                 key={photo.src}
-                className={`relative z-10 ${
-                  visiblePhotos.length === 2 && idx === 1 ? 'sm:mt-8' : ''
-                }`}
+                className={visiblePhotos.length === 2 && idx === 1 ? 'sm:mt-8' : ''}
               >
                 <PhotoSlot
                   src={photo.src}
@@ -87,7 +76,6 @@ export function EnvironmentSection() {
                   height={1100}
                   aspectClass={idx === 0 ? 'aspect-[4/4.2]' : 'aspect-[4/4.6]'}
                   objectPosition="object-[50%_25%]"
-                  className="shadow-editorial"
                   onMissing={() =>
                     setMissingSrcs((prev) => ({ ...prev, [photo.src]: true }))
                   }

@@ -10,17 +10,8 @@ export function FinalCtaSection() {
     >
       <div className="container-editorial">
         <Reveal>
-          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-brand-green via-brand-green to-brand-dark px-5 py-7 text-brand-paper shadow-editorial sm:px-8 sm:py-10 lg:px-12 lg:py-11">
-            <div
-              aria-hidden="true"
-              className="ambient-breathe-slow pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full"
-              style={{
-                background:
-                  'radial-gradient(circle, rgba(237, 200, 75, 0.22) 0%, transparent 70%)',
-              }}
-            />
-
-            <div className="relative z-10 grid grid-cols-1 items-center gap-6 lg:grid-cols-12 lg:gap-8">
+          <div className="rounded-lg bg-brand-green px-5 py-7 text-brand-paper sm:px-8 sm:py-10 lg:px-12 lg:py-11">
+            <div className="grid grid-cols-1 items-center gap-6 lg:grid-cols-12 lg:gap-8">
               <div className="lg:col-span-7">
                 <p className="font-display text-xs font-extrabold uppercase tracking-[0.16em] text-brand-yellow">
                   Visitas e Matrículas
@@ -41,12 +32,12 @@ export function FinalCtaSection() {
                   href={SCHOOL_IDENTITY.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full bg-brand-yellow px-7 py-3 font-display text-base font-extrabold text-brand-dark shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_26px_-10px_rgba(0,0,0,0.35)] active:scale-[0.985] sm:w-auto"
+                  className="group inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-md bg-brand-yellow px-7 py-3 font-display text-base font-extrabold text-brand-dark transition-colors duration-150 hover:bg-[#e3bc3b] active:scale-[0.985] sm:w-auto"
                 >
                   <span>Fale com a secretaria</span>
                   <span
                     aria-hidden="true"
-                    className="transition-transform duration-200 group-hover:translate-x-1"
+                    className="transition-transform duration-150 group-hover:translate-x-1"
                   >
                     →
                   </span>

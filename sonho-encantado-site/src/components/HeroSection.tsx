@@ -9,43 +9,10 @@ export function HeroSection() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="relative overflow-hidden bg-gradient-to-br from-[#FFFDF7] via-brand-paper to-[#F2EFE1] pb-12 pt-5 sm:pb-16 sm:pt-9 lg:pb-22 lg:pt-12"
+      className="relative bg-brand-paper pb-12 pt-6 sm:pb-16 sm:pt-10 lg:pb-20 lg:pt-14"
     >
-      {/* Luz atmosférica sutil e lenta */}
-      <div
-        aria-hidden="true"
-        className="ambient-drift-slow pointer-events-none absolute -right-28 -top-24 h-[420px] w-[420px] rounded-full opacity-75"
-        style={{
-          background:
-            'radial-gradient(circle, rgba(237, 200, 75, 0.24) 0%, rgba(237, 200, 75, 0.06) 45%, transparent 72%)',
-        }}
-      />
-      <div
-        aria-hidden="true"
-        className="ambient-breathe-slow pointer-events-none absolute -bottom-28 -left-24 h-[380px] w-[380px] rounded-full"
-        style={{
-          background:
-            'radial-gradient(circle, rgba(98, 185, 213, 0.14) 0%, rgba(7, 95, 54, 0.05) 48%, transparent 74%)',
-        }}
-      />
-
-      <svg
-        aria-hidden="true"
-        className="pointer-events-none absolute right-0 top-10 hidden h-[440px] w-[440px] text-brand-green/[0.06] lg:block"
-        viewBox="0 0 400 400"
-        fill="none"
-      >
-        <path
-          d="M40 360C110 220 220 120 385 55"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeDasharray="6 8"
-        />
-        <circle cx="320" cy="110" r="145" stroke="currentColor" strokeWidth="1" />
-      </svg>
-
-      <div className="container-editorial relative z-10 grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-center lg:gap-x-12 lg:gap-y-5">
-        {/* Bloco 1: Rótulo + Título principal */}
+      <div className="container-editorial grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-center lg:gap-x-14 lg:gap-y-5">
+        {/* Bloco 1: Localização tipográfica discreta (sem cápsula nem bolinha) + Título principal */}
         <div
           className={`hero-settle ${
             hidePhotoBlock
@@ -53,12 +20,10 @@ export function HeroSection() {
               : 'lg:col-span-6 lg:col-start-1 lg:row-start-1 lg:self-end'
           }`}
         >
-          <div className="inline-flex items-center gap-2 rounded-full border border-brand-green/20 bg-white/90 px-3.5 py-1 shadow-sm">
-            <span className="h-2 w-2 rounded-full bg-brand-green" aria-hidden="true" />
-            <span className="font-display text-xs font-extrabold uppercase tracking-[0.14em] text-brand-dark">
-              {HERO_CONTENT.eyebrow}
-            </span>
-          </div>
+          <p className="inline-flex items-center gap-3 font-display text-xs font-extrabold uppercase tracking-[0.18em] text-brand-green">
+            <span className="h-px w-6 bg-brand-green" aria-hidden="true" />
+            <span>{HERO_CONTENT.eyebrow}</span>
+          </p>
 
           <h1
             id="hero-heading"
@@ -68,56 +33,42 @@ export function HeroSection() {
           </h1>
         </div>
 
-        {/* Bloco 2: Fotografia principal (oculta por completo em produção se ausente) */}
+        {/* Bloco 2: Fotografia limpa e protagonista, sem camadas de brilho nem caixas deslocadas */}
         {!hidePhotoBlock && (
           <figure
-            className="hero-settle relative lg:col-span-6 lg:col-start-7 lg:row-span-2 lg:row-start-1"
-            style={{ animationDelay: '90ms' }}
+            className="hero-settle lg:col-span-6 lg:col-start-7 lg:row-span-2 lg:row-start-1"
+            style={{ animationDelay: '70ms' }}
           >
-            <div
-              aria-hidden="true"
-              className="ambient-breathe-slow pointer-events-none absolute -inset-4 rounded-2xl"
-              style={{
-                background:
-                  'radial-gradient(circle at 60% 45%, rgba(237, 200, 75, 0.22), rgba(98, 185, 213, 0.08) 55%, transparent 78%)',
-              }}
+            <PhotoSlot
+              src={HERO_CONTENT.imageSrc}
+              alt={HERO_CONTENT.imageAlt}
+              photoGuide={HERO_CONTENT.photoGuide}
+              width={1200}
+              height={960}
+              aspectClass="aspect-[16/10] sm:aspect-[4/3] lg:aspect-[5/4]"
+              objectPosition="object-[50%_20%]"
+              className="border-b-4 border-brand-yellow shadow-[0_18px_40px_-24px_rgba(18,59,43,0.28)]"
+              priority
+              onMissing={() => setPhotoMissing(true)}
             />
 
-            <div className="relative rounded-xl border border-brand-dark/10 bg-white/80 p-2 shadow-editorial sm:p-2.5">
-              <div
-                aria-hidden="true"
-                className="absolute -bottom-2 -right-2 left-10 top-10 -z-10 rounded-xl border border-brand-yellow/80 bg-brand-yellow/20"
-              />
-              <PhotoSlot
-                src={HERO_CONTENT.imageSrc}
-                alt={HERO_CONTENT.imageAlt}
-                photoGuide={HERO_CONTENT.photoGuide}
-                width={1200}
-                height={960}
-                aspectClass="aspect-[16/10] sm:aspect-[4/3] lg:aspect-[5/4]"
-                objectPosition="object-[50%_20%]"
-                priority
-                onMissing={() => setPhotoMissing(true)}
-              />
-            </div>
-
-            <figcaption className="mt-3.5 flex flex-wrap items-center justify-between gap-2 px-1 text-xs font-semibold uppercase tracking-[0.08em] text-brand-muted sm:text-[0.8rem]">
+            <figcaption className="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs font-semibold tracking-wide text-brand-muted sm:text-[0.82rem]">
               <span>Baby Class · Educação Infantil · Ensino Fundamental até o 5º ano</span>
               <span className="font-bold text-brand-green">{SCHOOL_IDENTITY.neighborhood}</span>
             </figcaption>
           </figure>
         )}
 
-        {/* Bloco 3: Proposta institucional + CTAs com hierarquia invertida (WhatsApp primário) */}
+        {/* Bloco 3: Proposta institucional + CTAs limpos */}
         <div
           className={`hero-settle ${
             hidePhotoBlock
               ? 'lg:col-span-9'
               : 'lg:col-span-6 lg:col-start-1 lg:row-start-2 lg:self-start'
           }`}
-          style={{ animationDelay: '150ms' }}
+          style={{ animationDelay: '120ms' }}
         >
-          <p className="text-lead-fluid max-w-[54ch] text-brand-muted">
+          <p className="text-lead-fluid max-w-[52ch] text-brand-muted">
             {HERO_CONTENT.description}
           </p>
 
@@ -126,12 +77,12 @@ export function HeroSection() {
               href={SCHOOL_IDENTITY.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex min-h-[50px] items-center justify-center gap-2.5 rounded-full bg-brand-green px-7 py-3 font-display text-base font-bold text-white shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-dark hover:shadow-[0_14px_28px_-10px_rgba(7,95,54,0.38)] active:scale-[0.985]"
+              className="group inline-flex min-h-[48px] items-center justify-center gap-2 rounded-md bg-brand-green px-6 py-3 font-display text-base font-bold text-white transition-colors duration-150 hover:bg-brand-dark active:scale-[0.985]"
             >
               <span>{HERO_CONTENT.primaryCta}</span>
               <span
                 aria-hidden="true"
-                className="transition-transform duration-200 group-hover:translate-x-1"
+                className="transition-transform duration-150 group-hover:translate-x-1"
               >
                 →
               </span>
@@ -140,7 +91,7 @@ export function HeroSection() {
 
             <a
               href="#nossa-historia"
-              className="inline-flex min-h-[50px] items-center justify-center rounded-full border-2 border-brand-dark/25 bg-white/95 px-7 py-3 font-display text-base font-bold text-brand-dark transition-all duration-200 hover:-translate-y-0.5 hover:border-brand-dark hover:bg-brand-cream active:scale-[0.985]"
+              className="inline-flex min-h-[48px] items-center justify-center rounded-md border border-brand-dark/25 bg-white px-6 py-3 font-display text-base font-bold text-brand-dark transition-colors duration-150 hover:border-brand-dark hover:bg-brand-cream active:scale-[0.985]"
             >
               {HERO_CONTENT.secondaryCta}
             </a>

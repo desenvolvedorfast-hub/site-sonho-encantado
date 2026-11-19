@@ -101,7 +101,6 @@ export function GallerySection() {
                     height={height}
                     aspectClass={aspectClass}
                     objectPosition="object-[50%_20%]"
-                    className="shadow-card"
                     onMissing={() =>
                       setMissingIds((prev) => ({ ...prev, [photo.id]: true }))
                     }

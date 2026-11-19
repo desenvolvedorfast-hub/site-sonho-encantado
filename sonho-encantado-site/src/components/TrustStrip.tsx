@@ -5,7 +5,7 @@ export function TrustStrip() {
   return (
     <section
       aria-label="Informações principais da escola"
-      className="border-y border-brand-dark/20 border-t-2 border-t-brand-yellow/55 bg-brand-dark py-6 text-brand-paper sm:py-8"
+      className="border-y border-brand-dark/20 bg-brand-dark py-6 text-brand-paper sm:py-8"
     >
       <div className="container-editorial">
         <Reveal>

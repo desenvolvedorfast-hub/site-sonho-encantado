@@ -94,7 +94,7 @@ export function Header() {
         id="topo"
         className={`sticky top-0 z-50 w-full border-b transition-shadow duration-200 ${
           scrolled && !menuOpen
-            ? 'border-brand-dark/12 bg-white/95 shadow-card backdrop-blur-sm'
+            ? 'border-brand-dark/12 bg-white/95 shadow-sm backdrop-blur-sm'
             : 'border-brand-dark/8 bg-white'
         }`}
       >
@@ -119,7 +119,7 @@ export function Header() {
               href={SCHOOL_IDENTITY.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex min-h-[44px] shrink-0 items-center justify-center rounded-full bg-brand-green px-5 py-2 font-display text-sm font-bold text-white transition-all duration-150 hover:-translate-y-0.5 hover:bg-brand-dark active:scale-[0.98]"
+              className="inline-flex min-h-[44px] shrink-0 items-center justify-center rounded-md bg-brand-green px-5 py-2 font-display text-sm font-bold text-white transition-colors duration-150 hover:bg-brand-dark active:scale-[0.985]"
             >
               Agende uma visita
               <span className="sr-only"> (abre o WhatsApp da escola em nova aba)</span>
@@ -133,7 +133,7 @@ export function Header() {
             aria-controls="menu-movel"
             aria-label={menuOpen ? 'Fechar menu de navegação' : 'Abrir menu de navegação'}
             onClick={() => setMenuOpen((prev) => !prev)}
-            className="inline-flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center rounded-lg border border-brand-dark/15 bg-brand-paper text-brand-dark transition-colors hover:bg-brand-cream lg:hidden"
+            className="inline-flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center rounded-md border border-brand-dark/15 bg-brand-paper text-brand-dark transition-colors hover:bg-brand-cream lg:hidden"
           >
             {menuOpen ? (
               <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true">
@@ -148,7 +148,6 @@ export function Header() {
         </div>
       </header>
 
-      {/* Irmão fora do <header> para não ficar preso ao containing block de backdrop-filter */}
       {menuOpen && (
         <div
           ref={menuPanelRef}
@@ -185,7 +184,7 @@ export function Header() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMenuOpen(false)}
-              className="flex min-h-[48px] w-full items-center justify-center rounded-full bg-brand-green px-5 py-3 font-display text-base font-bold text-white transition-colors hover:bg-brand-dark"
+              className="flex min-h-[48px] w-full items-center justify-center rounded-md bg-brand-green px-5 py-3 font-display text-base font-bold text-white transition-colors hover:bg-brand-dark"
             >
               Agende uma visita
               <span className="sr-only"> (abre o WhatsApp da escola em nova aba)</span>
@@ -193,7 +192,7 @@ export function Header() {
             <a
               href={`mailto:${SCHOOL_IDENTITY.email}`}
               onClick={() => setMenuOpen(false)}
-              className="flex min-h-[44px] w-full items-center justify-center rounded-full border border-brand-dark/20 bg-white px-5 py-2.5 text-sm font-semibold text-brand-dark"
+              className="flex min-h-[44px] w-full items-center justify-center rounded-md border border-brand-dark/20 bg-white px-5 py-2.5 text-sm font-semibold text-brand-dark"
             >
               {SCHOOL_IDENTITY.email}
             </a>

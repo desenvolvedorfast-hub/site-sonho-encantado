@@ -14,14 +14,14 @@ export function EnvironmentSection() {
   return (
     <section
       aria-labelledby="ambiente-heading"
-      className="border-t border-brand-dark/10 bg-brand-paper py-14 sm:py-18 lg:py-24"
+      className="border-t border-brand-dark/10 bg-brand-cream py-14 sm:py-18 lg:py-24"
     >
       <div
         className={`container-editorial grid grid-cols-1 gap-10 ${
           hasPhotos ? 'items-center lg:grid-cols-12 lg:gap-14' : ''
         }`}
       >
-        <Reveal className={hasPhotos ? 'lg:col-span-6' : 'max-w-5xl'}>
+        <Reveal className={hasPhotos ? 'lg:col-span-7' : 'max-w-5xl'}>
           <p className="eyebrow-label">{ENVIRONMENT_CONTENT.eyebrow}</p>
 
           <h2
@@ -31,17 +31,22 @@ export function EnvironmentSection() {
             {ENVIRONMENT_CONTENT.title}
           </h2>
 
-          <p className="text-body-fluid mt-4 max-w-[54ch] text-brand-muted">
+          <p className="text-body-fluid mt-4 max-w-[60ch] text-brand-muted">
             {ENVIRONMENT_CONTENT.description}
           </p>
 
           <dl
             className={`mt-9 grid grid-cols-1 gap-x-8 gap-y-7 sm:grid-cols-2 ${
-              !hasPhotos ? 'lg:grid-cols-4' : ''
+              !hasPhotos ? 'lg:grid-cols-3' : ''
             }`}
           >
             {ENVIRONMENT_CONTENT.pillars.map((pillar, idx) => (
-              <div key={pillar.title} className="border-t border-brand-dark/18 pt-4">
+              <div
+                key={pillar.title}
+                className={`border-t border-brand-dark/18 pt-4 ${
+                  idx === ENVIRONMENT_CONTENT.pillars.length - 1 ? 'sm:col-span-2 lg:col-span-2' : ''
+                }`}
+              >
                 <dt className="font-display text-base font-extrabold text-brand-dark sm:text-[1.06rem]">
                   <span className="mb-1 block font-display text-xs font-extrabold tracking-[0.14em] text-brand-green">
                     0{idx + 1}
@@ -59,28 +64,25 @@ export function EnvironmentSection() {
         {hasPhotos && (
           <Reveal
             delayMs={90}
-            className={`grid grid-cols-1 gap-6 lg:col-span-6 ${
-              visiblePhotos.length === 2 ? 'sm:grid-cols-2' : 'max-w-md'
+            className={`grid grid-cols-1 gap-6 lg:col-span-5 ${
+              visiblePhotos.length === 2 ? 'sm:grid-cols-2 lg:grid-cols-1' : 'max-w-md'
             }`}
           >
             {visiblePhotos.map((photo, idx) => (
-              <figure
-                key={photo.src}
-                className={visiblePhotos.length === 2 && idx === 1 ? 'sm:mt-8' : ''}
-              >
+              <figure key={photo.src}>
                 <PhotoSlot
                   src={photo.src}
                   alt={photo.alt}
                   photoGuide={photo.photoGuide}
                   width={1000}
-                  height={1100}
-                  aspectClass={idx === 0 ? 'aspect-[4/4.2]' : 'aspect-[4/4.6]'}
+                  height={idx === 0 ? 750 : 850}
+                  aspectClass={idx === 0 ? 'aspect-[4/3]' : 'aspect-[16/10]'}
                   objectPosition="object-[50%_25%]"
                   onMissing={() =>
                     setMissingSrcs((prev) => ({ ...prev, [photo.src]: true }))
                   }
                 />
-                <figcaption className="mt-2.5 text-sm font-medium text-brand-muted">
+                <figcaption className="mt-2 text-sm font-medium text-brand-muted">
                   {photo.caption}
                 </figcaption>
               </figure>

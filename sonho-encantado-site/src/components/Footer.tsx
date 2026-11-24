@@ -9,7 +9,7 @@ export function Footer() {
           <div className="md:col-span-5">
             <BrandLogo tone="light" compact />
             <p className="mt-3 max-w-sm text-sm leading-relaxed text-[#DCE7E1]">
-              Há mais de 18 anos acolhendo crianças do Baby Class ao 5º ano no bairro do Guamá, Belém/PA.
+              Há aproximadamente 20 anos acolhendo crianças do Baby Class ao 5º ano no bairro do Guamá, Belém/PA.
             </p>
           </div>
 

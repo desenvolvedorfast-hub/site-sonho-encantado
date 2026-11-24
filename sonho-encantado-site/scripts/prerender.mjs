@@ -2,6 +2,8 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
+const DEFAULT_SITE_URL = 'https://colegiosonhoencantado.com.br';
+
 function parseEnvFile(content) {
   const vars = {};
   for (const rawLine of content.split(/\r?\n/)) {
@@ -32,8 +34,16 @@ async function loadEnv() {
       // Arquivo opcional ausente
     }
   }
+  const rawSiteUrl = (
+    process.env.VITE_SITE_URL ??
+    envVars.VITE_SITE_URL ??
+    DEFAULT_SITE_URL
+  )
+    .trim()
+    .replace(/\/+$/, '');
+
   return {
-    siteUrl: (process.env.VITE_SITE_URL ?? envVars.VITE_SITE_URL ?? '').trim().replace(/\/+$/, ''),
+    siteUrl: rawSiteUrl || DEFAULT_SITE_URL,
     cfBeaconToken: (
       process.env.VITE_CF_BEACON_TOKEN ??
       envVars.VITE_CF_BEACON_TOKEN ??
@@ -118,8 +128,6 @@ async function main() {
     ]);
   } else {
     finalHtml = finalHtml.replace(/\s*<!-- PRERENDER_META -->/, '');
-    await fs.writeFile(path.join(distDir, 'robots.txt'), 'User-agent: *\nAllow: /\n', 'utf8');
-    await fs.rm(path.join(distDir, 'sitemap.xml'), { force: true });
   }
 
   if (cfBeaconToken) {
@@ -131,7 +139,7 @@ async function main() {
   }
 
   await fs.writeFile(htmlPath, finalHtml, 'utf8');
-  console.log('✓ Pré-render estático concluído em dist/index.html');
+  console.log('✓ Pré-render estático concluído em dist/index.html, dist/robots.txt e dist/sitemap.xml');
 }
 
 main().catch((error) => {

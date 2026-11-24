@@ -7,69 +7,54 @@ import {
 import { Reveal } from './Reveal';
 import { VideoSlot } from './VideoSlot';
 
-const SERVICE_STYLE_MAP: Record<
-  string,
-  {
-    cardSurface: string;
-    leftBorder: string;
-    badge: string;
-    iconBox: string;
-  }
-> = {
-  psicologia: {
-    cardSurface: 'bg-white',
-    leftBorder: 'border-l-brand-blue',
-    badge: 'bg-brand-blue-soft text-brand-dark',
-    iconBox: 'bg-brand-blue-soft/80 text-brand-dark',
-  },
-  psicopedagogia: {
-    cardSurface: 'bg-white',
-    leftBorder: 'border-l-brand-green',
-    badge: 'bg-brand-green/10 text-brand-green',
-    iconBox: 'bg-brand-green/10 text-brand-green',
-  },
-  musicoterapia: {
-    cardSurface: 'bg-white',
-    leftBorder: 'border-l-brand-dark',
-    badge: 'bg-brand-paper text-brand-dark border border-brand-dark/15',
-    iconBox: 'bg-brand-paper text-brand-dark',
-  },
-  'reforco-escolar': {
-    cardSurface: 'bg-[#FFFDF6]',
-    leftBorder: 'border-l-brand-yellow',
-    badge: 'bg-brand-yellow/40 text-brand-dark',
-    iconBox: 'bg-brand-yellow/35 text-brand-dark',
-  },
-};
+interface ServiceBlockConfig {
+  number: string;
+  id: string;
+  title: string;
+  description: string;
+  highlights: string[];
+  note?: string;
+  surfaceClass: string;
+  topRuleClass: string;
+  numberClass: string;
+  titleClass: string;
+  bodyClass: string;
+  highlightBorderClass: string;
+  highlightTextClass: string;
+  iconColorClass: string;
+  noteClass: string;
+}
 
-function getServiceIcon(id: string): ReactNode {
-  const cls = 'h-5 w-5 shrink-0';
+function getEditorialMotif(id: string, colorClass: string): ReactNode {
+  const cls = `h-6 w-6 shrink-0 ${colorClass}`;
   switch (id) {
     case 'psicologia':
+      // Linhas de acolhimento e escuta
       return (
-        <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" aria-hidden="true">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M12 20s-7-4.4-7-9.6A4.2 4.2 0 0 1 12 7.5a4.2 4.2 0 0 1 7 2.9C19 15.6 12 20 12 20z" />
+        <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden="true">
+          <path strokeLinecap="round" d="M4 13c2.5-4 6-4 8 0s5.5 4 8 0" />
+          <path strokeLinecap="round" d="M6.5 8.5c2-2.8 4.8-2.8 5.5 0M12 8.5c1-2.8 3.8-2.8 5.5 0" />
         </svg>
       );
     case 'psicopedagogia':
+      // Percurso aberto de leitura e aprendizagem
       return (
-        <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" aria-hidden="true">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M4 6.5A2.5 2.5 0 0 1 6.5 4H12v16H6.5A2.5 2.5 0 0 0 4 22V6.5zM20 6.5A2.5 2.5 0 0 0 17.5 4H12v16h5.5A2.5 2.5 0 0 1 20 22V6.5z" />
+        <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden="true">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M4 6.5A2.5 2.5 0 0 1 6.5 4H12v15.5H6.5A2.5 2.5 0 0 0 4 21.5v-15zM20 6.5A2.5 2.5 0 0 0 17.5 4H12v15.5h5.5a2.5 2.5 0 0 1 2.5 2v-15z" />
         </svg>
       );
     case 'musicoterapia':
+      // Ondas sonoras e expressão
       return (
-        <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" aria-hidden="true">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9 17.5V7l9-2v10.5" />
-          <circle cx="7" cy="18" r="2.5" />
-          <circle cx="16" cy="16" r="2.5" />
+        <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden="true">
+          <path strokeLinecap="round" d="M4 12v0M8 8v8M12 5v14M16 9v6M20 12v0" />
         </svg>
       );
     default:
-      // Reforço Escolar
+      // Reforço Escolar (linhas de caderno / escrita)
       return (
-        <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" aria-hidden="true">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M14 4l6 6-9.5 9.5H4.5v-6L14 4zM11.5 6.5l6 6" />
+        <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden="true">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M5 7h14M5 12h10M5 17h7M15.5 18.5l4-4-2-2-4 4v2h2z" />
         </svg>
       );
   }
@@ -77,19 +62,97 @@ function getServiceIcon(id: string): ReactNode {
 
 export function ComplementaryServicesSection() {
   const hasAuthorizedVideo = INSTITUTIONAL_VIDEOS.some((video) => video.authorized);
-  const allServices = [
-    ...COMPLEMENTARY_SERVICES_CONTENT.therapeuticServices,
-    COMPLEMENTARY_SERVICES_CONTENT.tutoringService,
+  const { therapeuticServices, tutoringService } = COMPLEMENTARY_SERVICES_CONTENT;
+
+  const findService = (id: string) =>
+    therapeuticServices.find((item) => item.id === id) ?? therapeuticServices[0];
+
+  const psicologia = findService('psicologia');
+  const psicopedagogia = findService('psicopedagogia');
+  const musicoterapia = findService('musicoterapia');
+
+  const editorialBlocks: ServiceBlockConfig[] = [
+    {
+      number: '01',
+      id: 'psicologia',
+      title: psicologia.title,
+      description: psicologia.description,
+      highlights: ['Acompanhamento emocional', 'Acolhimento e relações interpessoais'],
+      surfaceClass: 'bg-white border border-brand-dark/12',
+      topRuleClass: 'border-t-4 border-t-brand-blue',
+      numberClass: 'text-brand-green',
+      titleClass: 'text-brand-dark',
+      bodyClass: 'text-brand-ink',
+      highlightBorderClass: 'border-l-brand-blue',
+      highlightTextClass: 'text-brand-dark',
+      iconColorClass: 'text-brand-green',
+      noteClass: 'text-brand-muted',
+    },
+    {
+      number: '02',
+      id: 'psicopedagogia',
+      title: psicopedagogia.title,
+      description: psicopedagogia.description,
+      highlights: ['Processos de aprendizagem', 'Apoio às dificuldades escolares'],
+      surfaceClass: 'bg-brand-cream/85 border border-brand-dark/12',
+      topRuleClass: 'border-t-4 border-t-brand-green',
+      numberClass: 'text-brand-green',
+      titleClass: 'text-brand-dark',
+      bodyClass: 'text-brand-ink',
+      highlightBorderClass: 'border-l-brand-green',
+      highlightTextClass: 'text-brand-dark',
+      iconColorClass: 'text-brand-green',
+      noteClass: 'text-brand-muted',
+    },
+    {
+      number: '03',
+      id: 'musicoterapia',
+      title: musicoterapia.title,
+      description: musicoterapia.description,
+      highlights: [
+        'Comunicação e expressão',
+        'Acompanhamento terapêutico por recursos musicais',
+      ],
+      note: musicoterapia.note,
+      surfaceClass: 'bg-brand-dark border border-brand-dark text-brand-paper',
+      topRuleClass: 'border-t-4 border-t-brand-yellow',
+      numberClass: 'text-brand-yellow',
+      titleClass: 'text-white',
+      bodyClass: 'text-[#E1ECE6]',
+      highlightBorderClass: 'border-l-brand-yellow',
+      highlightTextClass: 'text-brand-paper',
+      iconColorClass: 'text-brand-yellow',
+      noteClass: 'text-[#C8D8D0] border-brand-paper/15',
+    },
+    {
+      number: '04',
+      id: 'reforco-escolar',
+      title: tutoringService.title,
+      description: tutoringService.description,
+      highlights: [
+        'Leitura, escrita e raciocínio',
+        'Apoio pedagógico complementar (presencial ou online, sujeito à confirmação)',
+      ],
+      surfaceClass: 'bg-[#FAF6E6] border border-brand-dark/14',
+      topRuleClass: 'border-t-4 border-t-brand-yellow',
+      numberClass: 'text-brand-dark',
+      titleClass: 'text-brand-dark',
+      bodyClass: 'text-brand-ink',
+      highlightBorderClass: 'border-l-brand-yellow',
+      highlightTextClass: 'text-brand-dark',
+      iconColorClass: 'text-brand-dark',
+      noteClass: 'text-brand-muted',
+    },
   ];
 
   return (
     <section
       id="servicos-unidade-2"
       aria-labelledby="servicos-unidade-2-heading"
-      className="border-t border-brand-dark/10 bg-brand-paper py-14 sm:py-18 lg:py-24"
+      className="border-t border-brand-dark/10 bg-brand-paper py-12 sm:py-16 lg:py-24"
     >
       <div className="container-editorial">
-        {/* Cabeçalho com hierarquia clara */}
+        {/* Cabeçalho editorial */}
         <Reveal>
           <div className="grid grid-cols-1 gap-5 lg:grid-cols-12 lg:items-end">
             <div className="lg:col-span-6">
@@ -102,96 +165,75 @@ export function ComplementaryServicesSection() {
               </h2>
             </div>
 
-            <p className="text-body-fluid text-brand-muted lg:col-span-6">
-              {COMPLEMENTARY_SERVICES_CONTENT.intro}
-            </p>
+            <div className="lg:col-span-6">
+              <p className="text-body-fluid text-brand-muted">
+                {COMPLEMENTARY_SERVICES_CONTENT.intro}
+              </p>
+              <p className="mt-3 border-l-2 border-brand-blue pl-3.5 text-sm font-medium text-brand-dark">
+                Atendimentos realizados na Unidade II de forma independente, sem substituir o ensino regular.
+              </p>
+            </div>
           </div>
         </Reveal>
 
-        {/* Bloco informativo destacando o caráter complementar e independente do ensino regular */}
-        <Reveal delayMs={50}>
-          <div className="mt-8 flex items-start gap-3.5 rounded-lg border border-brand-blue/40 border-l-4 border-l-brand-blue bg-brand-blue-soft/60 p-4 sm:p-5">
-            <svg
-              className="mt-0.5 h-5 w-5 shrink-0 text-brand-dark"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              aria-hidden="true"
-            >
-              <circle cx="12" cy="12" r="9.5" />
-              <path strokeLinecap="round" d="M12 10.5v5.5M12 7.5h.01" />
-            </svg>
-            <p className="text-sm leading-relaxed text-brand-ink sm:text-[0.96rem]">
-              <strong className="font-display font-bold text-brand-dark">
-                Atendimento complementar na Unidade II:
-              </strong>{' '}
-              estes serviços funcionam de modo independente do ensino regular, não substituem a escolarização e têm formato, vagas e horários confirmados diretamente pela secretaria da unidade.
-            </p>
-          </div>
-        </Reveal>
+        {/* Nova composição editorial em grade 2x2 no desktop (1 coluna no mobile) */}
+        <Reveal delayMs={70}>
+          <div className="mt-9 grid grid-cols-1 gap-5 md:grid-cols-2 lg:mt-11 lg:gap-7">
+            {editorialBlocks.map((block) => (
+              <article
+                key={block.id}
+                className={`flex h-full flex-col justify-between rounded-sm p-6 transition-transform duration-200 motion-reduce:transition-none lg:p-8 lg:hover:-translate-y-0.5 ${block.surfaceClass} ${block.topRuleClass}`}
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-4">
+                    <span
+                      className={`font-display text-2xl font-extrabold tracking-tight sm:text-[1.75rem] ${block.numberClass}`}
+                    >
+                      {block.number}
+                    </span>
 
-        {/* Grade modular 2x2 no desktop/tablet, 1 por linha no mobile */}
-        <Reveal delayMs={80}>
-          <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-7">
-            {allServices.map((service) => {
-              const style = SERVICE_STYLE_MAP[service.id] ?? SERVICE_STYLE_MAP.psicologia;
-
-              return (
-                <article
-                  key={service.id}
-                  className={`flex h-full flex-col justify-between rounded-lg border border-brand-dark/12 border-l-4 p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-brand-dark/25 hover:shadow-card sm:p-7 ${style.cardSurface} ${style.leftBorder}`}
-                >
-                  <div>
-                    <div className="flex items-center justify-between gap-3">
-                      <span
-                        className={`inline-block rounded-md px-2.5 py-1 font-display text-[0.72rem] font-extrabold uppercase tracking-[0.12em] ${style.badge}`}
-                      >
-                        {service.category}
-                      </span>
-
-                      <span
-                        className={`inline-flex h-9 w-9 items-center justify-center rounded-md ${style.iconBox}`}
-                      >
-                        {getServiceIcon(service.id)}
-                      </span>
-                    </div>
-
-                    <h3 className="mt-4 font-display text-2xl font-extrabold text-brand-dark sm:text-[1.7rem]">
-                      {service.title}
-                    </h3>
-
-                    <p className="text-body-fluid mt-2.5 text-brand-ink">
-                      {service.description}
-                    </p>
-
-                    {service.note && (
-                      <p className="mt-3 border-l-2 border-brand-blue/70 pl-3 text-xs font-semibold leading-relaxed text-brand-dark sm:text-[0.82rem]">
-                        {service.note}
-                      </p>
-                    )}
+                    {getEditorialMotif(block.id, block.iconColorClass)}
                   </div>
 
-                  {/* Palavras-chave / diferenciais práticos */}
-                  <ul className="mt-5 flex flex-wrap gap-2 border-t border-brand-dark/10 pt-4">
-                    {service.details.map((item) => (
+                  <h3
+                    className={`mt-4 font-display text-2xl font-extrabold sm:text-[1.8rem] ${block.titleClass}`}
+                  >
+                    {block.title}
+                  </h3>
+
+                  <p className={`text-body-fluid mt-3 max-w-[46ch] ${block.bodyClass}`}>
+                    {block.description}
+                  </p>
+                </div>
+
+                <div className="mt-6 space-y-4">
+                  <ul className="space-y-2">
+                    {block.highlights.map((item) => (
                       <li
                         key={item}
-                        className="rounded-md border border-brand-dark/12 bg-brand-paper/85 px-2.5 py-1 text-xs font-semibold text-brand-dark"
+                        className={`border-l-2 pl-3 text-[0.95rem] font-semibold leading-snug ${block.highlightBorderClass} ${block.highlightTextClass}`}
                       >
                         {item}
                       </li>
                     ))}
                   </ul>
-                </article>
-              );
-            })}
+
+                  {block.note && (
+                    <p
+                      className={`border-t pt-3 text-xs font-medium leading-relaxed ${block.noteClass}`}
+                    >
+                      {block.note}
+                    </p>
+                  )}
+                </div>
+              </article>
+            ))}
           </div>
         </Reveal>
 
-        {/* Faixa final integrada com observação de disponibilidade + CTA destacado */}
-        <Reveal delayMs={120}>
-          <div className="mt-8 flex flex-col items-start justify-between gap-5 rounded-lg border border-brand-dark/12 bg-white p-5 sm:p-6 md:flex-row md:items-center">
+        {/* Faixa integrada de confirmação e contato da Unidade II */}
+        <Reveal delayMs={110}>
+          <div className="mt-8 flex flex-col items-start justify-between gap-5 border-t border-brand-dark/15 pt-6 md:flex-row md:items-center">
             <p className="max-w-2xl text-sm leading-relaxed text-brand-muted">
               {COMPLEMENTARY_SERVICES_CONTENT.disclaimer}
             </p>
@@ -200,7 +242,7 @@ export function ComplementaryServicesSection() {
               href={SCHOOL_IDENTITY.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex min-h-[48px] w-full shrink-0 items-center justify-center gap-2 rounded-md bg-brand-green px-6 py-3 font-display text-sm font-bold text-white shadow-card transition-all duration-150 hover:-translate-y-0.5 hover:bg-brand-dark active:scale-[0.985] md:w-auto"
+              className="group inline-flex min-h-[48px] w-full shrink-0 items-center justify-center gap-2 rounded-md bg-brand-green px-6 py-3 font-display text-sm font-bold text-white transition-colors duration-150 hover:bg-brand-dark active:scale-[0.985] md:w-auto"
             >
               <span>{COMPLEMENTARY_SERVICES_CONTENT.ctaLabel}</span>
               <span

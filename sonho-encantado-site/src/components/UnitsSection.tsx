@@ -6,7 +6,7 @@ export function UnitsSection() {
     <section
       id="unidades"
       aria-labelledby="unidades-heading"
-      className="border-t border-brand-dark/10 bg-brand-cream/75 py-12 sm:py-16 lg:py-20"
+      className="border-t border-brand-dark/10 bg-white py-12 sm:py-16 lg:py-20"
     >
       <div className="container-editorial">
         <Reveal>
@@ -26,11 +26,11 @@ export function UnitsSection() {
             <Reveal
               key={unit.id}
               delayMs={idx * 80}
-              className={unit.therapeuticNote ? 'lg:col-span-7' : 'lg:col-span-5'}
+              className={unit.complementaryAnchor ? 'lg:col-span-7' : 'lg:col-span-5'}
             >
               <article
                 className={`flex h-full flex-col justify-between rounded-lg border border-brand-dark/15 p-6 sm:p-8 ${
-                  unit.therapeuticNote ? 'bg-white' : 'bg-brand-paper'
+                  unit.complementaryAnchor ? 'bg-brand-paper' : 'bg-brand-cream/75'
                 }`}
               >
                 <div>
@@ -54,25 +54,20 @@ export function UnitsSection() {
                     {unit.summary}
                   </p>
 
-                  {unit.therapeuticNote && (
-                    <div className="mt-6 border-l-2 border-brand-blue bg-brand-blue-soft/60 p-4 sm:p-5">
+                  {unit.complementaryAnchor && (
+                    <div className="mt-5 border-l-2 border-brand-blue bg-brand-blue-soft/65 p-4">
                       <p className="font-display text-xs font-extrabold uppercase tracking-[0.14em] text-brand-dark">
-                        {unit.therapeuticNote.badge}
+                        {unit.complementaryAnchor.badge}
                       </p>
-                      <h4 className="mt-1.5 font-display text-base font-extrabold text-brand-dark sm:text-lg">
-                        {unit.therapeuticNote.title}
-                      </h4>
                       <p className="mt-1.5 text-sm leading-relaxed text-brand-ink">
-                        {unit.therapeuticNote.description}
+                        {unit.complementaryAnchor.summary}
                       </p>
-
-                      <p className="mt-3 font-display text-sm font-bold text-brand-dark">
-                        {unit.therapeuticNote.services.join(' · ')}
-                      </p>
-
-                      <p className="mt-2.5 text-xs leading-relaxed text-brand-muted">
-                        {unit.therapeuticNote.disclaimer}
-                      </p>
+                      <a
+                        href={unit.complementaryAnchor.href}
+                        className="mt-2 inline-block font-display text-sm font-bold text-brand-green underline underline-offset-4 hover:text-brand-dark"
+                      >
+                        {unit.complementaryAnchor.ctaLabel}
+                      </a>
                     </div>
                   )}
                 </div>

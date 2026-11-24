@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-# Substituir pelo domínio definitivo quando publicado:
-# Sitemap: https://SEU-DOMINIO-AQUI.com.br/sitemap.xml
+Sitemap: https://colegiosonhoencantado.com.br/sitemap.xml

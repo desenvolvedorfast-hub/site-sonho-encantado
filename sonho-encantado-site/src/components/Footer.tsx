@@ -1,4 +1,4 @@
-import { NAVIGATION_ITEMS, SCHOOL_IDENTITY } from '../data/schoolContent';
+import { NAVIGATION_ITEMS, SCHOOL_IDENTITY, SCHOOL_UNITS } from '../data/schoolContent';
 import { BrandLogo } from './BrandLogo';
 
 export function Footer() {
@@ -9,7 +9,7 @@ export function Footer() {
           <div className="md:col-span-5">
             <BrandLogo tone="light" compact />
             <p className="mt-3 max-w-sm text-sm leading-relaxed text-[#DCE7E1]">
-              Há aproximadamente 20 anos acolhendo crianças do Baby Class ao 5º ano no bairro do Guamá, Belém/PA.
+              Há mais de 18 anos acolhendo crianças do Baby Class ao 5º ano no bairro do Guamá, Belém/PA.
             </p>
           </div>
 
@@ -56,7 +56,7 @@ export function Footer() {
                 rel="noopener noreferrer"
                 className="font-semibold text-white underline decoration-white/30 underline-offset-4 hover:text-brand-yellow"
               >
-                Instagram
+                Instagram {SCHOOL_IDENTITY.instagramHandle}
               </a>
               <a
                 href={`mailto:${SCHOOL_IDENTITY.email}`}
@@ -67,12 +67,23 @@ export function Footer() {
             </div>
 
             <p className="mt-3 text-xs leading-relaxed text-[#C5D5CD]">
-              Duas unidades no Guamá, Belém/PA (Unidade I e Unidade II).{' '}
+              Duas unidades no Guamá:{' '}
               <a
-                href="#unidades"
+                href={SCHOOL_UNITS[0].mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="font-semibold text-brand-yellow underline underline-offset-4 hover:text-white"
               >
-                Ver endereços e mapas ↑
+                Unidade I (Mapa)
+              </a>{' '}
+              ·{' '}
+              <a
+                href={SCHOOL_UNITS[1].mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-brand-yellow underline underline-offset-4 hover:text-white"
+              >
+                Unidade II (Mapa)
               </a>
             </p>
           </div>

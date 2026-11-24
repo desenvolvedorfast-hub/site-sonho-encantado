@@ -14,64 +14,21 @@ export function GallerySection() {
     return null;
   }
 
-  const gridClass =
-    visiblePhotos.length === 1
-      ? 'grid-cols-1 max-w-3xl'
-      : visiblePhotos.length === 2
-        ? 'grid-cols-1 md:grid-cols-2'
-        : visiblePhotos.length === 3
-          ? 'grid-cols-1 md:grid-cols-3'
-          : 'grid-cols-1 md:grid-cols-12';
-
-  const getLayout = (index: number) => {
-    if (visiblePhotos.length < 4) {
-      return {
-        spanClass: '',
-        aspectClass: 'aspect-[4/3]',
-        width: 1200,
-        height: 900,
-      };
-    }
-
-    if (index === 0) {
-      return {
-        spanClass: 'md:col-span-5',
-        aspectClass: 'aspect-[4/3] md:aspect-[5/4]',
-        width: 1000,
-        height: 800,
-      };
-    }
-    if (index === 1) {
-      return {
-        spanClass: 'md:col-span-7',
-        aspectClass: 'aspect-[16/10]',
-        width: 1280,
-        height: 800,
-      };
-    }
-    return {
-      spanClass: 'md:col-span-6',
-      aspectClass: 'aspect-[4/3]',
-      width: 1200,
-      height: 900,
-    };
-  };
-
   return (
     <section
       aria-labelledby="galeria-heading"
-      className="border-t border-brand-dark/10 bg-brand-cream/85 py-12 sm:py-16 lg:py-20"
+      className="border-t border-brand-dark/10 bg-brand-cream/85 py-14 sm:py-18 lg:py-22"
     >
       <div className="container-editorial">
         <Reveal>
           <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
             <div className="max-w-2xl">
-              <p className="eyebrow-label">Galeria Institucional</p>
+              <p className="eyebrow-label">Nossos Ambientes e Vivências</p>
               <h2
                 id="galeria-heading"
                 className="text-section-title mt-3 font-display font-extrabold text-brand-dark"
               >
-                Retratos do nosso cotidiano escolar.
+                Conheça os espaços que acolhem cada descoberta.
               </h2>
             </div>
 
@@ -87,26 +44,57 @@ export function GallerySection() {
         </Reveal>
 
         <Reveal delayMs={80}>
-          <div className={`mt-8 grid gap-6 ${gridClass}`}>
+          <div
+            className={`mt-9 grid gap-6 ${
+              visiblePhotos.length === 1
+                ? 'max-w-3xl grid-cols-1'
+                : visiblePhotos.length === 2
+                  ? 'grid-cols-1 md:grid-cols-2'
+                  : 'grid-cols-1 md:grid-cols-12'
+            }`}
+          >
             {visiblePhotos.map((photo, index) => {
-              const { spanClass, aspectClass, width, height } = getLayout(index);
+              const spanClass =
+                visiblePhotos.length < 3
+                  ? ''
+                  : visiblePhotos.length === 3
+                    ? index === 0
+                      ? 'md:col-span-6'
+                      : 'md:col-span-3'
+                    : index === 0
+                      ? 'md:col-span-7'
+                      : index === 1
+                        ? 'md:col-span-5'
+                        : 'md:col-span-6';
+
+              const aspectClass =
+                index === 0 && visiblePhotos.length >= 3
+                  ? 'aspect-[16/10]'
+                  : 'aspect-[4/3]';
 
               return (
-                <figure key={photo.id} className={`flex flex-col ${spanClass}`}>
+                <figure
+                  key={photo.id}
+                  className={`flex flex-col overflow-hidden rounded-lg border border-brand-dark/12 bg-white shadow-card ${spanClass}`}
+                >
                   <PhotoSlot
                     src={photo.src}
                     alt={photo.alt}
                     photoGuide={photo.photoGuide}
-                    width={width}
-                    height={height}
+                    width={index === 0 ? 1280 : 1200}
+                    height={index === 0 ? 800 : 900}
                     aspectClass={aspectClass}
                     objectPosition="object-[50%_20%]"
+                    className="rounded-none"
                     onMissing={() =>
                       setMissingIds((prev) => ({ ...prev, [photo.id]: true }))
                     }
                   />
-                  <figcaption className="mt-2 text-sm font-medium text-brand-muted">
-                    {photo.caption}
+                  <figcaption className="flex flex-wrap items-center justify-between gap-2 px-4 py-3 text-sm">
+                    <span className="font-semibold text-brand-dark">{photo.caption}</span>
+                    <span className="font-display text-[0.7rem] font-extrabold uppercase tracking-[0.12em] text-brand-green">
+                      {photo.tag}
+                    </span>
                   </figcaption>
                 </figure>
               );

@@ -45,13 +45,21 @@ export interface ActivityItem {
   category: string;
   description: string;
   focusPoints: string[];
+  imageSrc: string;
+  imageAlt: string;
+  photoGuide: PhotoGuide;
 }
 
 export interface MonthlyProject {
   month: string;
   project: string;
   theme: string;
+  summary: string;
+  accentColor: 'yellow' | 'green' | 'blue' | 'dark';
   featured?: boolean;
+  imageSrc?: string;
+  imageAlt?: string;
+  photoGuide?: PhotoGuide;
 }
 
 export interface ComplementaryService {
@@ -100,8 +108,8 @@ export const SCHOOL_IDENTITY = {
   cityState: 'Belém, Pará',
   logoSrc: '/images/logo-sonho-encantado.png',
   email: 'sonhoencantado81@gmail.com',
-  instagramUrl: 'https://www.instagram.com/oficialsonhoencantado/',
-  instagramHandle: '@oficialsonhoencantado',
+  instagramUrl: 'https://www.instagram.com/colegiosonhoencantado/',
+  instagramHandle: '@colegiosonhoencantado',
   whatsappDisplay: '(91) 99824-8944',
   phoneHref: 'tel:+5591998248944',
   whatsappMessage: WHATSAPP_MESSAGE,
@@ -116,29 +124,11 @@ export const NAVIGATION_ITEMS: NavItem[] = [
   { label: 'Contato', href: '#contato' },
 ];
 
-/* ==========================================================================
-   GUIA DE FOTOGRAFIAS E VÍDEOS — INSERÇÃO E SUBSTITUIÇÃO EM public/
-   1. Hero Principal: /images/hero-escola.jpg (5:4 ou 4:3 — ambiente acolhedor ou atividade autorizada)
-   2. Nossa História: /images/historia-escola.jpg (proporção original sem tarjas pretas)
-   3. Etapas de Ensino:
-      - /images/etapa-baby-class.jpg (16:10 — vivência Baby Class)
-      - /images/etapa-infantil.jpg (16:10 — Educação Infantil)
-      - /images/etapa-fundamental.jpg (16:10 — Ensino Fundamental até o 5º ano)
-   4. Experiências (Música): /images/atividade-musica.jpg (16:9 — aula curricular de música)
-   5. Proposta Pedagógica e Ambiente:
-      - /images/ambiente-sala.jpg (4:4.2 — sala de aula iluminada)
-      - /images/ambiente-fachada.jpg (4:4.6 — fachada ou espaço de convivência no Guamá)
-   6. Galeria Institucional: /images/galeria-01.jpg até /images/galeria-04.jpg
-   7. Vídeos institucionais (somente após autorização de imagem e revisão de ano):
-      - /videos/01-apresentacao-pedagogica.mp4 (capa: /images/capa-video-pedagogico.jpg)
-      - /videos/02-equipe-e-acolhimento-vertical.mp4 (capa: /images/capa-video-equipe.jpg)
-   ========================================================================== */
-
 export const HERO_CONTENT = {
   eyebrow: 'Guamá · Belém, Pará',
   headline: 'O começo de grandes descobertas.',
   description:
-    'Há aproximadamente 20 anos acolhendo famílias no Guamá, do Baby Class ao 5º ano do Ensino Fundamental, com rotina acolhedora e aprendizagem ativa.',
+    'Há mais de 18 anos acolhendo famílias no Guamá, do Baby Class ao 5º ano do Ensino Fundamental, com rotina acolhedora e aprendizagem ativa.',
   primaryCta: 'Fale com a secretaria',
   secondaryCta: 'Conheça nossa escola',
   imageSrc: '/images/hero-escola.jpg',
@@ -153,7 +143,7 @@ export const HERO_CONTENT = {
 
 export const TRUST_STRIP_ITEMS: TrustItem[] = [
   {
-    highlight: 'Aproximadamente 20 anos',
+    highlight: 'Mais de 18 anos',
     description: 'de atuação educacional junto às famílias do Guamá.',
   },
   {
@@ -168,12 +158,12 @@ export const TRUST_STRIP_ITEMS: TrustItem[] = [
 
 export const HISTORY_CONTENT = {
   eyebrow: 'Nossa História',
-  title: 'Quase duas décadas de vínculo próximo com as famílias do Guamá.',
+  title: 'Mais de 18 anos de história e vínculo próximo com as famílias do Guamá.',
   paragraphs: [
-    'O Centro Educacional Sonho Encantado — conhecido na comunidade como Colégio Sonho Encantado — atua há aproximadamente 20 anos no bairro do Guamá, em Belém, com foco no desenvolvimento integral das crianças.',
-    'Trabalhamos em parceria próxima com pais e responsáveis para oferecer uma rotina organizada e acolhedora, unindo experiências práticas, escuta atenta e acompanhamento contínuo do Baby Class ao 5º ano do Ensino Fundamental.',
+    'O Centro Educacional Sonho Encantado — conhecido na comunidade como Colégio Sonho Encantado — atua há mais de 18 anos no bairro do Guamá, em Belém, com compromisso com o desenvolvimento integral de cada criança.',
+    'Somos uma escola cristã que acredita na educação como um caminho de conhecimento, valores e formação humana. Unimos aprendizagem, acolhimento e princípios como amor ao próximo, respeito, solidariedade, responsabilidade e valorização da família.',
   ],
-  quote: 'Educando para o Futuro com acolhimento, parceria com as famílias e respeito à infância.',
+  quote: 'Educando para o Futuro com fé, acolhimento, parceria com as famílias e respeito à infância.',
   ctaLabel: 'Conversar sobre matrículas',
   imageSrc: '/images/historia-escola.jpg',
   imageAlt: 'Registro institucional do Centro Educacional Sonho Encantado',
@@ -255,11 +245,12 @@ export const TEACHING_STAGES: TeachingStage[] = [
 ];
 
 export const PROJECTS_CONTENT = {
-  eyebrow: 'Projetos que encantam',
-  title: 'Aprender, Criar e Encantar ao longo de todo o ano.',
+  eyebrow: 'Projetos que Encantam',
+  conceptName: 'Aprender, Criar e Encantar',
+  title: 'Um projeto temático por mês para aprender criando.',
   description:
-    'O planejamento anual organiza um projeto temático por mês, desenvolvido às sextas-feiras em cerca de quatro a cinco encontros. Cada tema integra linguagem, matemática, natureza e sociedade, inglês, arte, valores e socialização.',
-  fridayRoutineLabel: 'Roteiro das sextas-feiras',
+    'Às sextas-feiras, em cerca de quatro a cinco encontros mensais, as turmas vivenciam temas que integram linguagem, matemática, natureza e sociedade, inglês, arte, valores e socialização.',
+  fridayRoutineLabel: 'Como funciona cada sexta-feira',
   fridayRoutineSteps: [
     'Roda de conversa',
     'Atividade principal',
@@ -273,65 +264,89 @@ export const PROJECTS_CONTENT = {
       month: 'Janeiro',
       project: 'Volta às aulas',
       theme: 'Minha Escola, Meu Lugar Feliz',
+      summary: 'Acolhimento inicial, reconhecimento dos espaços escolares e criação de novos vínculos.',
+      accentColor: 'yellow',
       featured: true,
     },
     {
       month: 'Fevereiro',
       project: 'A Árvore',
       theme: 'Cuidar da Natureza é Cuidar da Vida',
+      summary: 'Observação da natureza, cuidado com o meio ambiente e expressões artísticas.',
+      accentColor: 'green',
       featured: true,
     },
     {
       month: 'Março',
       project: 'Minha Família',
       theme: 'Família é Amor',
+      summary: 'Valorização dos laços familiares, histórias afetivas e convivência.',
+      accentColor: 'yellow',
     },
     {
       month: 'Abril',
       project: 'Eu Sou Assim',
       theme: 'Identidade e Emoções',
+      summary: 'Reconhecimento de si, escuta dos sentimentos, empatia e respeito às diferenças.',
+      accentColor: 'blue',
       featured: true,
     },
     {
       month: 'Maio',
       project: 'Meu Mundo',
       theme: 'O Lugar Onde Vivo',
+      summary: 'Descobertas sobre o bairro, a comunidade e o cuidado com os espaços coletivos.',
+      accentColor: 'green',
     },
     {
       month: 'Junho',
       project: 'Trânsito',
       theme: 'Segurança no Dia a Dia',
+      summary: 'Noções práticas de atenção, sinais, cuidado e cidadania no cotidiano.',
+      accentColor: 'yellow',
     },
     {
       month: 'Julho',
       project: 'Cultura e Tradições',
       theme: 'Nossa Cultura',
+      summary: 'Saberes regionais, histórias, música e manifestações culturais da nossa terra.',
+      accentColor: 'blue',
     },
     {
       month: 'Agosto',
       project: 'Amizade e Respeito',
       theme: 'Conviver é Amar',
+      summary: 'Partilha, solidariedade e construção diária de boas relações entre colegas.',
+      accentColor: 'green',
     },
     {
       month: 'Setembro',
       project: 'Mundo das Letras',
       theme: 'Ler, Escrever e Imaginar',
+      summary: 'Contação de histórias, ampliação do vocabulário e prazer pela leitura e escrita.',
+      accentColor: 'dark',
       featured: true,
     },
     {
       month: 'Outubro',
       project: 'Ser Criança',
       theme: 'Brincar Também é Aprender',
+      summary: 'Ludicidade, movimento, imaginação e alegria compartilhada na infância.',
+      accentColor: 'yellow',
     },
     {
       month: 'Novembro',
       project: 'Saúde e Alimentação',
       theme: 'Cuidar do Corpo',
+      summary: 'Hábitos saudáveis, cuidado pessoal e curiosidade sobre alimentos.',
+      accentColor: 'green',
     },
     {
       month: 'Dezembro',
       project: 'Gratidão e Natal',
       theme: 'Amor, Paz e Esperança',
+      summary: 'Reflexões sobre gratidão, solidariedade, partilha e encerramento do ano.',
+      accentColor: 'blue',
     },
   ] satisfies MonthlyProject[],
 };
@@ -366,7 +381,15 @@ export const ACTIVITIES_CONTENT = {
       title: 'Computação',
       description:
         'Contato orientado com recursos digitais para apoiar o raciocínio lógico, a pesquisa e o uso responsável da tecnologia.',
-      focusPoints: ['Raciocínio e curiosidade', 'Uso educativo orientado'],
+      focusPoints: ['Raciocínio lógico', 'Familiaridade digital orientada'],
+      imageSrc: '/images/atividade-computacao.jpg',
+      imageAlt: 'Atividade orientada de computação com estudantes da escola',
+      photoGuide: {
+        section: 'Experiências: Computação',
+        recommendedType: 'Estudantes em atividade orientada de computação (opcional)',
+        idealRatio: '16:10',
+        filePath: '/images/atividade-computacao.jpg',
+      },
     },
     {
       id: 'ingles',
@@ -374,36 +397,70 @@ export const ACTIVITIES_CONTENT = {
       title: 'Inglês',
       description:
         'Aproximação natural a um novo idioma por meio de vocabulário cotidiano, escuta e atividades integradas aos projetos.',
-      focusPoints: ['Ampliação cultural', 'Familiaridade com o idioma'],
+      focusPoints: ['Vocabulário cotidiano', 'Ampliação cultural'],
+      imageSrc: '/images/atividade-ingles.jpg',
+      imageAlt: 'Vivência da língua inglesa integrada à rotina escolar',
+      photoGuide: {
+        section: 'Experiências: Inglês',
+        recommendedType: 'Turma em atividade de inglês ou projeto bilíngue lúdico (opcional)',
+        idealRatio: '16:10',
+        filePath: '/images/atividade-ingles.jpg',
+      },
     },
-  ] as ActivityItem[],
+  ] satisfies ActivityItem[],
 };
 
 export const ENVIRONMENT_CONTENT = {
   eyebrow: 'Proposta Pedagógica e Diferenciais',
-  title: 'Aprender, criar e descobrir: uma educação que acompanha cada criança.',
-  description:
-    'Nossa prática valoriza o brincar como parte essencial do desenvolvimento infantil — fortalecendo criatividade, imaginação, linguagem, coordenação motora, autonomia, convivência e expressão de sentimentos.',
+  title: 'Aprender juntos, crescer em cada descoberta.',
+  christianHighlight: {
+    eyebrow: 'Identidade Cristã',
+    title: 'Valores que cuidam da formação humana',
+    text: 'Somos uma escola cristã que acredita na educação como um caminho de conhecimento, valores e formação humana. Unimos aprendizagem, acolhimento e princípios cristãos para acompanhar cada criança em seu desenvolvimento.',
+    values: [
+      'Amor ao próximo',
+      'Respeito',
+      'Solidariedade',
+      'Fé',
+      'Responsabilidade',
+      'Valorização da família',
+    ],
+  },
+  vygotskyHighlight: {
+    eyebrow: 'Inspiração Pedagógica · Lev Vygotsky',
+    title: 'Construção compartilhada do conhecimento',
+    text: 'Nossa proposta pedagógica é inspirada nos princípios de Lev Vygotsky, que valorizam as interações sociais, a mediação do professor e a construção do conhecimento por meio das experiências compartilhadas. Assim, cada criança é incentivada a explorar, participar e desenvolver novas habilidades com acompanhamento pedagógico.',
+    zdpSummary:
+      'Com a mediação atenta do professor (zona de desenvolvimento proximal), respeitamos o ritmo de cada aluno, fortalecendo a linguagem, a colaboração e a conquista gradual da autonomia.',
+    steps: [
+      { label: '01 · Interação social', detail: 'Aprender com colegas e no grupo' },
+      { label: '02 · Mediação docente', detail: 'Apoio intencional do professor' },
+      { label: '03 · Nova conquista', detail: 'Autonomia, linguagem e confiança' },
+    ],
+  },
+  practiceEyebrow: 'Na prática cotidiana',
+  practiceLead:
+    'Valorizamos o brincar como parte viva do aprendizado — estimulando imaginação, coordenação motora, linguagem, autonomia, socialização e expressão de sentimentos.',
   pillars: [
     {
       title: 'Aprendizagem ativa',
-      text: 'Participação das crianças em experiências práticas, descobertas e construção gradual do conhecimento.',
+      text: 'Participação das crianças em experiências práticas e descobertas.',
     },
     {
       title: 'Ensino por projetos',
-      text: 'Integração planejada de diferentes áreas por meio de temas significativos ao longo do ano.',
+      text: 'Integração planejada de áreas por meio de temas mensais.',
     },
     {
-      title: 'Rotina organizada e acolhedora',
-      text: 'Equilíbrio diário entre leitura, brincadeiras, artes, música, movimento e atividades orientadas.',
+      title: 'Rotina acolhedora',
+      text: 'Leitura, brincadeiras, artes, música, movimento e orientação diária.',
     },
     {
-      title: 'Desenvolvimento socioemocional',
-      text: 'Atenção à convivência, ao respeito, ao compartilhamento, à expressão emocional e à resolução de conflitos.',
+      title: 'Socioemocional',
+      text: 'Convivência, respeito, partilha, expressão e diálogo nos conflitos.',
     },
     {
       title: 'Avaliação contínua',
-      text: 'Observação atenta do desenvolvimento e acompanhamento próximo da aprendizagem na rotina escolar.',
+      text: 'Observação atenta e acompanhamento próximo durante a rotina escolar.',
     },
   ],
   photos: [
@@ -414,7 +471,7 @@ export const ENVIRONMENT_CONTENT = {
       photoGuide: {
         section: 'Proposta e Ambiente: Sala de Aula',
         recommendedType: 'Sala organizada com materiais lúdicos ou atividade orientada',
-        idealRatio: '4:4.2',
+        idealRatio: '4:3',
         filePath: '/images/ambiente-sala.jpg',
       } satisfies PhotoGuide,
     },
@@ -425,7 +482,7 @@ export const ENVIRONMENT_CONTENT = {
       photoGuide: {
         section: 'Proposta e Ambiente: Fachada ou Convivência',
         recommendedType: 'Fachada da unidade ou área de convivência das crianças',
-        idealRatio: '4:4.6',
+        idealRatio: '16:10',
         filePath: '/images/ambiente-fachada.jpg',
       } satisfies PhotoGuide,
     },
@@ -439,8 +496,7 @@ export const SCHOOL_UNITS: SchoolUnit[] = [
     neighborhoodNote: 'Guamá · Belém/PA',
     address: 'Travessa Guerra Passos, nº 54',
     cityState: 'Guamá, Belém — Pará',
-    mapsUrl:
-      'https://www.google.com/maps/search/?api=1&query=Travessa+Guerra+Passos+54+Guama+Belem+PA',
+    mapsUrl: 'https://maps.app.goo.gl/EFt3Ct5VW7SJPUAz7',
     summary:
       'Localizada na Travessa Guerra Passos, atendendo famílias da região com acolhimento e organização escolar.',
   },
@@ -450,8 +506,7 @@ export const SCHOOL_UNITS: SchoolUnit[] = [
     neighborhoodNote: 'Conjunto Alacid Nunes · Guamá, Belém/PA',
     address: 'Conjunto Alacid Nunes, Rua Doutor Virgílio de Mendonça, nº 20A',
     cityState: 'Guamá, Belém — Pará',
-    mapsUrl:
-      'https://www.google.com/maps/search/?api=1&query=Rua+Doutor+Virgilio+de+Mendonca+20A+Conjunto+Alacid+Nunes+Guama+Belem+PA',
+    mapsUrl: 'https://maps.app.goo.gl/QFXNew6wpEM15Msj7',
     summary:
       'Unidade no Conjunto Alacid Nunes, ampliando a presença do Sonho Encantado no Guamá e oferecendo espaço para serviços complementares.',
     complementaryAnchor: {
@@ -465,53 +520,54 @@ export const SCHOOL_UNITS: SchoolUnit[] = [
 ];
 
 export const COMPLEMENTARY_SERVICES_CONTENT = {
-  eyebrow: 'Unidade II · Serviços Complementares',
+  eyebrow: 'Unidade II · Atendimento Complementar',
   title: 'Acompanhamento terapêutico e reforço escolar.',
   intro:
-    'Além do ensino regular, a Unidade II divulga serviços complementares voltados ao acolhimento individual e ao apoio pedagógico. Eles não substituem a escolarização regular e têm modalidades, horários e disponibilidade sujeitos à confirmação com a secretaria.',
-  services: [
+    'Oferecidos na Unidade II de forma independente e complementar — sem substituir o ensino regular —, voltados ao acolhimento emocional e ao apoio nos estudos.',
+  therapeuticGroupTitle: 'Apoio Terapêutico e Emocional',
+  therapeuticServices: [
     {
       id: 'psicologia',
-      category: 'Desenvolvimento emocional',
+      category: '01 · Desenvolvimento emocional',
       title: 'Psicologia',
       description:
-        'Serviço de apoio ao desenvolvimento emocional, às relações interpessoais e ao acolhimento das necessidades individuais.',
-      details: ['Escuta acolhedora', 'Apoio às relações e à rotina'],
+        'Apoio ao desenvolvimento emocional, às relações interpessoais e ao acolhimento das necessidades individuais.',
+      details: ['Escuta acolhedora', 'Relações interpessoais'],
     },
     {
       id: 'psicopedagogia',
-      category: 'Processos de aprendizagem',
+      category: '02 · Processos de aprender',
       title: 'Psicopedagogia',
       description:
-        'Acompanhamento voltado aos processos de aprendizagem e às dificuldades que possam surgir ao longo do percurso escolar.',
-      details: ['Atenção aos processos de aprender', 'Suporte pedagógico individualizado'],
+        'Acompanhamento voltado aos processos de aprendizagem e às dificuldades que possam surgir no percurso escolar.',
+      details: ['Processos de aprendizagem', 'Apoio no percurso escolar'],
     },
     {
       id: 'musicoterapia',
-      category: 'Acompanhamento terapêutico',
+      category: '03 · Expressão e vínculo',
       title: 'Musicoterapia',
       description:
-        'Utiliza recursos musicais em processos de acompanhamento terapêutico, considerando comunicação, expressão, interação e desenvolvimento.',
-      details: ['Comunicação e expressão', 'Interação por recursos musicais'],
-      note: 'Atividade terapêutica de natureza distinta das aulas regulares de Música do currículo escolar.',
-    },
-    {
-      id: 'reforco-escolar',
-      category: 'Apoio pedagógico complementar',
-      title: 'Reforço Escolar',
-      description:
-        'Acompanhamento complementar com foco em leitura, escrita, raciocínio e conteúdos escolares, auxiliando na consolidação da rotina de estudos.',
-      details: [
-        'Acompanhamento individual',
-        'Reforço de matérias específicas',
-        'Esclarecimento de dúvidas',
-        'Possibilidade de aulas presenciais ou online (sujeito à confirmação)',
-      ],
+        'Uso de recursos musicais em acompanhamento terapêutico, considerando comunicação, expressão, interação e desenvolvimento.',
+      details: ['Comunicação e expressão', 'Interação terapêutica'],
+      note: 'Natureza distinta das aulas regulares de Música do currículo escolar.',
     },
   ] satisfies ComplementaryService[],
+  tutoringService: {
+    id: 'reforco-escolar',
+    category: '04 · Apoio pedagógico complementar',
+    title: 'Reforço Escolar',
+    description:
+      'Acompanhamento pedagógico complementar com foco em leitura, escrita, raciocínio e conteúdos escolares.',
+    details: [
+      'Acompanhamento individual',
+      'Reforço de matérias específicas',
+      'Esclarecimento de dúvidas',
+      'Possibilidade presencial ou online (sujeita à confirmação)',
+    ],
+  } satisfies ComplementaryService,
   ctaLabel: 'Consultar disponibilidade na Unidade II',
   disclaimer:
-    'Disponibilidade de profissionais, formatos presenciais ou online e critérios de atendimento devem ser confirmados diretamente com a secretaria antes da contratação.',
+    'Modalidades, horários, profissionais responsáveis e disponibilidade de vagas estão sujeitos à confirmação junto à secretaria da Unidade II.',
 };
 
 export const INSTITUTIONAL_VIDEOS: VideoGuide[] = [

@@ -60,7 +60,7 @@ export function GallerySection() {
   return (
     <section
       aria-labelledby="galeria-heading"
-      className="border-t border-brand-dark/10 bg-white py-12 sm:py-16 lg:py-20"
+      className="border-t border-brand-dark/10 bg-brand-cream/85 py-12 sm:py-16 lg:py-20"
     >
       <div className="container-editorial">
         <Reveal>

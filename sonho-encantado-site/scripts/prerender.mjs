@@ -70,7 +70,7 @@ async function main() {
     const safeUrl = escapeAttr(siteUrl);
     const title = 'Centro Educacional Sonho Encantado | Escola no Guamá, Belém/PA';
     const description =
-      'Educando para o Futuro! Há aproximadamente 20 anos acolhendo famílias no Guamá, Belém/PA, do Baby Class ao 5º ano do Ensino Fundamental.';
+      'Educando para o Futuro! Há mais de 18 anos acolhendo famílias no Guamá, Belém/PA, do Baby Class ao 5º ano do Ensino Fundamental.';
     const ogImage = `${safeUrl}/images/hero-escola.jpg`;
 
     const domainMeta = [

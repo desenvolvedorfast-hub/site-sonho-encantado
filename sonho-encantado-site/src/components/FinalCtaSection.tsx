@@ -1,4 +1,4 @@
-import { SCHOOL_IDENTITY } from '../data/schoolContent';
+import { FINAL_CTA_CONTENT, SCHOOL_IDENTITY } from '../data/schoolContent';
 import { Reveal } from './Reveal';
 
 export function FinalCtaSection() {
@@ -14,16 +14,16 @@ export function FinalCtaSection() {
             <div className="grid grid-cols-1 items-center gap-6 lg:grid-cols-12 lg:gap-8">
               <div className="lg:col-span-7">
                 <p className="font-display text-xs font-extrabold uppercase tracking-[0.16em] text-brand-yellow">
-                  Visitas e Matrículas
+                  {FINAL_CTA_CONTENT.eyebrow}
                 </p>
                 <h2
                   id="contato-heading"
                   className="text-section-title mt-2 font-display font-extrabold text-white"
                 >
-                  Agende uma visita e conheça o Sonho Encantado de perto.
+                  {FINAL_CTA_CONTENT.title}
                 </h2>
                 <p className="text-body-fluid mt-2.5 max-w-xl text-[#E4EFE8]">
-                  Converse com a nossa secretaria sobre etapas de ensino, vagas e visitação presencial no Guamá.
+                  {FINAL_CTA_CONTENT.description}
                 </p>
               </div>
 
@@ -34,7 +34,7 @@ export function FinalCtaSection() {
                   rel="noopener noreferrer"
                   className="group inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-md bg-brand-yellow px-7 py-3 font-display text-base font-extrabold text-brand-dark transition-colors duration-150 hover:bg-[#e3bc3b] active:scale-[0.985] sm:w-auto"
                 >
-                  <span>Fale com a secretaria</span>
+                  <span>{FINAL_CTA_CONTENT.primaryCta}</span>
                   <span
                     aria-hidden="true"
                     className="transition-transform duration-150 group-hover:translate-x-1"

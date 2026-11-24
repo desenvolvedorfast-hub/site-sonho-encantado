@@ -3,18 +3,21 @@ import { TEACHING_STAGES } from '../data/schoolContent';
 import { PhotoSlot } from './PhotoSlot';
 import { Reveal } from './Reveal';
 
-const STAGE_ACCENT_MAP = {
+const STAGE_THEME_MAP = {
   yellow: {
-    border: 'border-l-brand-yellow',
+    topStrip: 'bg-brand-yellow',
     label: 'text-brand-dark',
+    bullet: 'bg-brand-yellow',
   },
   blue: {
-    border: 'border-l-brand-blue',
+    topStrip: 'bg-brand-blue',
     label: 'text-brand-dark',
+    bullet: 'bg-brand-blue',
   },
   green: {
-    border: 'border-l-brand-green',
+    topStrip: 'bg-brand-green',
     label: 'text-brand-green',
+    bullet: 'bg-brand-green',
   },
 };
 
@@ -45,51 +48,19 @@ export function StagesSection() {
           </div>
         </Reveal>
 
-        <div className="mt-12 divide-y divide-brand-dark/15 border-y border-brand-dark/15">
+        {/* Cards das 3 etapas reais com imagem + faixa cromática + conteúdo objetivo */}
+        <div className="mt-10 grid grid-cols-1 gap-7 lg:grid-cols-3">
           {TEACHING_STAGES.map((stage, index) => {
-            const theme = STAGE_ACCENT_MAP[stage.accentColor];
-            const reverseDesktop = index % 2 === 1;
+            const theme = STAGE_THEME_MAP[stage.accentColor];
             const hidePhoto = import.meta.env.PROD && Boolean(missingIds[stage.id]);
 
             return (
-              <Reveal key={stage.id} delayMs={index * 60}>
-                <article className="grid grid-cols-1 items-center gap-8 py-10 sm:py-12 lg:grid-cols-12 lg:gap-14">
-                  <div
-                    className={`border-l-2 pl-5 sm:pl-6 ${theme.border} ${
-                      hidePhoto
-                        ? 'lg:col-span-10'
-                        : `lg:col-span-6 ${reverseDesktop ? 'lg:order-2' : 'lg:order-1'}`
-                    }`}
-                  >
-                    <p className={`font-display text-xs font-extrabold uppercase tracking-[0.16em] ${theme.label}`}>
-                      {stage.number} — {stage.tag}
-                    </p>
-
-                    <h3 className="text-subsection-title mt-3 font-display font-extrabold text-brand-dark">
-                      {stage.title}
-                    </h3>
-
-                    <p className="text-body-fluid mt-3 max-w-[54ch] text-brand-ink">
-                      {stage.summary}
-                    </p>
-
-                    <ul className="mt-5 space-y-2 border-t border-brand-dark/10 pt-4">
-                      {stage.highlights.map((point) => (
-                        <li
-                          key={point}
-                          className="flex items-start gap-2.5 text-[0.96rem] font-medium leading-relaxed text-brand-muted sm:text-base"
-                        >
-                          <span aria-hidden="true" className="font-bold text-brand-green">
-                            —
-                          </span>
-                          <span>{point}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+              <Reveal key={stage.id} delayMs={index * 70}>
+                <article className="flex h-full flex-col overflow-hidden rounded-lg border border-brand-dark/12 bg-white shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:shadow-editorial">
+                  <div className={`h-1.5 w-full ${theme.topStrip}`} aria-hidden="true" />
 
                   {!hidePhoto && (
-                    <div className={`lg:col-span-6 ${reverseDesktop ? 'lg:order-1' : 'lg:order-2'}`}>
+                    <div className="p-3 pb-0">
                       <PhotoSlot
                         src={stage.imageSrc}
                         alt={stage.imageAlt}
@@ -104,6 +75,39 @@ export function StagesSection() {
                       />
                     </div>
                   )}
+
+                  <div className="flex flex-1 flex-col justify-between p-6">
+                    <div>
+                      <p
+                        className={`font-display text-xs font-extrabold uppercase tracking-[0.15em] ${theme.label}`}
+                      >
+                        {stage.number} — {stage.tag}
+                      </p>
+
+                      <h3 className="text-subsection-title mt-2 font-display font-extrabold text-brand-dark">
+                        {stage.title}
+                      </h3>
+
+                      <p className="text-body-fluid mt-3 text-brand-ink">
+                        {stage.summary}
+                      </p>
+                    </div>
+
+                    <ul className="mt-5 space-y-2 border-t border-brand-dark/10 pt-4">
+                      {stage.highlights.map((point) => (
+                        <li
+                          key={point}
+                          className="flex items-start gap-2.5 text-[0.94rem] font-medium leading-snug text-brand-muted"
+                        >
+                          <span
+                            aria-hidden="true"
+                            className={`mt-2 h-1.5 w-1.5 shrink-0 rounded-full ${theme.bullet}`}
+                          />
+                          <span>{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </article>
               </Reveal>
             );

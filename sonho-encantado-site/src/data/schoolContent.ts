@@ -492,7 +492,7 @@ export const SCHOOL_UNITS: SchoolUnit[] = [
     neighborhoodNote: 'Conjunto Alacid Nunes · Guamá, Belém/PA',
     address: 'Conjunto Alacid Nunes, Rua Doutor Virgílio de Mendonça, nº 20A',
     cityState: 'Guamá, Belém — Pará',
-    mapsUrl: 'https://maps.app.goo.gl/QFXNew6wpEM15Msj7',
+    mapsUrl: 'https://maps.app.goo.gl/DqdURfWvp49WU3Ny7',
     summary:
       'Unidade no Conjunto Alacid Nunes, ampliando a presença do Sonho Encantado no Guamá e oferecendo espaço para serviços complementares.',
     complementaryAnchor: {

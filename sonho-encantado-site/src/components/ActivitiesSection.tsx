@@ -1,12 +1,28 @@
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import { ACTIVITIES_CONTENT } from '../data/schoolContent';
 import { PhotoSlot } from './PhotoSlot';
 import { Reveal } from './Reveal';
 
+function getExperienceIcon(id: string): ReactNode {
+  const cls = 'h-5 w-5 shrink-0 text-brand-dark';
+  if (id === 'ingles-projetos') {
+    return (
+      <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" aria-hidden="true">
+        <circle cx="12" cy="12" r="9" />
+        <path strokeLinecap="round" d="M3.6 12h16.8M12 3a13.5 13.5 0 0 1 0 18M12 3a13.5 13.5 0 0 0 0 18" />
+      </svg>
+    );
+  }
+  return (
+    <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" aria-hidden="true">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M4 6.5A2.5 2.5 0 0 1 6.5 4H12v16H6.5A2.5 2.5 0 0 0 4 22V6.5zM20 6.5A2.5 2.5 0 0 0 17.5 4H12v16h5.5a2.5 2.5 0 0 1 2.5 2V6.5z" />
+    </svg>
+  );
+}
+
 export function ActivitiesSection() {
-  const { featuredMusic, secondaryActivities } = ACTIVITIES_CONTENT;
+  const { featuredMusic, routineExperiences } = ACTIVITIES_CONTENT;
   const [musicPhotoMissing, setMusicPhotoMissing] = useState(false);
-  const [secondaryMissing, setSecondaryMissing] = useState<Record<string, boolean>>({});
 
   const hideMusicPhoto = import.meta.env.PROD && musicPhotoMissing;
 
@@ -34,7 +50,7 @@ export function ActivitiesSection() {
           </div>
         </Reveal>
 
-        {/* 1. Música em destaque horizontal equilibrado */}
+        {/* Destaque horizontal: Música e Movimento na Rotina Pedagógica */}
         <Reveal delayMs={60}>
           <article className="mt-10 grid grid-cols-1 items-center gap-8 rounded-lg bg-brand-dark p-6 text-brand-paper sm:p-9 lg:grid-cols-12 lg:gap-12">
             <div className={hideMusicPhoto ? 'lg:col-span-10' : 'lg:col-span-5'}>
@@ -76,76 +92,46 @@ export function ActivitiesSection() {
           </article>
         </Reveal>
 
-        {/* 2. Computação e Inglês em composição editorial par com forte hierarquia tipográfica */}
-        <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-2">
-          {secondaryActivities.map((activity, idx) => {
-            const hidePhoto = import.meta.env.PROD && Boolean(secondaryMissing[activity.id]);
-
-            return (
-              <Reveal key={activity.id} delayMs={90 + idx * 60}>
-                <article
-                  className={`flex h-full flex-col justify-between border-t-4 bg-white p-6 sm:p-8 ${
-                    idx === 0 ? 'border-t-brand-blue' : 'border-t-brand-yellow'
-                  }`}
-                >
-                  <div>
-                    <div className="flex items-start justify-between gap-4">
-                      <div>
-                        <p className="font-display text-xs font-extrabold uppercase tracking-[0.15em] text-brand-green">
-                          {activity.category}
-                        </p>
-                        <h3 className="text-subsection-title mt-2 font-display font-extrabold text-brand-dark">
-                          {activity.title}
-                        </h3>
-                      </div>
-
-                      {/* Elemento gráfico discreto ligado à linguagem de cada disciplina */}
-                      {idx === 0 ? (
-                        <div
-                          aria-hidden="true"
-                          className="shrink-0 border border-brand-blue/50 bg-brand-blue-soft/60 px-2.5 py-1 font-mono text-xs font-bold text-brand-dark"
-                        >
-                          {'</>'}
-                        </div>
-                      ) : (
-                        <div
-                          aria-hidden="true"
-                          className="shrink-0 border border-brand-yellow/70 bg-brand-cream px-2.5 py-1 font-display text-xs font-extrabold tracking-wide text-brand-dark"
-                        >
-                          EN · PT
-                        </div>
-                      )}
+        {/* Inglês nos Projetos + Leitura, Artes e Brincadeiras */}
+        <div className="mt-8 grid grid-cols-1 gap-7 lg:grid-cols-2">
+          {routineExperiences.map((item, idx) => (
+            <Reveal key={item.id} delayMs={90 + idx * 60}>
+              <article
+                className={`flex h-full flex-col justify-between rounded-lg border border-brand-dark/12 border-t-4 bg-white p-6 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card sm:p-8 ${
+                  idx === 0 ? 'border-t-brand-blue' : 'border-t-brand-yellow'
+                }`}
+              >
+                <div>
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <p className="font-display text-xs font-extrabold uppercase tracking-[0.15em] text-brand-green">
+                        {item.category}
+                      </p>
+                      <h3 className="text-subsection-title mt-2 font-display font-extrabold text-brand-dark">
+                        {item.title}
+                      </h3>
                     </div>
 
-                    <p className="text-body-fluid mt-4 text-brand-ink">
-                      {activity.description}
-                    </p>
-
-                    <p className="mt-4 text-sm font-semibold text-brand-muted">
-                      {activity.focusPoints.join(' · ')}
-                    </p>
+                    <span
+                      className={`inline-flex h-9 w-9 items-center justify-center rounded-md ${
+                        idx === 0 ? 'bg-brand-blue-soft' : 'bg-brand-cream'
+                      }`}
+                    >
+                      {getExperienceIcon(item.id)}
+                    </span>
                   </div>
 
-                  {!hidePhoto && (
-                    <div className="mt-6">
-                      <PhotoSlot
-                        src={activity.imageSrc}
-                        alt={activity.imageAlt}
-                        photoGuide={activity.photoGuide}
-                        width={1200}
-                        height={750}
-                        aspectClass="aspect-[16/10]"
-                        objectPosition="object-[50%_20%]"
-                        onMissing={() =>
-                          setSecondaryMissing((prev) => ({ ...prev, [activity.id]: true }))
-                        }
-                      />
-                    </div>
-                  )}
-                </article>
-              </Reveal>
-            );
-          })}
+                  <p className="text-body-fluid mt-3.5 text-brand-ink">
+                    {item.description}
+                  </p>
+                </div>
+
+                <p className="mt-5 border-t border-brand-dark/10 pt-4 text-sm font-semibold text-brand-muted">
+                  {item.focusPoints.join(' · ')}
+                </p>
+              </article>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>

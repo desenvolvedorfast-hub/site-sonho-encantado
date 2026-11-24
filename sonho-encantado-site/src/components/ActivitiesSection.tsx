@@ -12,7 +12,7 @@ export function ActivitiesSection() {
     <section
       id="experiencias"
       aria-labelledby="experiencias-heading"
-      className="bg-white py-14 sm:py-18 lg:py-24"
+      className="border-t border-brand-dark/10 bg-brand-paper py-14 sm:py-18 lg:py-24"
     >
       <div className="container-editorial">
         <Reveal>
@@ -33,7 +33,6 @@ export function ActivitiesSection() {
         </Reveal>
 
         <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
-          {/* Música em bloco editorial verde-escuro limpo */}
           <Reveal className="lg:col-span-7">
             <article className="flex h-full flex-col justify-between rounded-lg bg-brand-dark p-6 text-brand-paper sm:p-9">
               <div>
@@ -47,6 +46,10 @@ export function ActivitiesSection() {
 
                 <p className="text-body-fluid mt-3 max-w-[54ch] text-[#DCE7E1]">
                   {featuredMusic.description}
+                </p>
+
+                <p className="mt-3 text-sm leading-relaxed text-[#C5D5CD]">
+                  {featuredMusic.curriculumDistinction}
                 </p>
 
                 <p className="mt-5 border-t border-brand-paper/15 pt-4 text-sm font-semibold text-brand-yellow">
@@ -71,7 +74,6 @@ export function ActivitiesSection() {
             </article>
           </Reveal>
 
-          {/* Computação e Inglês em composição tipográfica aberta, sem caixas coloridas nem ícones genéricos */}
           <Reveal
             delayMs={90}
             className="flex flex-col justify-center divide-y divide-brand-dark/15 border-y border-brand-dark/15 lg:col-span-5"

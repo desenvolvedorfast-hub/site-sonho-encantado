@@ -7,14 +7,14 @@
 - [ ] **Ano letivo dos projetos e matrículas:** confirmar quando a escola deseja associar o calendário a um ano letivo específico ou divulgar campanha de matrículas sazonal.
 - [ ] **Serviços complementares da Unidade II (Psicologia, Psicopedagogia, Musicoterapia e Reforço Escolar):** confirmar disponibilidade atual, profissionais responsáveis, horários e condições de atendimento presencial e online.
 - [ ] **Dados opcionais de rodapé:** horário de atendimento presencial da secretaria e eventual exibição de CNPJ.
-- [ ] **Domínio e Analytics:** garantir `VITE_SITE_URL=https://colegiosonhoencantado.com.br` configurado no build de produção do Cloudflare e definir `VITE_CF_BEACON_TOKEN` se desejarem métricas sem cookies.
+- [ ] **Analytics opcional:** definir `VITE_CF_BEACON_TOKEN` caso desejem métricas sem cookies do Cloudflare Web Analytics.
 
 ## 2. Mídias pendentes de inserção / autorização
 ### Fotografias (`public/images/`)
 - [ ] `logo-sonho-encantado.png` (confirmar versão de alta resolução / fundo transparente).
 - [ ] `hero-escola.jpg`, `historia-escola.jpg`.
 - [ ] `etapa-baby-class.jpg`, `etapa-infantil.jpg`, `etapa-fundamental.jpg`.
-- [ ] `atividade-musica.jpg` (aula curricular de Música), e opcionais `atividade-computacao.jpg` e `atividade-ingles.jpg`.
+- [ ] `atividade-musica.jpg` (vivência pedagógica com música e movimento na rotina).
 - [ ] `ambiente-sala.jpg`, `ambiente-fachada.jpg`.
 - [ ] `galeria-01.jpg` a `galeria-04.jpg`.
 *(Todas com termo de autorização de uso de imagem assinado sempre que houver menores identificáveis.)*

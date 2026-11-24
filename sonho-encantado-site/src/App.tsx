@@ -1,4 +1,5 @@
 import { ActivitiesSection } from './components/ActivitiesSection';
+import { ComplementaryServicesSection } from './components/ComplementaryServicesSection';
 import { EnvironmentSection } from './components/EnvironmentSection';
 import { FinalCtaSection } from './components/FinalCtaSection';
 import { Footer } from './components/Footer';
@@ -6,6 +7,7 @@ import { GallerySection } from './components/GallerySection';
 import { Header } from './components/Header';
 import { HeroSection } from './components/HeroSection';
 import { HistorySection } from './components/HistorySection';
+import { ProjectsSection } from './components/ProjectsSection';
 import { StagesSection } from './components/StagesSection';
 import { TrustStrip } from './components/TrustStrip';
 import { UnitsSection } from './components/UnitsSection';
@@ -25,9 +27,11 @@ export function App() {
         <TrustStrip />
         <HistorySection />
         <StagesSection />
+        <ProjectsSection />
         <ActivitiesSection />
         <EnvironmentSection />
         <UnitsSection />
+        <ComplementaryServicesSection />
         <GallerySection />
         <FinalCtaSection />
       </main>

@@ -97,7 +97,6 @@ export function EnrollmentCampaign() {
 
     const isMobileOnMount = window.innerWidth < 768;
 
-    // Aguarda 800ms para não impactar LCP inicial e então escuta interação ou abre suavemente após fallback
     const graceTimer = window.setTimeout(() => {
       const onScroll = () => {
         if (window.scrollY >= 40) {
@@ -198,18 +197,29 @@ export function EnrollmentCampaign() {
 
   const showImage = !imageMissing;
 
-  // Banner compacto mobile já com a miniatura da foto (não intrusivo para SEO)
+  // Banner compacto mobile com foto em largura total no topo (h-36), mantendo site navegável e seguro para SEO
   if (phase === 'banner') {
     return (
       <aside
         aria-label={ENROLLMENT_CAMPAIGN.title}
         style={{ bottom: 'calc(0.75rem + env(safe-area-inset-bottom, 0px))' }}
-        className={`fixed inset-x-3 z-40 rounded-lg border border-brand-yellow/45 border-t-[3px] border-t-brand-yellow bg-brand-dark p-3.5 text-brand-paper shadow-editorial transition-all duration-200 ease-out motion-reduce:transform-none motion-reduce:transition-none ${
+        className={`fixed inset-x-3 z-40 overflow-hidden rounded-lg border border-brand-yellow/45 border-t-[3px] border-t-brand-yellow bg-brand-dark text-brand-paper shadow-editorial transition-all duration-200 ease-out motion-reduce:transform-none motion-reduce:transition-none ${
           entered ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0'
         }`}
       >
-        <div className="flex items-start gap-3">
-          {showImage && (
+        <button
+          type="button"
+          onClick={dismissCampaign}
+          aria-label="Fechar aviso de matrículas"
+          className="absolute right-2.5 top-2.5 z-10 inline-flex h-11 w-11 items-center justify-center rounded-md border border-brand-dark/15 bg-white/95 text-brand-dark shadow-sm transition-colors hover:bg-brand-cream"
+        >
+          <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true">
+            <path strokeLinecap="round" d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </button>
+
+        {showImage && (
+          <div className="bg-brand-cream">
             <img
               src={ENROLLMENT_CAMPAIGN.image.src}
               alt={ENROLLMENT_CAMPAIGN.image.alt}
@@ -218,60 +228,51 @@ export function EnrollmentCampaign() {
               loading="lazy"
               decoding="async"
               onError={() => setImageMissing(true)}
-              className="h-20 w-20 shrink-0 rounded-md border border-white/15 bg-brand-cream object-cover object-[50%_20%]"
+              className="h-36 w-full object-cover object-[50%_25%]"
             />
-          )}
+          </div>
+        )}
 
-          <div className="min-w-0 flex-1">
+        <div className="p-3.5">
+          <div className={!showImage ? 'pr-10' : ''}>
             <p className="font-display text-[0.65rem] font-extrabold uppercase tracking-[0.14em] text-brand-yellow">
               {ENROLLMENT_CAMPAIGN.brandLabel}
             </p>
-            <p className="mt-0.5 font-display text-[1rem] font-extrabold leading-tight text-white">
+            <p className="mt-0.5 font-display text-[1.05rem] font-extrabold leading-tight text-white">
               {ENROLLMENT_CAMPAIGN.title}
             </p>
             <p className="mt-1 text-xs leading-snug text-[#DCE7E1]">
-              Do Baby Class ao 5º ano. Venha conhecer nossa escola!
+              {ENROLLMENT_CAMPAIGN.description}
             </p>
           </div>
 
-          <button
-            type="button"
-            onClick={dismissCampaign}
-            aria-label="Fechar aviso de matrículas"
-            className="-mr-1 -mt-1 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-md text-brand-paper/85 transition-colors hover:bg-white/10 hover:text-white"
-          >
-            <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true">
-              <path strokeLinecap="round" d="M6 6l12 12M18 6L6 18" />
-            </svg>
-          </button>
-        </div>
+          <div className="mt-3 flex items-center gap-2.5">
+            <a
+              href={ENROLLMENT_CAMPAIGN.ctaUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={dismissCampaign}
+              className="inline-flex min-h-[44px] flex-1 items-center justify-center gap-1.5 rounded-md bg-brand-yellow px-4 py-2 font-display text-sm font-extrabold text-brand-dark transition-colors hover:bg-[#e3bc3b] active:scale-[0.985]"
+            >
+              <span>{ENROLLMENT_CAMPAIGN.ctaLabel}</span>
+              <span aria-hidden="true">→</span>
+              <span className="sr-only"> (abre o WhatsApp da escola em nova aba)</span>
+            </a>
 
-        <div className="mt-3 flex items-center gap-2.5">
-          <a
-            href={ENROLLMENT_CAMPAIGN.ctaUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={dismissCampaign}
-            className="inline-flex min-h-[44px] flex-1 items-center justify-center gap-1.5 rounded-md bg-brand-yellow px-4 py-2 font-display text-sm font-extrabold text-brand-dark transition-colors hover:bg-[#e3bc3b] active:scale-[0.985]"
-          >
-            <span>{ENROLLMENT_CAMPAIGN.ctaLabel}</span>
-            <span aria-hidden="true">→</span>
-            <span className="sr-only"> (abre o WhatsApp da escola em nova aba)</span>
-          </a>
-
-          <button
-            type="button"
-            onClick={() => openModal(true)}
-            className="inline-flex min-h-[44px] shrink-0 items-center justify-center rounded-md border border-white/25 bg-white/10 px-3.5 py-2 font-display text-xs font-bold text-white transition-colors hover:bg-white/20"
-          >
-            {ENROLLMENT_CAMPAIGN.expandLabel}
-          </button>
+            <button
+              type="button"
+              onClick={() => openModal(true)}
+              className="inline-flex min-h-[44px] shrink-0 items-center justify-center rounded-md border border-white/25 bg-white/10 px-3.5 py-2 font-display text-xs font-bold text-white transition-colors hover:bg-white/20"
+            >
+              {ENROLLMENT_CAMPAIGN.expandLabel}
+            </button>
+          </div>
         </div>
       </aside>
     );
   }
 
-  // Modal editorial compacto (desktop horizontal <= 680px | mobile expandido vertical)
+  // Modal editorial compacto (desktop horizontal <= 680px | mobile expandido com foto maior max-h-64)
   return (
     <div
       className={`fixed inset-0 z-50 flex items-center justify-center bg-brand-dark/55 p-4 transition-opacity duration-200 ease-out motion-reduce:transition-none sm:p-6 ${
@@ -317,7 +318,7 @@ export function EnrollmentCampaign() {
                 loading="lazy"
                 decoding="async"
                 onError={() => setImageMissing(true)}
-                className="aspect-[16/9] h-full max-h-48 w-full object-cover object-[50%_20%] md:aspect-auto md:max-h-none"
+                className="aspect-[4/3] h-full max-h-64 w-full object-cover object-[50%_20%] md:aspect-auto md:max-h-none"
               />
             </div>
           )}

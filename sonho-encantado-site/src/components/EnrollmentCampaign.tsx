@@ -197,7 +197,7 @@ export function EnrollmentCampaign() {
 
   const showImage = !imageMissing;
 
-  // Banner compacto mobile exibindo a arte inteira (object-contain) sem cobrir o botão X nem cortar textos
+  // Banner compacto mobile exibindo a arte inteira sem cortes
   if (phase === 'banner') {
     return (
       <aside
@@ -207,7 +207,6 @@ export function EnrollmentCampaign() {
           entered ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0'
         }`}
       >
-        {/* Barra superior com título institucional e botão fechar separado da arte */}
         <div className="flex items-center justify-between gap-2 px-3.5 pb-1.5 pt-2">
           <p className="font-display text-[0.65rem] font-extrabold uppercase tracking-[0.14em] text-brand-yellow">
             {ENROLLMENT_CAMPAIGN.brandLabel}
@@ -274,7 +273,7 @@ export function EnrollmentCampaign() {
     );
   }
 
-  // Modal editorial compacto (arte inteira sem cortes em desktop e mobile)
+  // Modal editorial (desktop 50/50 até 780px com imagem ampliada; mobile vertical com rolagem)
   return (
     <div
       className={`fixed inset-0 z-50 flex items-center justify-center bg-brand-dark/55 p-4 transition-opacity duration-200 ease-out motion-reduce:transition-none sm:p-6 ${
@@ -293,7 +292,7 @@ export function EnrollmentCampaign() {
         aria-labelledby="enrollment-campaign-title"
         aria-describedby="enrollment-campaign-desc"
         className={`relative w-full overflow-hidden rounded-lg border border-brand-dark/15 bg-brand-green text-brand-paper shadow-editorial transition-all duration-200 ease-out motion-reduce:transform-none motion-reduce:transition-none ${
-          showImage ? 'max-w-[680px]' : 'max-w-[460px]'
+          showImage ? 'max-w-[680px] md:max-w-[780px]' : 'max-w-[460px]'
         } max-h-[calc(100dvh-2rem)] overflow-y-auto ${
           entered ? 'translate-y-0 scale-100' : 'translate-y-2.5 scale-[0.99]'
         }`}
@@ -311,7 +310,7 @@ export function EnrollmentCampaign() {
 
         <div className={`grid grid-cols-1 ${showImage ? 'md:grid-cols-12' : ''}`}>
           {showImage && (
-            <div className="order-1 flex items-center justify-center bg-brand-dark p-3 md:order-2 md:col-span-5">
+            <div className="order-1 flex items-center justify-center bg-brand-dark p-3 md:order-2 md:col-span-6 md:px-5 md:pb-5 md:pt-14">
               <img
                 src={ENROLLMENT_CAMPAIGN.image.src}
                 alt={ENROLLMENT_CAMPAIGN.image.alt}
@@ -320,14 +319,14 @@ export function EnrollmentCampaign() {
                 loading="lazy"
                 decoding="async"
                 onError={() => setImageMissing(true)}
-                className="max-h-72 w-full rounded-md object-contain md:max-h-[340px]"
+                className="max-h-72 w-full rounded-md object-contain md:max-h-[460px]"
               />
             </div>
           )}
 
           <div
-            className={`order-2 flex flex-col justify-between border-t-4 border-brand-yellow p-6 sm:p-8 md:order-1 ${
-              showImage ? 'md:col-span-7 md:border-r md:border-r-white/10' : ''
+            className={`order-2 flex flex-col justify-between border-t-4 border-brand-yellow p-6 sm:p-8 md:order-1 lg:p-9 ${
+              showImage ? 'md:col-span-6 md:border-r md:border-r-white/10' : ''
             }`}
           >
             <div className="pr-8 md:pr-0">
@@ -337,20 +336,20 @@ export function EnrollmentCampaign() {
 
               <h2
                 id="enrollment-campaign-title"
-                className="mt-2.5 font-display text-2xl font-extrabold leading-tight text-white sm:text-[1.95rem]"
+                className="mt-3 font-display text-2xl font-extrabold leading-tight text-white sm:text-[2.1rem]"
               >
                 {ENROLLMENT_CAMPAIGN.title}
               </h2>
 
               <p
                 id="enrollment-campaign-desc"
-                className="mt-3 text-base leading-relaxed text-[#E4EFE8] sm:text-[1.03rem]"
+                className="mt-4 text-base leading-relaxed text-[#E4EFE8] sm:text-[1.06rem]"
               >
                 {ENROLLMENT_CAMPAIGN.description}
               </p>
             </div>
 
-            <div className="mt-6 flex flex-col items-start gap-3">
+            <div className="mt-7 flex flex-col items-start gap-3">
               <a
                 href={ENROLLMENT_CAMPAIGN.ctaUrl}
                 target="_blank"

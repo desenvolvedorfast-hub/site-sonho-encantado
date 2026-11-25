@@ -197,7 +197,7 @@ export function EnrollmentCampaign() {
 
   const showImage = !imageMissing;
 
-  // Banner compacto mobile com foto em largura total no topo (h-36), mantendo site navegável e seguro para SEO
+  // Banner compacto mobile exibindo a arte inteira (object-contain) sem cobrir o botão X nem cortar textos
   if (phase === 'banner') {
     return (
       <aside
@@ -207,19 +207,26 @@ export function EnrollmentCampaign() {
           entered ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0'
         }`}
       >
-        <button
-          type="button"
-          onClick={dismissCampaign}
-          aria-label="Fechar aviso de matrículas"
-          className="absolute right-2.5 top-2.5 z-10 inline-flex h-11 w-11 items-center justify-center rounded-md border border-brand-dark/15 bg-white/95 text-brand-dark shadow-sm transition-colors hover:bg-brand-cream"
-        >
-          <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true">
-            <path strokeLinecap="round" d="M6 6l12 12M18 6L6 18" />
-          </svg>
-        </button>
+        {/* Barra superior com título institucional e botão fechar separado da arte */}
+        <div className="flex items-center justify-between gap-2 px-3.5 pb-1.5 pt-2">
+          <p className="font-display text-[0.65rem] font-extrabold uppercase tracking-[0.14em] text-brand-yellow">
+            {ENROLLMENT_CAMPAIGN.brandLabel}
+          </p>
+
+          <button
+            type="button"
+            onClick={dismissCampaign}
+            aria-label="Fechar aviso de matrículas"
+            className="-mr-1.5 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-md text-brand-paper/90 transition-colors hover:bg-white/10 hover:text-white"
+          >
+            <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true">
+              <path strokeLinecap="round" d="M6 6l12 12M18 6L6 18" />
+            </svg>
+          </button>
+        </div>
 
         {showImage && (
-          <div className="bg-brand-cream">
+          <div className="px-3">
             <img
               src={ENROLLMENT_CAMPAIGN.image.src}
               alt={ENROLLMENT_CAMPAIGN.image.alt}
@@ -228,23 +235,18 @@ export function EnrollmentCampaign() {
               loading="lazy"
               decoding="async"
               onError={() => setImageMissing(true)}
-              className="h-36 w-full object-cover object-[50%_25%]"
+              className="mx-auto max-h-48 w-full rounded-md object-contain"
             />
           </div>
         )}
 
-        <div className="p-3.5">
-          <div className={!showImage ? 'pr-10' : ''}>
-            <p className="font-display text-[0.65rem] font-extrabold uppercase tracking-[0.14em] text-brand-yellow">
-              {ENROLLMENT_CAMPAIGN.brandLabel}
-            </p>
-            <p className="mt-0.5 font-display text-[1.05rem] font-extrabold leading-tight text-white">
-              {ENROLLMENT_CAMPAIGN.title}
-            </p>
-            <p className="mt-1 text-xs leading-snug text-[#DCE7E1]">
-              {ENROLLMENT_CAMPAIGN.description}
-            </p>
-          </div>
+        <div className="p-3.5 pt-2.5">
+          <p className="font-display text-base font-extrabold leading-tight text-white">
+            {ENROLLMENT_CAMPAIGN.title}
+          </p>
+          <p className="mt-1 text-xs leading-snug text-[#DCE7E1]">
+            {ENROLLMENT_CAMPAIGN.description}
+          </p>
 
           <div className="mt-3 flex items-center gap-2.5">
             <a
@@ -272,7 +274,7 @@ export function EnrollmentCampaign() {
     );
   }
 
-  // Modal editorial compacto (desktop horizontal <= 680px | mobile expandido com foto maior max-h-64)
+  // Modal editorial compacto (arte inteira sem cortes em desktop e mobile)
   return (
     <div
       className={`fixed inset-0 z-50 flex items-center justify-center bg-brand-dark/55 p-4 transition-opacity duration-200 ease-out motion-reduce:transition-none sm:p-6 ${
@@ -309,7 +311,7 @@ export function EnrollmentCampaign() {
 
         <div className={`grid grid-cols-1 ${showImage ? 'md:grid-cols-12' : ''}`}>
           {showImage && (
-            <div className="order-1 bg-brand-cream md:order-2 md:col-span-5">
+            <div className="order-1 flex items-center justify-center bg-brand-dark p-3 md:order-2 md:col-span-5">
               <img
                 src={ENROLLMENT_CAMPAIGN.image.src}
                 alt={ENROLLMENT_CAMPAIGN.image.alt}
@@ -318,7 +320,7 @@ export function EnrollmentCampaign() {
                 loading="lazy"
                 decoding="async"
                 onError={() => setImageMissing(true)}
-                className="aspect-[4/3] h-full max-h-64 w-full object-cover object-[50%_20%] md:aspect-auto md:max-h-none"
+                className="max-h-72 w-full rounded-md object-contain md:max-h-[340px]"
               />
             </div>
           )}

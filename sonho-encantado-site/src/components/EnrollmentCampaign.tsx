@@ -273,7 +273,7 @@ export function EnrollmentCampaign() {
     );
   }
 
-  // Modal editorial (desktop 50/50 até 780px com imagem ampliada; mobile vertical com rolagem)
+  // Modal editorial: no desktop a imagem preenche 100% da metade direita de ponta a ponta
   return (
     <div
       className={`fixed inset-0 z-50 flex items-center justify-center bg-brand-dark/55 p-4 transition-opacity duration-200 ease-out motion-reduce:transition-none sm:p-6 ${
@@ -301,7 +301,7 @@ export function EnrollmentCampaign() {
           type="button"
           onClick={dismissCampaign}
           aria-label="Fechar campanha de matrículas"
-          className="absolute right-3 top-3 z-20 inline-flex h-11 w-11 items-center justify-center rounded-md border border-brand-dark/15 bg-white/95 text-brand-dark shadow-sm transition-colors hover:bg-brand-cream"
+          className="absolute right-2.5 top-2.5 z-20 inline-flex h-11 w-11 items-center justify-center rounded-md border border-brand-dark/20 bg-white/95 text-brand-dark shadow-md transition-colors hover:bg-brand-cream"
         >
           <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true">
             <path strokeLinecap="round" d="M6 6l12 12M18 6L6 18" />
@@ -310,7 +310,7 @@ export function EnrollmentCampaign() {
 
         <div className={`grid grid-cols-1 ${showImage ? 'md:grid-cols-12' : ''}`}>
           {showImage && (
-            <div className="order-1 flex items-center justify-center bg-brand-dark p-3 md:order-2 md:col-span-6 md:px-5 md:pb-5 md:pt-14">
+            <div className="order-1 overflow-hidden bg-brand-dark md:order-2 md:col-span-6">
               <img
                 src={ENROLLMENT_CAMPAIGN.image.src}
                 alt={ENROLLMENT_CAMPAIGN.image.alt}
@@ -319,13 +319,13 @@ export function EnrollmentCampaign() {
                 loading="lazy"
                 decoding="async"
                 onError={() => setImageMissing(true)}
-                className="max-h-72 w-full rounded-md object-contain md:max-h-[460px]"
+                className="block h-auto max-h-[58dvh] w-full object-contain md:h-full md:max-h-[85dvh] md:min-h-full md:object-cover md:object-center"
               />
             </div>
           )}
 
           <div
-            className={`order-2 flex flex-col justify-between border-t-4 border-brand-yellow p-6 sm:p-8 md:order-1 lg:p-9 ${
+            className={`order-2 flex flex-col justify-between border-t-4 border-brand-yellow p-6 sm:p-7 md:order-1 md:p-8 lg:p-9 ${
               showImage ? 'md:col-span-6 md:border-r md:border-r-white/10' : ''
             }`}
           >
@@ -336,7 +336,7 @@ export function EnrollmentCampaign() {
 
               <h2
                 id="enrollment-campaign-title"
-                className="mt-3 font-display text-2xl font-extrabold leading-tight text-white sm:text-[2.1rem]"
+                className="mt-3 font-display text-2xl font-extrabold leading-tight text-white sm:text-[2rem]"
               >
                 {ENROLLMENT_CAMPAIGN.title}
               </h2>

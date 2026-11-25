@@ -32,8 +32,8 @@ export const ENROLLMENT_CAMPAIGN: EnrollmentCampaignConfig = {
   description:
     'Do Baby Class ao 5º ano do Ensino Fundamental. Venha conhecer nossa escola!',
   image: {
-    src: '/images/hero-escola.jpg',
-    alt: 'Ambiente acolhedor do Colégio Sonho Encantado no Guamá, Belém/PA',
+    src: '/images/matriculas-abertas.jpg',
+    alt: 'Matrículas abertas no Colégio Sonho Encantado no Guamá, Belém/PA',
     width: 800,
     height: 640,
   },
@@ -41,6 +41,6 @@ export const ENROLLMENT_CAMPAIGN: EnrollmentCampaignConfig = {
   secondaryCtaLabel: 'Continuar navegando',
   expandLabel: 'Ver detalhes',
   ctaUrl: `${WHATSAPP_BASE_URL}?text=${encodeURIComponent(CAMPAIGN_WHATSAPP_MESSAGE)}`,
-  // 'auto': modal compacto no desktop (>= 768px) e banner compacto expansível no mobile (< 768px)
+  // 'auto': modal compacto no desktop (>= 768px) e banner compacto com foto no mobile (< 768px)
   displayMode: 'auto',
 };

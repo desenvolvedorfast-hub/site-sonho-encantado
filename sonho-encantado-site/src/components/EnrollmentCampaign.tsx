@@ -63,7 +63,6 @@ export function EnrollmentCampaign() {
     });
   }, []);
 
-  // Dispara apenas uma vez por sessão após breve interação do visitante (não bloqueia carregamento inicial)
   useEffect(() => {
     if (!ENROLLMENT_CAMPAIGN.enabled) return;
     if (readSessionDismissed()) {
@@ -88,7 +87,6 @@ export function EnrollmentCampaign() {
       }
     };
 
-    // Pequena janela de 900ms para preservar LCP/INP iniciais antes de escutar interação
     const graceTimer = window.setTimeout(() => {
       const onScroll = () => {
         if (window.scrollY >= 60) {
@@ -114,7 +112,6 @@ export function EnrollmentCampaign() {
     };
   }, [openBanner, openModal]);
 
-  // Acessibilidade do modal expandido: focus trap, Escape e trava de scroll somente quando modal aberto
   useEffect(() => {
     if (phase !== 'modal') {
       document.body.style.overflow = '';
@@ -180,7 +177,9 @@ export function EnrollmentCampaign() {
     return null;
   }
 
-  // Banner compacto e não intrusivo para mobile (sem atributos de modal)
+  const showImage = !imageMissing;
+
+  // Banner compacto mobile já com a miniatura da foto (não intrusivo para SEO)
   if (phase === 'banner') {
     return (
       <aside
@@ -190,12 +189,25 @@ export function EnrollmentCampaign() {
           entered ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0'
         }`}
       >
-        <div className="flex items-start justify-between gap-2">
-          <div className="min-w-0">
-            <p className="font-display text-[0.68rem] font-extrabold uppercase tracking-[0.16em] text-brand-yellow">
+        <div className="flex items-start gap-3">
+          {showImage && (
+            <img
+              src={ENROLLMENT_CAMPAIGN.image.src}
+              alt={ENROLLMENT_CAMPAIGN.image.alt}
+              width={ENROLLMENT_CAMPAIGN.image.width}
+              height={ENROLLMENT_CAMPAIGN.image.height}
+              loading="lazy"
+              decoding="async"
+              onError={() => setImageMissing(true)}
+              className="h-20 w-20 shrink-0 rounded-md border border-white/15 bg-brand-cream object-cover object-[50%_20%]"
+            />
+          )}
+
+          <div className="min-w-0 flex-1">
+            <p className="font-display text-[0.65rem] font-extrabold uppercase tracking-[0.14em] text-brand-yellow">
               {ENROLLMENT_CAMPAIGN.brandLabel}
             </p>
-            <p className="mt-0.5 font-display text-base font-extrabold leading-tight text-white">
+            <p className="mt-0.5 font-display text-[1rem] font-extrabold leading-tight text-white">
               {ENROLLMENT_CAMPAIGN.title}
             </p>
             <p className="mt-1 text-xs leading-snug text-[#DCE7E1]">
@@ -207,7 +219,7 @@ export function EnrollmentCampaign() {
             type="button"
             onClick={dismissCampaign}
             aria-label="Fechar aviso de matrículas"
-            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-md text-brand-paper/85 transition-colors hover:bg-white/10 hover:text-white"
+            className="-mr-1 -mt-1 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-md text-brand-paper/85 transition-colors hover:bg-white/10 hover:text-white"
           >
             <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true">
               <path strokeLinecap="round" d="M6 6l12 12M18 6L6 18" />
@@ -240,9 +252,7 @@ export function EnrollmentCampaign() {
     );
   }
 
-  // Modal editorial compacto (desktop horizontal <= 680px | mobile vertical com rolagem segura)
-  const showImage = !imageMissing;
-
+  // Modal editorial compacto (desktop horizontal <= 680px | mobile expandido vertical)
   return (
     <div
       className={`fixed inset-0 z-50 flex items-center justify-center bg-brand-dark/55 p-4 transition-opacity duration-200 ease-out motion-reduce:transition-none sm:p-6 ${
@@ -260,13 +270,12 @@ export function EnrollmentCampaign() {
         aria-modal="true"
         aria-labelledby="enrollment-campaign-title"
         aria-describedby="enrollment-campaign-desc"
-        className={`relative w-full overflow-hidden rounded-lg border border-brand-dark/15 bg-brand-green text-brand-paper shadow-editorial transition-all duration-250 ease-out motion-reduce:transform-none motion-reduce:transition-none ${
+        className={`relative w-full overflow-hidden rounded-lg border border-brand-dark/15 bg-brand-green text-brand-paper shadow-editorial transition-all duration-200 ease-out motion-reduce:transform-none motion-reduce:transition-none ${
           showImage ? 'max-w-[680px]' : 'max-w-[460px]'
         } max-h-[calc(100dvh-2rem)] overflow-y-auto ${
           entered ? 'translate-y-0 scale-100' : 'translate-y-2.5 scale-[0.99]'
         }`}
       >
-        {/* Botão fechar sempre visível */}
         <button
           type="button"
           onClick={dismissCampaign}
@@ -278,12 +287,7 @@ export function EnrollmentCampaign() {
           </svg>
         </button>
 
-        <div
-          className={`grid grid-cols-1 ${
-            showImage ? 'md:grid-cols-12' : ''
-          }`}
-        >
-          {/* Fotografia real autorizada: topo compacto no mobile, coluna direita no desktop */}
+        <div className={`grid grid-cols-1 ${showImage ? 'md:grid-cols-12' : ''}`}>
           {showImage && (
             <div className="order-1 bg-brand-cream md:order-2 md:col-span-5">
               <img
@@ -291,7 +295,7 @@ export function EnrollmentCampaign() {
                 alt={ENROLLMENT_CAMPAIGN.image.alt}
                 width={ENROLLMENT_CAMPAIGN.image.width}
                 height={ENROLLMENT_CAMPAIGN.image.height}
-                loading="eager"
+                loading="lazy"
                 decoding="async"
                 onError={() => setImageMissing(true)}
                 className="aspect-[16/9] h-full max-h-48 w-full object-cover object-[50%_20%] md:aspect-auto md:max-h-none"
@@ -299,7 +303,6 @@ export function EnrollmentCampaign() {
             </div>
           )}
 
-          {/* Conteúdo editorial */}
           <div
             className={`order-2 flex flex-col justify-between border-t-4 border-brand-yellow p-6 sm:p-8 md:order-1 ${
               showImage ? 'md:col-span-7 md:border-r md:border-r-white/10' : ''

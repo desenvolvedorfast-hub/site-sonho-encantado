@@ -1,5 +1,6 @@
 import { ActivitiesSection } from './components/ActivitiesSection';
 import { ComplementaryServicesSection } from './components/ComplementaryServicesSection';
+import { EnrollmentCampaign } from './components/EnrollmentCampaign';
 import { EnvironmentSection } from './components/EnvironmentSection';
 import { FinalCtaSection } from './components/FinalCtaSection';
 import { Footer } from './components/Footer';
@@ -38,6 +39,7 @@ export function App() {
 
       <Footer />
       <WhatsAppFloatingButton />
+      <EnrollmentCampaign />
     </div>
   );
 }

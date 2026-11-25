@@ -17,7 +17,7 @@ function writeSessionDismissed(): void {
   try {
     window.sessionStorage.setItem(SESSION_KEY, '1');
   } catch {
-    // Ignora caso o navegador restrinja sessionStorage (ex.: modo privado estrito)
+    // Ignora caso o navegador restrinja sessionStorage
   }
 }
 
@@ -51,7 +51,9 @@ export function EnrollmentCampaign() {
     setEntered(false);
     setPhase('modal');
     window.requestAnimationFrame(() => {
-      setEntered(true);
+      window.requestAnimationFrame(() => {
+        setEntered(true);
+      });
     });
   }, []);
 
@@ -59,7 +61,9 @@ export function EnrollmentCampaign() {
     setEntered(false);
     setPhase('banner');
     window.requestAnimationFrame(() => {
-      setEntered(true);
+      window.requestAnimationFrame(() => {
+        setEntered(true);
+      });
     });
   }, []);
 
@@ -71,11 +75,15 @@ export function EnrollmentCampaign() {
     }
 
     let cleanupListeners: (() => void) | undefined;
+    let fallbackTimer: number | undefined;
 
     const triggerOnce = () => {
       if (triggeredRef.current || readSessionDismissed()) return;
       triggeredRef.current = true;
       cleanupListeners?.();
+      if (fallbackTimer !== undefined) {
+        window.clearTimeout(fallbackTimer);
+      }
 
       const mode = ENROLLMENT_CAMPAIGN.displayMode;
       const isMobile = window.innerWidth < 768;
@@ -87,9 +95,12 @@ export function EnrollmentCampaign() {
       }
     };
 
+    const isMobileOnMount = window.innerWidth < 768;
+
+    // Aguarda 800ms para não impactar LCP inicial e então escuta interação ou abre suavemente após fallback
     const graceTimer = window.setTimeout(() => {
       const onScroll = () => {
-        if (window.scrollY >= 60) {
+        if (window.scrollY >= 40) {
           triggerOnce();
         }
       };
@@ -104,10 +115,18 @@ export function EnrollmentCampaign() {
         window.removeEventListener('pointerdown', onInteract);
         window.removeEventListener('keydown', onInteract);
       };
-    }, 900);
+
+      fallbackTimer = window.setTimeout(
+        triggerOnce,
+        isMobileOnMount ? 1400 : 2800,
+      );
+    }, 800);
 
     return () => {
       window.clearTimeout(graceTimer);
+      if (fallbackTimer !== undefined) {
+        window.clearTimeout(fallbackTimer);
+      }
       cleanupListeners?.();
     };
   }, [openBanner, openModal]);
